@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Edit Professor Details | Admin Portal</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&amp;family=Noto+Sans:wght@100..900&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#135bec",
+                        "background-light": "#f7f7f8",
+                        "background-dark": "#1a1c22",
+                        "warning-amber": "#E8A10C",
+                        "destructive-red": "#E62929",
+                    },
+                    fontFamily: {
+                        "display": ["Lexend", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Lexend', sans-serif;
+        }
+
+        .bg-geometric {
+            background-color: #f7f7f8;
+            background-image: radial-gradient(#135bec11 1px, transparent 0);
+            background-size: 24px 24px;
+        }
+
+        .dark .bg-geometric {
+            background-color: #1a1c22;
+            background-image: radial-gradient(#135bec22 1px, transparent 0);
+        }
+    </style>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark text-[#111318] dark:text-gray-100 min-h-screen">
+    <div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden bg-geometric">
+        <div class="layout-container flex h-full grow flex-col">
+            <!-- Top Navigation Bar -->
+            <header
+                class="flex items-center justify-between whitespace-nowrap border-b border-solid border-[#e5e7eb] dark:border-gray-800 bg-white dark:bg-background-dark px-10 py-3 sticky top-0 z-50">
+                <div class="flex items-center gap-8">
+                    <div class="flex items-center gap-4 text-[#111318] dark:text-white">
+                        <div class="size-6 text-primary">
+                            <svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M8.57829 8.57829C5.52816 11.6284 3.451 15.5145 2.60947 19.7452C1.76794 23.9758 2.19984 28.361 3.85056 32.3462C5.50128 36.3314 8.29667 39.7376 11.8832 42.134C15.4698 44.5305 19.6865 45.8096 24 45.8096C28.3135 45.8096 32.5302 44.5305 36.1168 42.134C39.7033 39.7375 42.4987 36.3314 44.1494 32.3462C45.8002 28.361 46.2321 23.9758 45.3905 19.7452C44.549 15.5145 42.4718 11.6284 39.4217 8.57829L24 24L8.57829 8.57829Z"
+                                    fill="currentColor"></path>
+                            </svg>
+                        </div>
+                        <h2 class="text-lg font-bold leading-tight tracking-[-0.015em]">ExamPortal Admin</h2>
+                    </div>
+                    <nav class="hidden md:flex items-center gap-6">
+                        <a class="text-[#111318] dark:text-gray-300 text-sm font-medium hover:text-primary transition-colors"
+                            href="#">Dashboard</a>
+                        <a class="text-primary text-sm font-bold border-b-2 border-primary" href="#">Faculty</a>
+                        <a class="text-[#111318] dark:text-gray-300 text-sm font-medium hover:text-primary transition-colors"
+                            href="#">Exams</a>
+                        <a class="text-[#111318] dark:text-gray-300 text-sm font-medium hover:text-primary transition-colors"
+                            href="#">Reports</a>
+                    </nav>
+                </div>
+                <div class="flex flex-1 justify-end gap-4 items-center">
+                    <button id="saveChangesBtn"
+                        class="flex min-w-[120px] cursor-pointer items-center justify-center rounded-lg h-10 px-5 bg-primary text-white text-sm font-bold shadow-sm hover:bg-primary/90 transition-all">
+                        <span>Save Changes</span>
+                    </button>
+            </header>
+            <main class="flex-1 px-4 md:px-20 lg:px-40 py-8">
+                <div class="max-w-[1000px] mx-auto space-y-6">
+                    <!-- Breadcrumbs -->
+                    <div class="flex flex-wrap gap-2 items-center text-sm font-medium">
+                        <a class="text-gray-500 dark:text-gray-400 hover:text-primary" href="#">Dashboard</a>
+                        <span class="material-symbols-outlined text-gray-400 text-sm">chevron_right</span>
+                        <a class="text-gray-500 dark:text-gray-400 hover:text-primary" href="#">Faculty Management</a>
+                        <span class="material-symbols-outlined text-gray-400 text-sm">chevron_right</span>
+                        <span class="text-primary">Edit Professor</span>
+                    </div>
+                    <!-- Page Heading -->
+                    <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+                        <div>
+                            <h1
+                                class="text-[#111318] dark:text-white text-4xl font-black leading-tight tracking-[-0.033em]">
+                                Dr. Robert Fox</h1>
+                            <p class="text-gray-500 dark:text-gray-400 text-base font-normal mt-1">Update profile
+                                information, managed assigned courses, and account security.</p>
+                        </div>
+                        <a href="http://localhost:8081/admin-manage-faculty.html">
+                            <button
+                                class="flex items-center gap-2 px-4 py-2 text-sm font-bold text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors">
+                                <span class="material-symbols-outlined text-lg">arrow_back</span>
+                                Back to List
+                            </button>
+                        </a>
+                    </div>
+                    <!-- Main Form Content -->
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        <!-- Left Column: Form Details -->
+                        <div class="lg:col-span-2 space-y-8">
+                            <section
+                                class="bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 p-6">
+                                <div
+                                    class="flex items-center gap-2 border-b border-gray-100 dark:border-gray-800 pb-4 mb-6">
+                                    <span class="material-symbols-outlined text-primary">person</span>
+                                    <h2 class="text-xl font-bold">General Information</h2>
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <label class="flex flex-col gap-2">
+                                        <span class="text-sm font-bold text-gray-700 dark:text-gray-300">Full
+                                            Name</span>
+                                        <input id="fullName"
+                                            class="rounded-lg border-gray-200 dark:border-gray-700 dark:bg-gray-800 focus:ring-primary focus:border-primary h-12 px-4"
+                                            type="text" value="" />
+                                    </label>
+                                    <label class="flex flex-col gap-2">
+                                        <span
+                                            class="text-sm font-bold text-gray-700 dark:text-gray-300 flex items-center gap-1">
+                                            Employee UID
+                                            <span class="material-symbols-outlined text-xs text-gray-400">lock</span>
+                                        </span>
+                                        <input id="username"
+                                            class="rounded-lg border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50 text-gray-500 h-12 px-4 cursor-not-allowed"
+                                            readonly="" type="text" value="" />
+                                    </label>
+                                    <label class="flex flex-col gap-2">
+                                        <span class="text-sm font-bold text-gray-700 dark:text-gray-300">Email</span>
+                                        <input id="email"
+                                            class="rounded-lg border-gray-200 dark:border-gray-700 dark:bg-gray-800 focus:ring-primary focus:border-primary h-12 px-4"
+                                            type="email" value="" />
+                                    </label>
+                                    <label class="flex flex-col gap-2">
+                                        <span class="text-sm font-bold text-gray-700 dark:text-gray-300">Mobile
+                                            Number</span>
+                                        <input id="mobileNo"
+                                            class="rounded-lg border-gray-200 dark:border-gray-700 dark:bg-gray-800 focus:ring-primary focus:border-primary h-12 px-4"
+                                            type="tel" value="" />
+                                    </label>
+                                    <label class="flex flex-col gap-2">
+                                        <span class="text-sm font-bold text-gray-700 dark:text-gray-300">Alternate
+                                            Mobile</span>
+                                        <input id="altMobileNo"
+                                            class="rounded-lg border-gray-200 dark:border-gray-700 dark:bg-gray-800 focus:ring-primary focus:border-primary h-12 px-4"
+                                            type="tel" value="" />
+                                    </label>
+                                    <label class="flex flex-col gap-2">
+                                        <span class="text-sm font-bold text-gray-700 dark:text-gray-300">Office
+                                            Address</span>
+                                        <input id="officeAddress"
+                                            class="rounded-lg border-gray-200 dark:border-gray-700 dark:bg-gray-800 focus:ring-primary focus:border-primary h-12 px-4"
+                                            type="text" value="" />
+                                    </label>
+                                    <label class="flex flex-col gap-2">
+                                        <span
+                                            class="text-sm font-bold text-gray-700 dark:text-gray-300">Department</span>
+                                        <select id="department"
+                                            class="rounded-lg border-gray-200 dark:border-gray-700 dark:bg-gray-800 focus:ring-primary focus:border-primary h-12 px-4">
+                                            <option value="">Select Department</option>
+                                            <option>Computer Science</option>
+                                            <option>Information Technology</option>
+                                            <option>Mechanical Engineering</option>
+                                            <option>Civil Engineering</option>
+                                            <option>Electronics Engineering</option>
+                                            <option>Business Analytics</option>
+                                        </select>
+                                    </label>
+                                    <label class="flex flex-col gap-2">
+                                        <span
+                                            class="text-sm font-bold text-gray-700 dark:text-gray-300">Qualification</span>
+                                        <input id="qualification"
+                                            class="rounded-lg border-gray-200 dark:border-gray-700 dark:bg-gray-800 focus:ring-primary focus:border-primary h-12 px-4"
+                                            type="text" value="" />
+                                    </label>
+                                    <label class="flex flex-col gap-2 md:col-span-2">
+                                        <span
+                                            class="text-sm font-bold text-gray-700 dark:text-gray-300">Subject/Specialization</span>
+                                        <input id="subject"
+                                            class="rounded-lg border-gray-200 dark:border-gray-700 dark:bg-gray-800 focus:ring-primary focus:border-primary h-12 px-4"
+                                            type="text" value="" />
+                                    </label>
+                                </div>
+                            </section>
+                            <section
+                                class="bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 p-6">
+                                <div
+                                    class="flex items-center gap-2 border-b border-gray-100 dark:border-gray-800 pb-4 mb-6">
+                                    <span class="material-symbols-outlined text-primary">library_books</span>
+                                    <h2 class="text-xl font-bold">Course Management</h2>
+                                </div>
+                                <div class="space-y-4">
+                                    <p class="text-sm text-gray-500 dark:text-gray-400">Assigned Courses (Primary
+                                        Instructor)</p>
+                                    <div
+                                        class="flex flex-wrap gap-2 p-3 border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50/50 dark:bg-gray-800/30">
+                                        <div
+                                            class="flex items-center gap-1.5 bg-primary/10 text-primary px-3 py-1.5 rounded-full text-sm font-semibold border border-primary/20">
+                                            CS101 - Intro to Programming
+                                            <button
+                                                class="material-symbols-outlined text-xs hover:text-red-500">close</button>
+                                        </div>
+                                        <div
+                                            class="flex items-center gap-1.5 bg-primary/10 text-primary px-3 py-1.5 rounded-full text-sm font-semibold border border-primary/20">
+                                            CS402 - Artificial Intelligence
+                                            <button
+                                                class="material-symbols-outlined text-xs hover:text-red-500">close</button>
+                                        </div>
+                                        <div
+                                            class="flex items-center gap-1.5 bg-primary/10 text-primary px-3 py-1.5 rounded-full text-sm font-semibold border border-primary/20">
+                                            MATH202 - Calculus II
+                                            <button
+                                                class="material-symbols-outlined text-xs hover:text-red-500">close</button>
+                                        </div>
+                                        <button
+                                            class="flex items-center gap-1 px-3 py-1.5 rounded-full text-sm font-semibold border-2 border-dashed border-gray-300 text-gray-400 hover:border-primary hover:text-primary transition-all">
+                                            <span class="material-symbols-outlined text-sm">add</span> Add Course
+                                        </button>
+                                    </div>
+                                </div>
+                            </section>
+                            <section
+                                class="bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 p-6">
+                                <div
+                                    class="flex items-center gap-2 border-b border-gray-100 dark:border-gray-800 pb-4 mb-6">
+                                    <span class="material-symbols-outlined text-primary">security</span>
+                                    <h2 class="text-xl font-bold">Update Credentials</h2>
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-end">
+                                    <label class="flex flex-col gap-2">
+                                        <span class="text-sm font-bold text-gray-700 dark:text-gray-300">New
+                                            Password</span>
+                                        <input
+                                            class="rounded-lg border-gray-200 dark:border-gray-700 dark:bg-gray-800 focus:ring-primary focus:border-primary h-12 px-4"
+                                            placeholder="••••••••" type="password" />
+                                    </label>
+                                    <button
+                                        class="bg-primary/10 text-primary hover:bg-primary hover:text-white font-bold h-12 px-6 rounded-lg transition-all border border-primary/20">
+                                        Generate Random &amp; Update
+                                    </button>
+                                </div>
+                                <p class="mt-4 text-xs text-gray-400 italic">User will be prompted to change their
+                                    password on next login after reset.</p>
+                            </section>
+                        </div>
+                        <!-- Right Column: Sidebar Actions (Danger Zone) -->
+                        <div class="space-y-6">
+                            <div
+                                class="bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 p-6">
+                                <h3 class="text-lg font-bold mb-1 flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-warning-amber">report</span>
+                                    Account Actions
+                                </h3>
+                                <p class="text-sm text-gray-500 dark:text-gray-400 mb-6">Status: <span
+                                        id="activityStatus" class="text-green-600 font-bold">Active</span></p>
+                                <div class="flex flex-col gap-3">
+                                    <button
+                                        class="group flex items-center justify-between w-full px-4 py-3 rounded-lg border border-warning-amber/30 text-warning-amber font-bold hover:bg-warning-amber hover:text-white transition-all text-sm">
+                                        <span class="flex items-center gap-2">
+                                            <span class="material-symbols-outlined text-lg">block</span>
+                                            Deactivate Account
+                                        </span>
+                                        <span
+                                            class="material-symbols-outlined opacity-0 group-hover:opacity-100 text-sm">chevron_right</span>
+                                    </button>
+                                    <button
+                                        class="group flex items-center justify-between w-full px-4 py-3 rounded-lg border border-warning-amber/30 text-warning-amber font-bold hover:bg-warning-amber hover:text-white transition-all text-sm">
+                                        <span class="flex items-center gap-2">
+                                            <span class="material-symbols-outlined text-lg">gpp_maybe</span>
+                                            Block User Access
+                                        </span>
+                                        <span
+                                            class="material-symbols-outlined opacity-0 group-hover:opacity-100 text-sm">chevron_right</span>
+                                    </button>
+                                    <div class="h-px bg-gray-100 dark:bg-gray-800 my-2"></div>
+                                    <button
+                                        class="group flex items-center justify-between w-full px-4 py-3 rounded-lg bg-destructive-red/5 border border-destructive-red/20 text-destructive-red font-bold hover:bg-destructive-red hover:text-white transition-all text-sm">
+                                        <span class="flex items-center gap-2">
+                                            <span class="material-symbols-outlined text-lg">delete_forever</span>
+                                            Delete Account
+                                        </span>
+                                        <span
+                                            class="material-symbols-outlined opacity-0 group-hover:opacity-100 text-sm">priority_high</span>
+                                    </button>
+                                </div>
+                                <p class="text-[11px] text-gray-400 mt-6 leading-relaxed">
+                                    Deleting an account is permanent and will remove all historical teaching data. We
+                                    recommend deactivation instead.
+                                </p>
+                            </div>
+                            <div class="bg-primary/5 dark:bg-primary/10 rounded-xl p-6 border border-primary/10">
+                                <h3 class="text-sm font-bold text-primary mb-2">Pro-Tip</h3>
+                                <p class="text-xs text-primary/80 leading-normal">
+                                    Faculty members can be assigned as secondary instructors in the "Exams" module to
+                                    co-grade assessments.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Sticky Mobile Footer (if needed) -->
+                    <div class="md:hidden flex gap-4 pt-6">
+                        <button class="flex-1 bg-primary text-white font-bold h-14 rounded-xl">Save Changes</button>
+                        <button
+                            class="px-6 border border-gray-200 dark:border-gray-700 rounded-xl bg-white dark:bg-gray-900 font-bold">Cancel</button>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        // API Base URL
+        const API_BASE_URL = 'http://localhost:8081/admin/faculty';
+
+        // Get username from URL parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const username = urlParams.get('username');
+
+        if (!username) {
+            alert('No faculty username provided');
+            window.location.href = 'admin-manage-faculty.html';
+        }
+
+        let currentFaculty = null;
+
+        // Load faculty data on page load
+        (async function loadFacultyData() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/${username}`);
+
+                if (!response.ok) {
+                    throw new Error('Faculty not found');
+                }
+
+                currentFaculty = await response.json();
+
+                // Populate form fields
+                document.getElementById('fullName').value = currentFaculty.fullName || '';
+                document.getElementById('username').value = currentFaculty.username || '';
+                document.getElementById('email').value = currentFaculty.email || '';
+                document.getElementById('mobileNo').value = currentFaculty.mobileNo || '';
+                document.getElementById('altMobileNo').value = currentFaculty.altMobileNo || '';
+                document.getElementById('officeAddress').value = currentFaculty.officeAddress || '';
+                document.getElementById('department').value = currentFaculty.department || '';
+                document.getElementById('qualification').value = currentFaculty.qualification || '';
+                document.getElementById('subject').value = currentFaculty.subject || '';
+
+                // Update page title
+                document.querySelector('h1').textContent = currentFaculty.fullName || 'Edit Professor';
+
+                // Load profile picture
+                loadProfilePicture();
+
+                // Update activity status
+                const statusElement = document.getElementById('activityStatus');
+                if (statusElement && currentFaculty.activity) {
+                    statusElement.textContent = currentFaculty.activity;
+                    statusElement.className = currentFaculty.activity === 'ACTIVE' ?
+                        'text-green-600 font-bold' : 'text-red-600 font-bold';
+                }
+
+            } catch (error) {
+                console.error('Error loading faculty data:', error);
+                showNotification('Failed to load faculty data', 'error');
+                setTimeout(() => {
+                    window.location.href = 'admin-manage-faculty.html';
+                }, 2000);
+            }
+        })();
+
+        // Load profile picture
+        async function loadProfilePicture() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/${username}/profile-picture`);
+                if (response.ok) {
+                    const blob = await response.blob();
+                    const imageUrl = URL.createObjectURL(blob);
+                    const profileImg = document.getElementById('profileImage');
+                    if (profileImg) {
+                        profileImg.src = imageUrl;
+                    }
+                }
+            } catch (error) {
+                console.log('No profile picture available');
+            }
+        }
+
+        // Handle profile picture upload
+        const photoInput = document.getElementById('photoInput');
+        if (photoInput) {
+            photoInput.addEventListener('change', async function (e) {
+                const file = e.target.files[0];
+                if (!file) return;
+
+                // Validate file size (2MB max)
+                if (file.size > 2 * 1024 * 1024) {
+                    showNotification('Photo size must be less than 2MB', 'error');
+                    photoInput.value = '';
+                    return;
+                }
+
+                // Upload to server
+                const formData = new FormData();
+                formData.append('file', file);
+
+                try {
+                    const response = await fetch(`${API_BASE_URL}/${username}/profile-picture`, {
+                        method: 'POST',
+                        body: formData
+                    });
+
+                    if (response.ok) {
+                        showNotification('Profile picture updated successfully!', 'success');
+                        loadProfilePicture(); // Reload the image
+                    } else {
+                        throw new Error('Upload failed');
+                    }
+                } catch (error) {
+                    console.error('Error uploading photo:', error);
+                    showNotification('Failed to upload profile picture', 'error');
+                }
+            });
+        }
+
+        // Save changes button - attach event listener
+        const saveBtn = document.getElementById('saveChangesBtn');
+        if (saveBtn) {
+            saveBtn.addEventListener('click', updateFaculty);
+        }
+
+        // Update faculty function
+        async function updateFaculty() {
+            const formData = new FormData();
+
+            formData.append('fullName', document.getElementById('fullName').value.trim());
+            formData.append('email', document.getElementById('email').value.trim());
+            formData.append('mobileNo', document.getElementById('mobileNo').value.trim());
+            formData.append('altMobileNo', document.getElementById('altMobileNo').value.trim());
+            formData.append('officeAddress', document.getElementById('officeAddress').value.trim());
+            formData.append('department', document.getElementById('department').value);
+            formData.append('qualification', document.getElementById('qualification').value.trim());
+            formData.append('subject', document.getElementById('subject').value.trim());
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/${username}`, {
+                    method: 'PUT',
+                    body: formData
+                });
+
+                if (response.ok) {
+                    showNotification('Faculty updated successfully!', 'success');
+                    setTimeout(() => {
+                        window.location.href = 'admin-manage-faculty.html';
+                    }, 1500);
+                } else {
+                    throw new Error('Update failed');
+                }
+            } catch (error) {
+                console.error('Error updating faculty:', error);
+                showNotification('Failed to update faculty. Please try again.', 'error');
+            }
+        }
+
+        // Show notification
+        function showNotification(message, type = 'info') {
+            const existing = document.querySelector('.notification');
+            if (existing) existing.remove();
+
+            const notification = document.createElement('div');
+            notification.className = `notification fixed top-4 right-4 z-50 px-6 py-4 rounded-lg shadow-2xl flex items-center gap-3 ${type === 'success' ? 'bg-green-500 text-white' :
+                type === 'error' ? 'bg-red-500 text-white' :
+                    'bg-blue-500 text-white'
+                }`;
+
+            notification.innerHTML = `
+                <span class="material-symbols-outlined">${type === 'success' ? 'check_circle' :
+                    type === 'error' ? 'error' :
+                        'info'
+                }</span>
+                <span class="font-medium">${message}</span>
+            `;
+
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                notification.style.transform = 'translateX(100%)';
+                notification.style.transition = 'all 0.3s ease-out';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+    </script>
+</body>
+
+</html>

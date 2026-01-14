@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Faculty Registration</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f3f4f6;
+        }
+
+        .form-container {
+            max-width: 600px;
+            margin: 40px auto;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #1e3a8a;
+            margin-bottom: 25px;
+        }
+
+        label {
+            font-weight: 500;
+            display: block;
+            margin-top: 15px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="file"],
+        textarea {
+            width: 100%;
+            padding: 8px 10px;
+            margin-top: 6px;
+            border-radius: 6px;
+            border: 1px solid #cbd5e1;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        .checkbox {
+            margin-top: 15px;
+        }
+
+        button {
+            margin-top: 25px;
+            width: 100%;
+            background: #2563eb;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #1e40af;
+        }
+		
+		
+		
+    </style>
+</head>
+
+<body>
+
+<script>
+function validate(){
+    var fullName = document.getElementById("fullName").value;
+    var email = document.getElementById("email").value;
+    var username = document.getElementById("username").value;
+    var password = document.getElementById("password").value;
+    var confirmPassword = document.getElementById("confirmPassword").value;
+    var department = document.getElementById("department").value;
+    var mobileNo = document.getElementById("mobileNo").value;
+    var altMobileNo = document.getElementById("altMobileNo").value;
+    var officeAddress = document.getElementById("officeAddress").value;
+    var qualification = document.getElementById("qualification").value;
+    var subjectTech = document.getElementById("subjectTech").value;
+
+    var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+
+    if(fullName=="" || email=="" || username=="" || password=="" ||
+       confirmPassword=="" || department=="" || mobileNo=="" ||
+       officeAddress=="" || qualification=="" || subjectTech=="") {
+        alert("All fields are mandatory");
+        return false;
+    }
+
+    if (!emailPattern.test(email)) {
+        alert("Please enter a valid email");
+        return false;
+    }
+
+    if (password != confirmPassword) {
+        alert("Password not matched");
+        return false;
+    }
+
+    if (isNaN(mobileNo) || mobileNo.length != 10) {
+        alert("Please enter valid 10 digit mobile number");
+        return false;
+    }
+
+    if (isNaN(altMobileNo) || altMobileNo.length != 10) {
+        alert("Please enter valid 10 digit alternative mobile number");
+        return false;
+    }
+
+    return true;
+}
+</script>
+
+<div class="form-container">
+
+    <h2>Faculty Registration Form</h2>
+
+    <form onsubmit="return validate()" action="/admin/faculty/register" method="post" enctype="multipart/form-data">
+
+        <label>Full Name</label>
+        <input type="text" id="fullName" name="fullName" placeholder="Enter Full Name">
+
+        <label>Email</label>
+        <input type="email" id="email" name="email" placeholder="Enter Email">
+
+        <label>Username</label>
+        <input type="text" id="username" name="username" placeholder="Enter Username">
+
+        <label>Password</label>
+        <input type="password" id="password" name="password" placeholder="Enter Password">
+
+        <label>Confirm Password</label>
+        <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password">
+
+        <label>Department</label>
+        <input type="text" id="department" name="department" placeholder="Department">
+
+        <label>Mobile No</label>
+        <input type="text" id="mobileNo" name="mobileNo" placeholder="10 digit mobile number">
+
+        <label>Alternative Mobile</label>
+        <input type="text" id="altMobileNo" name="altMobileNo" placeholder="10 digit alternative mobile">
+
+        <label>Office Address</label>
+        <textarea id="officeAddress" name="officeAddress" placeholder="Office Address"></textarea>
+
+        <label>Qualification</label>
+        <input type="text" id="qualification" name="qualification" placeholder="Qualification">
+
+        <label>Subject / Course / Tech</label>
+        <input type="text" id="subjectTech" name="subjectTech" placeholder="Subject / Course / Technology">
+
+        <label>Upload Document</label>
+        <input type="file" name="document">
+
+        <div class="checkbox">
+            <input type="checkbox" name="termsAccepted" >
+            I agree to Terms & Conditions
+        </div>
+
+        <button type="submit">Register</button>
+
+    </form>
+
+</div>
+
+</body>
+</html>

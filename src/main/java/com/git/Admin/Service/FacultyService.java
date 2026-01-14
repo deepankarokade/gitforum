@@ -1,0 +1,139 @@
+package com.git.Admin.Service;
+
+import java.io.IOException;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.git.Admin.Entity.Faculty;
+import com.git.Admin.Repositry.FacultyRepository;
+
+@Service
+public class FacultyService {
+	@Autowired
+	private FacultyRepository facultyRepository;
+
+	public Faculty registerFaculty(Faculty faculty) {
+		return facultyRepository.save(faculty);
+	}
+
+	// Generate Faculty Username
+	private String generateFacultyUsername(String fullName, String mobileNumber) {
+
+		if (fullName == null || fullName.length() < 2) {
+			throw new RuntimeException("Faculty name must have at least 2 characters");
+		}
+
+		if (mobileNumber == null || mobileNumber.length() < 5) {
+			throw new RuntimeException("Mobile number must have at least 5 digits");
+		}
+
+		String namePart = fullName
+				.trim()
+				.substring(0, 2)
+				.toUpperCase();
+
+		String mobilePart = mobileNumber.substring(0, 5);
+
+		return "FAC-" + mobilePart + "-" + namePart;
+	}
+
+	// Register Faculty in Database
+	public Faculty registerFaculty(Faculty faculty, MultipartFile photo) {
+
+		if (photo == null || photo.isEmpty()) {
+			throw new RuntimeException("Profile photo is mandatory");
+		}
+
+		String username = generateFacultyUsername(
+				faculty.getFullName(),
+				faculty.getMobileNo());
+
+		if (facultyRepository.existsByUsername(username)) {
+			throw new RuntimeException("Faculty username already exists");
+		}
+
+		faculty.setUsername(username); // ✅ SET HERE
+		faculty.setPhotofilename(photo.getOriginalFilename());
+		try {
+			faculty.setPhoto(photo.getBytes());
+		} catch (IOException ie) {
+			throw new RuntimeException("Failed to save profile photo");
+		}
+		return facultyRepository.save(faculty);
+	}
+
+	// Fetch all faculties
+	public List<Faculty> getAllFaculties() {
+		return facultyRepository.findAll();
+	}
+
+	// GET Faculty by username
+	public Faculty getFacultyByUsername(String username) {
+		return facultyRepository.findByUsername(username)
+				.orElseThrow(() -> new RuntimeException("Faculty not found"));
+	}
+
+	// GET Faculty photo
+	public byte[] getFacultyPhoto(String username) {
+		return facultyRepository.findByUsername(username)
+				.map(Faculty::getPhoto)
+				.orElseThrow(() -> new RuntimeException("Faculty photo not found"));
+	}
+
+	// Delete Faculty
+	public void deleteFaculty(String username) {
+
+		Faculty faculty = facultyRepository.findByUsername(username)
+				.orElseThrow(() -> new RuntimeException("Faculty not found"));
+
+		facultyRepository.delete(faculty);
+	}
+
+	// Update Faculty
+	public Faculty updateFaculty(String username, Faculty updatedFaculty) {
+
+		Faculty existing = facultyRepository.findByUsername(username)
+				.orElseThrow(() -> new RuntimeException("Faculty not found"));
+
+		existing.setFullName(updatedFaculty.getFullName());
+		existing.setEmail(updatedFaculty.getEmail());
+		existing.setMobileNo(updatedFaculty.getMobileNo());
+		existing.setAltMobileNo(updatedFaculty.getAltMobileNo());
+		existing.setOfficeAddress(updatedFaculty.getOfficeAddress());
+		existing.setDepartment(updatedFaculty.getDepartment());
+		existing.setQualification(updatedFaculty.getQualification());
+		existing.setsubject(updatedFaculty.getsubject());
+
+		return facultyRepository.save(existing);
+	}
+
+	// GET Profile Photo
+	public byte[] getProfilePicture(String username) {
+		Faculty faculty = facultyRepository.findByUsername(username)
+				.orElseThrow(() -> new RuntimeException("Admin not found"));
+
+		if (faculty.getPhoto() == null) {
+			throw new RuntimeException("No Profile Picture found");
+		}
+
+		return faculty.getPhoto();
+	}
+
+	// Update Profile Photo
+	public void updateProfilePicture(String username, MultipartFile file) {
+		try {
+			Faculty faculty = facultyRepository.findByUsername(username)
+					.orElseThrow(() -> new RuntimeException("Admin not found"));
+
+			faculty.setPhoto(file.getBytes());
+
+			facultyRepository.save(faculty);
+
+		} catch (IOException e) {
+			throw new RuntimeException("Failed to store profile image ", e);
+		}
+	}
+}

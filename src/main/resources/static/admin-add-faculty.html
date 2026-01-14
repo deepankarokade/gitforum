@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Add New Professor | Exam Portal</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lexend:wght@100;200;300;400;500;600;700;800;900&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#135bec",
+                        "background-light": "#f6f6f8",
+                        "slate": {
+                            50: "#f8fafc",
+                            100: "#f1f5f9",
+                            200: "#e2e8f0",
+                            300: "#cbd5e1",
+                            400: "#94a3b8",
+                            500: "#64748b",
+                            600: "#475569",
+                            700: "#334155",
+                            800: "#1e293b",
+                            900: "#0f172a",
+                        }
+                    },
+                    fontFamily: {
+                        "sans": ["Lexend", "sans-serif"],
+                        "display": ["Lexend", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "0.75rem",
+                        "xl": "1rem",
+                        "2xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer base {
+            body {
+                @apply font-sans text-slate-900 bg-background-light;
+            }
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+        .geometric-bg {
+            background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+            background-size: 32px 32px;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex">
+    <main class="flex-1 flex flex-col min-w-0 relative">
+        <div class="absolute inset-0 pointer-events-none -z-10 opacity-40 geometric-bg"></div>
+        <header
+            class="h-20 border-b border-slate-200 px-8 flex items-center justify-between bg-white/80 backdrop-blur-md z-10">
+            <div class="flex items-center gap-2">
+                <nav class="flex items-center gap-2 text-sm font-medium">
+                    <a class="text-slate-500 hover:text-primary transition-colors"
+                        href="http://localhost:8081/admin/dashboard">Admin</a>
+                    <span class="text-slate-400 material-symbols-outlined text-sm">chevron_right</span>
+                    <a class="text-slate-500 hover:text-primary transition-colors"
+                        href="http://localhost:8081/admin-manage-faculty.html">Professors</a>
+                    <span class="text-slate-400 material-symbols-outlined text-sm">chevron_right</span>
+                    <span class="text-slate-900 font-semibold">Add New</span>
+                </nav>
+            </div>
+            <div class="flex items-center gap-4">
+                <div class="relative hidden md:block">
+                    <span
+                        class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xl">search</span>
+                    <input
+                        class="bg-slate-100 border-none rounded-full pl-10 pr-4 py-2 text-sm w-64 focus:ring-2 focus:ring-primary/20 transition-all placeholder:text-slate-400"
+                        placeholder="Search resources..." type="text" />
+                </div>
+                <button
+                    class="size-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 hover:bg-slate-200 transition-colors relative">
+                    <span class="material-symbols-outlined">notifications</span>
+                    <span
+                        class="absolute top-2.5 right-2.5 size-2 bg-primary rounded-full border-2 border-white"></span>
+                </button>
+            </div>
+        </header>
+        <div class="px-8 py-8">
+            <div class="max-w-4xl">
+                <h2 class="text-3xl font-extrabold tracking-tight text-slate-900">Add New Professor</h2>
+                <p class="text-slate-500 mt-2 text-base">Onboard a new faculty member to the university's digital
+                    examination ecosystem.</p>
+            </div>
+        </div>
+        <div class="px-8 pb-12">
+            <div class="max-w-4xl space-y-6">
+                <section class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm">
+                    <div class="px-6 py-4 bg-slate-50 border-b border-slate-200 flex items-center gap-3">
+                        <span class="material-symbols-outlined text-primary text-xl">person</span>
+                        <h3 class="text-base font-bold text-slate-900">Personal Information</h3>
+                    </div>
+                    <div class="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex flex-col gap-2">
+                            <label class="text-xs font-bold uppercase tracking-wider text-slate-500 ml-1">Full
+                                Name <span class="text-red-500">*</span></label>
+                            <input id="fullName" required
+                                class="bg-white border-slate-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-slate-900 outline-none"
+                                placeholder="Dr. Jane Smith" type="text" />
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <label class="text-xs font-bold uppercase tracking-wider text-slate-500 ml-1">Email
+                                Address <span class="text-red-500">*</span></label>
+                            <input id="email" required
+                                class="bg-white border-slate-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-slate-900 outline-none"
+                                placeholder="jane.smith@university.edu" type="email" />
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <label class="text-xs font-bold uppercase tracking-wider text-slate-500 ml-1">Mobile
+                                Number <span class="text-red-500">*</span></label>
+                            <input id="mobileNo" required
+                                class="bg-white border-slate-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-slate-900 outline-none"
+                                placeholder="9876543210" type="tel" />
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <label class="text-xs font-bold uppercase tracking-wider text-slate-500 ml-1">Alternate
+                                Mobile</label>
+                            <input id="altMobileNo"
+                                class="bg-white border-slate-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-slate-900 outline-none"
+                                placeholder="9876543211" type="tel" />
+                        </div>
+                        <div class="flex flex-col gap-2 md:col-span-2">
+                            <label class="text-xs font-bold uppercase tracking-wider text-slate-500 ml-1">Office
+                                Address</label>
+                            <input id="officeAddress"
+                                class="bg-white border-slate-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-slate-900 outline-none"
+                                placeholder="Room 301, CS Block" type="text" />
+                        </div>
+                    </div>
+                </section>
+                <section class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm">
+                    <div class="px-6 py-4 bg-slate-50 border-b border-slate-200 flex items-center gap-3">
+                        <span class="material-symbols-outlined text-primary text-xl">school</span>
+                        <h3 class="text-base font-bold text-slate-900">Academic Details</h3>
+                    </div>
+                    <div class="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex flex-col gap-2">
+                            <label class="text-xs font-bold uppercase tracking-wider text-slate-500 ml-1">Department
+                                <span class="text-red-500">*</span></label>
+                            <select id="department" required
+                                class="bg-white border-slate-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-slate-900 outline-none">
+                                <option value="">Select Department</option>
+                                <option>Computer Science</option>
+                                <option>Information Technology</option>
+                                <option>Mechanical Engineering</option>
+                                <option>Civil Engineering</option>
+                                <option>Electronics Engineering</option>
+                                <option>Business Analytics</option>
+                            </select>
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <label
+                                class="text-xs font-bold uppercase tracking-wider text-slate-500 ml-1">Qualification</label>
+                            <input id="qualification"
+                                class="bg-white border-slate-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-slate-900 outline-none"
+                                placeholder="Ph.D. in Computer Science" type="text" />
+                        </div>
+                        <div class="flex flex-col gap-2 md:col-span-2">
+                            <label
+                                class="text-xs font-bold uppercase tracking-wider text-slate-500 ml-1">Subject/Specialization</label>
+                            <input id="subject"
+                                class="bg-white border-slate-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-slate-900 outline-none"
+                                placeholder="Data Structures, Algorithms, Machine Learning" type="text" />
+                        </div>
+                    </div>
+                </section>
+                <section class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm">
+                    <div class="px-6 py-4 bg-slate-50 border-b border-slate-200 flex items-center gap-3">
+                        <span class="material-symbols-outlined text-primary text-xl">image</span>
+                        <h3 class="text-base font-bold text-slate-900">Profile Photo</h3>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex flex-col gap-4">
+                            <label class="text-xs font-bold uppercase tracking-wider text-slate-500 ml-1">Upload Photo
+                                <span class="text-red-500">*</span></label>
+                            <div class="flex items-center gap-4">
+                                <div id="photoPreview"
+                                    class="size-20 rounded-full bg-slate-100 border-2 border-dashed border-slate-300 flex items-center justify-center text-slate-400 overflow-hidden">
+                                    <span class="material-symbols-outlined text-3xl">person</span>
+                                </div>
+                                <div class="flex-1">
+                                    <input type="file" id="photoInput" accept="image/*" required class="hidden" />
+                                    <label for="photoInput"
+                                        class="cursor-pointer inline-flex items-center gap-2 px-4 py-2.5 bg-slate-100 hover:bg-slate-200 rounded-lg text-sm font-medium text-slate-700 transition-all">
+                                        <span class="material-symbols-outlined text-lg">upload</span>
+                                        Choose Photo
+                                    </label>
+                                    <p class="text-xs text-slate-400 mt-2">JPG, PNG or GIF (MAX. 2MB)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm">
+                    <div class="px-6 py-4 bg-slate-50 border-b border-slate-200 flex items-center gap-3">
+                        <span class="material-symbols-outlined text-primary text-xl">lock</span>
+                        <h3 class="text-base font-bold text-slate-900">Security & Login Credentials</h3>
+                    </div>
+                    <div class="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex flex-col gap-2">
+                            <label class="text-xs font-bold uppercase tracking-wider text-slate-500 ml-1">Password <span
+                                    class="text-red-500">*</span></label>
+                            <div class="relative">
+                                <input id="password" required type="password"
+                                    class="w-full bg-white border-slate-200 rounded-lg px-4 py-2.5 pr-12 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-slate-900 outline-none"
+                                    placeholder="Min 8 characters" />
+                                <button type="button" onclick="togglePasswordVisibility('password', 'togglePassword')"
+                                    class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-primary transition-colors">
+                                    <span id="togglePassword"
+                                        class="material-symbols-outlined text-xl">visibility</span>
+                                </button>
+                            </div>
+                            <p class="text-xs text-slate-400 ml-1">Must be at least 8 characters long</p>
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <label class="text-xs font-bold uppercase tracking-wider text-slate-500 ml-1">Confirm
+                                Password <span class="text-red-500">*</span></label>
+                            <div class="relative">
+                                <input id="confirmPassword" required type="password"
+                                    class="w-full bg-white border-slate-200 rounded-lg px-4 py-2.5 pr-12 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-slate-900 outline-none"
+                                    placeholder="Re-enter password" />
+                                <button type="button"
+                                    onclick="togglePasswordVisibility('confirmPassword', 'toggleConfirmPassword')"
+                                    class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-primary transition-colors">
+                                    <span id="toggleConfirmPassword"
+                                        class="material-symbols-outlined text-xl">visibility</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="md:col-span-2 p-4 bg-blue-50 rounded-lg border border-blue-200">
+                            <p class="text-xs text-slate-700 leading-relaxed">
+                                <strong class="text-blue-700">Note:</strong> This password will be used by the faculty
+                                member to log into the examination portal. Make sure to communicate it securely.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+                </section>
+                <div
+                    class="flex flex-col md:flex-row items-center justify-between gap-6 p-6 bg-white rounded-xl border border-slate-200 shadow-sm">
+                    <div class="flex items-center gap-4">
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input id="termsAccepted" checked class="sr-only peer" type="checkbox" value="" />
+                            <div
+                                class="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary">
+                            </div>
+                        </label>
+                        <div class="flex flex-col">
+                            <span class="text-sm font-bold text-slate-900">Account Active</span>
+                            <span class="text-xs text-slate-500">Faculty can access the portal immediately.</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3 w-full md:w-auto">
+                        <button type="button" onclick="window.location.href='admin-manage-faculty.html'"
+                            class="flex-1 md:flex-none px-6 py-3 rounded-lg text-slate-600 font-bold hover:bg-slate-100 transition-all">
+                            Cancel
+                        </button>
+                        <button type="button" id="submitBtn"
+                            class="flex-1 md:flex-none bg-primary text-white px-8 py-3 rounded-lg font-bold shadow-lg shadow-primary/20 hover:bg-primary/90 hover:-translate-y-0.5 active:translate-y-0 transition-all flex items-center justify-center gap-2">
+                            <span class="material-symbols-outlined">person_add</span>
+                            <span id="submitText">Create Professor Account</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // API Base URL
+        const API_BASE_URL = 'http://localhost:8081/admin/faculty';
+
+        // Photo preview handling
+        const photoInput = document.getElementById('photoInput');
+        const photoPreview = document.getElementById('photoPreview');
+
+        photoInput.addEventListener('change', function (e) {
+            const file = e.target.files[0];
+            if (file) {
+                // Validate file size (2MB max)
+                if (file.size > 2 * 1024 * 1024) {
+                    showNotification('Photo size must be less than 2MB', 'error');
+                    photoInput.value = '';
+                    return;
+                }
+
+                // Show preview
+                const reader = new FileReader();
+                reader.onload = function (event) {
+                    photoPreview.innerHTML = `<img src="${event.target.result}" alt="Preview" class="w-full h-full object-cover">`;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Password visibility toggle
+        function togglePasswordVisibility(inputId, iconId) {
+            const input = document.getElementById(inputId);
+            const icon = document.getElementById(iconId);
+
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.textContent = 'visibility_off';
+            } else {
+                input.type = 'password';
+                icon.textContent = 'visibility';
+            }
+        }
+
+        // Form submission
+        document.getElementById('submitBtn').addEventListener('click', async function () {
+            if (!validateForm()) {
+                return;
+            }
+
+            const formData = new FormData();
+
+            // Collect form data
+            formData.append('fullName', document.getElementById('fullName').value.trim());
+            formData.append('email', document.getElementById('email').value.trim());
+            formData.append('mobileNo', document.getElementById('mobileNo').value.trim());
+            formData.append('altMobileNo', document.getElementById('altMobileNo').value.trim());
+            formData.append('officeAddress', document.getElementById('officeAddress').value.trim());
+            formData.append('department', document.getElementById('department').value);
+            formData.append('qualification', document.getElementById('qualification').value.trim());
+            formData.append('subject', document.getElementById('subject').value.trim());
+            formData.append('password', document.getElementById('password').value);
+            formData.append('termsAccepted', document.getElementById('termsAccepted').checked);
+
+            // Add photo
+            const photoFile = photoInput.files[0];
+            if (photoFile) {
+                formData.append('document', photoFile);
+            }
+
+            // Show loading state
+            const submitBtn = document.getElementById('submitBtn');
+            const submitText = document.getElementById('submitText');
+            const originalText = submitText.textContent;
+            submitBtn.disabled = true;
+            submitText.textContent = 'Creating...';
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/register`, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await response.text();
+
+                if (response.ok) {
+                    showNotification('Faculty registered successfully!', 'success');
+                    setTimeout(() => {
+                        window.location.href = 'admin-manage-faculty.html';
+                    }, 1500);
+                } else {
+                    showNotification(result || 'Registration failed. Please try again.', 'error');
+                    submitBtn.disabled = false;
+                    submitText.textContent = originalText;
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                showNotification('Network error. Please check your connection.', 'error');
+                submitBtn.disabled = false;
+                submitText.textContent = originalText;
+            }
+        });
+
+        // Form validation
+        function validateForm() {
+            const fullName = document.getElementById('fullName').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const mobileNo = document.getElementById('mobileNo').value.trim();
+            const department = document.getElementById('department').value;
+            const photoFile = photoInput.files[0];
+
+            if (!fullName) {
+                showNotification('Please enter full name', 'error');
+                document.getElementById('fullName').focus();
+                return false;
+            }
+
+            if (!email || !isValidEmail(email)) {
+                showNotification('Please enter a valid email address', 'error');
+                document.getElementById('email').focus();
+                return false;
+            }
+
+            if (!mobileNo || mobileNo.length < 10) {
+                showNotification('Please enter a valid 10-digit mobile number', 'error');
+                document.getElementById('mobileNo').focus();
+                return false;
+            }
+
+            if (!department) {
+                showNotification('Please select a department', 'error');
+                document.getElementById('department').focus();
+                return false;
+            }
+
+            if (!photoFile) {
+                showNotification('Please upload a profile photo', 'error');
+                return false;
+            }
+
+            // Password validation
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            if (!password) {
+                showNotification('Please enter a password', 'error');
+                document.getElementById('password').focus();
+                return false;
+            }
+
+            if (password.length < 8) {
+                showNotification('Password must be at least 8 characters long', 'error');
+                document.getElementById('password').focus();
+                return false;
+            }
+
+            if (!confirmPassword) {
+                showNotification('Please confirm your password', 'error');
+                document.getElementById('confirmPassword').focus();
+                return false;
+            }
+
+            if (password !== confirmPassword) {
+                showNotification('Passwords do not match', 'error');
+                document.getElementById('confirmPassword').focus();
+                return false;
+            }
+
+            return true;
+        }
+
+        // Email validation
+        function isValidEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+
+        // Show notification
+        function showNotification(message, type = 'info') {
+            // Remove existing notification
+            const existing = document.querySelector('.notification');
+            if (existing) {
+                existing.remove();
+            }
+
+            // Create notification
+            const notification = document.createElement('div');
+            notification.className = `notification fixed top-4 right-4 z-50 px-6 py-4 rounded-lg shadow-lg flex items-center gap-3 animate-slide-in ${type === 'success' ? 'bg-green-500 text-white' :
+                type === 'error' ? 'bg-red-500 text-white' :
+                    'bg-blue-500 text-white'
+                }`;
+
+            notification.innerHTML = `
+                <span class="material-symbols-outlined">${type === 'success' ? 'check_circle' :
+                    type === 'error' ? 'error' :
+                        'info'
+                }</span>
+                <span class="font-medium">${message}</span>
+            `;
+
+            document.body.appendChild(notification);
+
+            // Auto remove after 4 seconds
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                notification.style.transform = 'translateX(100%)';
+                setTimeout(() => notification.remove(), 300);
+            }, 4000);
+        }
+
+        // Add animation styles
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slide-in {
+                from {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+            .animate-slide-in {
+                animation: slide-in 0.3s ease-out;
+            }
+            .notification {
+                transition: all 0.3s ease-out;
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+
+</html>

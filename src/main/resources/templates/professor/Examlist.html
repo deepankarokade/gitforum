@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>All Exams - Professor Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+    <style>
+        body {
+            background: linear-gradient(to right, #e0f7fa, #f4f6fb);
+            font-family: "Segoe UI", sans-serif;
+            margin: 0;
+        }
+
+        .navbar {
+            background: linear-gradient(90deg, #1e3c72, #2a5298);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+
+        .navbar .logo {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .navbar a {
+            color: white;
+            margin-left: 20px;
+            text-decoration: none;
+        }
+
+        .container {
+            padding: 30px;
+        }
+
+        .card-header {
+            background: linear-gradient(90deg, #6dd5fa, #2980b9);
+            color: white;
+        }
+
+        .badge-live {
+            background-color: #28a745;
+        }
+
+        .badge-upcoming {
+            background-color: #ffc107;
+            color: black;
+        }
+
+        .badge-completed {
+            background-color: #6c757d;
+        }
+
+        .badge-review {
+            background-color: #17a2b8;
+        }
+
+        .btn-action {
+            margin-right: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .table-responsive {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <div class="navbar">
+        <div class="logo">Online Examination Portal</div>
+        <div>
+            <a th:href="@{/professor/dashboard}"><i class="fas fa-home"></i> Dashboard</a>
+            <a th:href="@{/professor/exams/create}" class="btn btn-warning btn-sm">+ Create Exam</a>
+        </div>
+    </div>
+
+    <div class="container">
+
+        <h2 class="mb-4">All Exams</h2>
+
+        <div class="card shadow-sm">
+            <div class="card-header">
+                <i class="fas fa-list"></i> Exam List
+            </div>
+            <div class="card-body table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Title</th>
+                            <th>Course</th>
+                            <th>Batch</th>
+                            <th>Exam Date</th>
+                            <th>Duration (min)</th>
+                            <th>Total Marks</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="exam : ${exams}">
+                            <td th:text="${exam.title}"></td>
+                            <td th:text="${exam.courseName}"></td>
+                            <td th:text="${exam.batch}"></td>
+                            <td th:text="${exam.examDate}"></td>
+                            <td th:text="${exam.duration}"></td>
+                            <td th:text="${exam.totalMarks}"></td>
+                            <td>
+                                <span th:switch="${exam.status}">
+                                    <span th:case="'LIVE'" class="badge badge-live">LIVE</span>
+                                    <span th:case="'UPCOMING'" class="badge badge-upcoming">UPCOMING</span>
+                                    <span th:case="'COMPLETED'" class="badge badge-completed">COMPLETED</span>
+                                    <span th:case="'REVIEW'" class="badge badge-review">REVIEW</span>
+                                    <span th:case="*">UNKNOWN</span>
+                                </span>
+                            </td>
+                            <td>
+                                <a th:href="@{'/professor/exams/update/' + ${exam.id}}" class="btn btn-primary btn-sm btn-action">
+                                    <i class="fas fa-edit"></i> Edit
+                                </a>
+                                <button class="btn btn-danger btn-sm btn-action"
+                                    th:onclick="'deleteExam(' + ${exam.id} + ')'" >
+                                    <i class="fas fa-trash"></i> Delete
+                                </button>
+								<button class="btn btn-info btn-sm btn-action"
+								    th:onclick="'rescheduleExam(' + ${exam.id} + ')'" >
+								    <i class="fas fa-calendar-alt"></i> Reschedule
+								</button>
+
+                            </td>
+                        </tr>
+                        <tr th:if="${exams.size()} == 0">
+                            <td colspan="8" class="text-center text-muted">No exams available.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- JS -->
+    <script>
+        function deleteExam(id) {
+            if (confirm("Are you sure you want to delete this exam?")) {
+                fetch('/professor/exams/delete/' + id, {
+                    method: 'DELETE'
+                }).then(() => {
+                    location.reload();
+                });
+            }
+        }
+		
+		function rescheduleExam(id) {
+		    let newDate = prompt("Enter new exam date (YYYY-MM-DD):");
+		    if (newDate) {
+		        fetch('/professor/exams/reschedule/' + id, {
+		            method: 'PUT',
+		            headers: { 'Content-Type': 'application/json' },
+		            body: JSON.stringify({ examDate: newDate })
+		        })
+		        .then(response => response.json())
+		        .then(data => {
+		            alert(data.message); // Success message
+		            location.reload(); // Refresh table
+		        })
+		        .catch(err => console.error("Error:", err));
+		    }
+		}
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title th:text="${exam.id != null ? 'Update Exam' : 'Create Exam'}">Exam</title>
+
+    <style>
+        .form-container {
+            max-width: 650px;
+            margin: 40px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h3 {
+            text-align: center;
+            color: #1e3c72;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-top: 14px;
+            font-weight: 500;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 8px 10px;
+            margin-top: 5px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            margin-top: 25px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 6px;
+            width: 100%;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #1e40af;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="form-container">
+
+    <h3 th:text="${exam.id != null ? 'Update Exam' : 'Create New Exam'}"></h3>
+
+    <form id="examForm" th:object="${exam}">
+
+        <!-- ID for Update -->
+        <input type="hidden" th:field="*{id}">
+
+        <label>Exam Title</label>
+        <input type="text" th:field="*{title}" required>
+
+        <label>Course Name (Demo)</label>
+        <input type="text" th:field="*{courseName}" required>
+
+        <label>Batch</label>
+        <input type="text" th:field="*{batch}" required>
+
+        <label>Section</label>
+        <input type="text" th:field="*{section}">
+
+        <label>Exam Type</label>
+        <select th:field="*{examType}">
+            <option value="MIDTERM">Mid Term</option>
+            <option value="FINAL">Final</option>
+            <option value="QUIZ">Quiz</option>
+        </select>
+
+        <label>Exam Date</label>
+        <input type="date" th:field="*{examDate}" required>
+
+        <label>Exam Venue</label>
+        <select th:field="*{examVenueType}">
+            <option value="ONLINE">Online</option>
+            <option value="OFFLINE">Offline</option>
+        </select>
+
+        <label>Duration (minutes)</label>
+        <input type="number" th:field="*{duration}" required>
+
+        <label>Total Marks</label>
+        <input type="number" th:field="*{totalMarks}" required>
+
+        <label>Exam Set</label>
+        <input type="text" th:field="*{examSet}">
+
+        <label>Additional Information</label>
+        <textarea rows="3" th:field="*{additionalInformation}"></textarea>
+
+        <button type="submit"
+                th:text="${exam.id != null ? 'Update Exam' : 'Create Exam'}">
+        </button>
+
+    </form>
+</div>
+
+<script>
+document.getElementById("examForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const formData = new FormData(this);
+    const examData = Object.fromEntries(formData.entries());
+
+    fetch("/professor/exams/save", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(examData)
+    })
+    .then(res => res.text())
+    .then(msg => {
+        alert(msg);
+        window.location.href = "/professor/dashboard";
+    })
+    .catch(err => {
+        alert("Error occurred");
+        console.error(err);
+    });
+});
+</script>
+
+</body>
+</html>
