@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.git.Admin.Activity;
 import com.git.Admin.Entity.Faculty;
 import com.git.Admin.Repositry.FacultyRepository;
 
@@ -106,6 +107,7 @@ public class FacultyService {
 		existing.setDepartment(updatedFaculty.getDepartment());
 		existing.setQualification(updatedFaculty.getQualification());
 		existing.setsubject(updatedFaculty.getsubject());
+		existing.setPassword(updatedFaculty.getPassword());
 
 		return facultyRepository.save(existing);
 	}
@@ -135,5 +137,21 @@ public class FacultyService {
 		} catch (IOException e) {
 			throw new RuntimeException("Failed to store profile image ", e);
 		}
+	}
+
+	// GET Faculty Activity Status
+	public Activity getAccountStatus(String username) {
+		return facultyRepository.findByUsername(username)
+				.orElseThrow(() -> new RuntimeException("Faculty not found"))
+				.getActivity();
+	}
+
+	// Update Activity Status
+	public void updateAccountStatus(String username, Activity activity) {
+		Faculty faculty = facultyRepository.findByUsername(username)
+				.orElseThrow(() -> new RuntimeException("Faculty not found"));
+
+		faculty.setActivity(activity);
+		facultyRepository.save(faculty);
 	}
 }

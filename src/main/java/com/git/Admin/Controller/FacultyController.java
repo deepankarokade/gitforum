@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.git.Admin.Activity;
 import com.git.Admin.Entity.Faculty;
 import com.git.Admin.Service.FacultyService;
 
@@ -59,16 +60,6 @@ public class FacultyController {
     @GetMapping("/{username}")
     public Faculty getFacultyByUsername(@PathVariable String username) {
         return facultyService.getFacultyByUsername(username);
-    }
-
-    @GetMapping("/{username}/photo")
-    public ResponseEntity<byte[]> getFacultyPhoto(@PathVariable String username) {
-
-        byte[] photo = facultyService.getFacultyPhoto(username);
-
-        return ResponseEntity.ok()
-                .contentType(MediaType.IMAGE_JPEG) // works for PNG too
-                .body(photo);
     }
 
     @DeleteMapping("/{username}")
@@ -123,5 +114,37 @@ public class FacultyController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Failed to update profile picture");
         }
+    }
+
+    /* ACTIVITY STATUS */
+
+    // GET Faculty Activity
+    @GetMapping("/{username}/status")
+    public Activity getStatus(@PathVariable String username) {
+        return facultyService.getAccountStatus(username);
+    }
+
+    // ACTIVATE
+    @PutMapping("/{username}/activate")
+    public void activate(@PathVariable String username) {
+        facultyService.updateAccountStatus(username, Activity.ACTIVE);
+    }
+
+    // DEACTIVATE
+    @PutMapping("/{username}/deactivate")
+    public void deactivate(@PathVariable String username) {
+        facultyService.updateAccountStatus(username, Activity.INACTIVE);
+    }
+
+    // BLOCK
+    @PutMapping("/{username}/block")
+    public void block(@PathVariable String username) {
+        facultyService.updateAccountStatus(username, Activity.BLOCKED);
+    }
+
+    // DELETE (Set status to DELETED)
+    @PutMapping("/{username}/delete")
+    public void delete(@PathVariable String username) {
+        facultyService.updateAccountStatus(username, Activity.DELETED);
     }
 }

@@ -109,6 +109,19 @@
             </div>
             <!-- Footer Sidebar -->
             <div class="flex flex-col gap-1 px-6">
+                <button id="darkModeToggle"
+                    class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">
+                    <span class="material-symbols-outlined">dark_mode</span>
+                    <p class="text-sm font-medium">Dark Mode</p>
+                    <div class="ml-auto">
+                        <div
+                            class="relative inline-block w-10 h-5 rounded-full bg-gray-300 dark:bg-primary transition-colors">
+                            <div
+                                class="absolute left-0.5 top-0.5 w-4 h-4 bg-white rounded-full transition-transform dark:transform dark:translate-x-5">
+                            </div>
+                        </div>
+                    </div>
+                </button>
                 <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
                     href="#">
                     <span class="material-symbols-outlined">settings</span>
@@ -132,7 +145,7 @@
                         <p class="text-[#616f89] dark:text-gray-400 text-base font-normal">Oversee and
                             manage academic staff records across all departments.</p>
                     </div>
-                    <button onclick="window.location.href='admin-add-faculty.html'"
+                    <button onclick="window.location.href='/admin/dashboard/professor/add'"
                         class="flex items-center justify-center gap-2 rounded-lg h-11 px-6 bg-primary text-white text-sm font-bold transition-transform hover:scale-[1.02] active:scale-95 shadow-lg shadow-primary/20">
                         <span class="material-symbols-outlined text-xl">add</span>
                         <span>Add New Professor</span>
@@ -142,33 +155,35 @@
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
                     <div
                         class="flex flex-col gap-2 rounded-xl p-6 bg-white dark:bg-background-dark border border-[#dbdfe6] dark:border-gray-800 shadow-sm">
-                        <div class="flex items-center gap-3 mb-1">
+                        <p id="totalCount" class="text-[#111318] dark:text-white text-3xl font-bold leading-tight">0</p>
+                        <div class="flex items-center gap-3">
                             <span
                                 class="material-symbols-outlined text-primary bg-primary/10 p-2 rounded-lg">groups</span>
                             <p class="text-gray-500 dark:text-gray-400 text-sm font-medium">Total Professors
                             </p>
                         </div>
-                        <p class="text-[#111318] dark:text-white text-3xl font-bold leading-tight">124</p>
                     </div>
                     <div
                         class="flex flex-col gap-2 rounded-xl p-6 bg-white dark:bg-background-dark border border-[#dbdfe6] dark:border-gray-800 shadow-sm">
-                        <div class="flex items-center gap-3 mb-1">
+                        <p id="activeCount" class="text-[#111318] dark:text-white text-3xl font-bold leading-tight">0
+                        </p>
+                        <div class="flex items-center gap-3">
                             <span
                                 class="material-symbols-outlined text-green-500 bg-green-500/10 p-2 rounded-lg">how_to_reg</span>
                             <p class="text-gray-500 dark:text-gray-400 text-sm font-medium">Active Accounts
                             </p>
                         </div>
-                        <p class="text-[#111318] dark:text-white text-3xl font-bold leading-tight">118</p>
                     </div>
                     <div
                         class="flex flex-col gap-2 rounded-xl p-6 bg-white dark:bg-background-dark border border-[#dbdfe6] dark:border-gray-800 shadow-sm">
-                        <div class="flex items-center gap-3 mb-1">
+                        <p id="departmentCount" class="text-[#111318] dark:text-white text-3xl font-bold leading-tight">
+                            0</p>
+                        <div class="flex items-center gap-3">
                             <span
                                 class="material-symbols-outlined text-orange-500 bg-orange-500/10 p-2 rounded-lg">account_tree</span>
                             <p class="text-gray-500 dark:text-gray-400 text-sm font-medium">Total
                                 Departments</p>
                         </div>
-                        <p class="text-[#111318] dark:text-white text-3xl font-bold leading-tight">12</p>
                     </div>
                 </div>
                 <!-- Search and Filters -->
@@ -228,199 +243,13 @@
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-100 dark:divide-gray-800">
-                                <!-- Row 1 -->
-                                <tr class="hover:bg-gray-50 dark:hover:bg-gray-800/40 transition-colors">
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="flex items-center gap-3">
-                                            <div class="size-10 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-primary font-semibold"
-                                                data-alt="Portrait photo of Professor Sarah Jenkins">SJ
+                                <!-- Loading state - will be replaced by JavaScript -->
+                                <tr>
+                                    <td colspan="6" class="px-6 py-12 text-center">
+                                        <div class="flex flex-col items-center gap-3">
+                                            <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-primary">
                                             </div>
-                                            <div>
-                                                <p class="text-sm font-semibold">Dr. Sarah Jenkins</p>
-                                                <p class="text-xs text-gray-500">sarah.j@portal.edu</p>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4 text-sm font-mono text-gray-600 dark:text-gray-400">
-                                        PROF-2024-001</td>
-                                    <td class="px-6 py-4">
-                                        <span
-                                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300">
-                                            Computer Science
-                                        </span>
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <div class="flex gap-1 flex-wrap">
-                                            <span
-                                                class="text-[10px] bg-gray-100 dark:bg-gray-700 px-2 py-0.5 rounded">CS101</span>
-                                            <span
-                                                class="text-[10px] bg-gray-100 dark:bg-gray-700 px-2 py-0.5 rounded">CS302</span>
-                                            <span class="text-[10px] bg-primary/10 text-primary px-2 py-0.5 rounded">+2
-                                                more</span>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <div class="flex items-center gap-1.5">
-                                            <div class="size-2 rounded-full bg-green-500"></div>
-                                            <span class="text-sm font-medium">Active</span>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4 text-right">
-                                        <div class="flex justify-end gap-2">
-                                            <a href="http://localhost:8081/admin-edit-faculty.html">
-                                                <button
-                                                    class="p-2 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg text-gray-500 transition-colors">
-                                                    <span class="material-symbols-outlined text-lg">edit</span>
-                                                </button>
-                                            </a>
-                                            <button
-                                                class="p-2 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg text-gray-500 hover:text-red-500 transition-colors">
-                                                <span class="material-symbols-outlined text-lg">delete</span>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <!-- Row 2 -->
-                                <tr class="hover:bg-gray-50 dark:hover:bg-gray-800/40 transition-colors">
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="flex items-center gap-3">
-                                            <div class="size-10 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center text-green-600 font-semibold"
-                                                data-alt="Portrait photo of Professor Robert Chen">RC</div>
-                                            <div>
-                                                <p class="text-sm font-semibold">Prof. Robert Chen</p>
-                                                <p class="text-xs text-gray-500">r.chen@portal.edu</p>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4 text-sm font-mono text-gray-600 dark:text-gray-400">
-                                        PROF-2024-042</td>
-                                    <td class="px-6 py-4">
-                                        <span
-                                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300">
-                                            Mathematics
-                                        </span>
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <div class="flex gap-1 flex-wrap">
-                                            <span
-                                                class="text-[10px] bg-gray-100 dark:bg-gray-700 px-2 py-0.5 rounded">MATH201</span>
-                                            <span
-                                                class="text-[10px] bg-gray-100 dark:bg-gray-700 px-2 py-0.5 rounded">STAT400</span>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <div class="flex items-center gap-1.5">
-                                            <div class="size-2 rounded-full bg-green-500"></div>
-                                            <span class="text-sm font-medium">Active</span>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4 text-right">
-                                        <div class="flex justify-end gap-2">
-                                            <button
-                                                class="p-2 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg text-gray-500 transition-colors">
-                                                <span class="material-symbols-outlined text-lg">edit</span>
-                                            </button>
-                                            <button
-                                                class="p-2 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg text-gray-500 hover:text-red-500 transition-colors">
-                                                <span class="material-symbols-outlined text-lg">delete</span>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <!-- Row 3 -->
-                                <tr class="hover:bg-gray-50 dark:hover:bg-gray-800/40 transition-colors">
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="flex items-center gap-3">
-                                            <div class="size-10 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center text-orange-600 font-semibold"
-                                                data-alt="Portrait photo of Professor Elena Rodriguez">ER
-                                            </div>
-                                            <div>
-                                                <p class="text-sm font-semibold">Dr. Elena Rodriguez</p>
-                                                <p class="text-xs text-gray-500">elena.rod@portal.edu</p>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4 text-sm font-mono text-gray-600 dark:text-gray-400">
-                                        PROF-2023-112</td>
-                                    <td class="px-6 py-4">
-                                        <span
-                                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-300">
-                                            Physics
-                                        </span>
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <div class="flex gap-1 flex-wrap">
-                                            <span
-                                                class="text-[10px] bg-gray-100 dark:bg-gray-700 px-2 py-0.5 rounded">PHYS102</span>
-                                            <span
-                                                class="text-[10px] bg-gray-100 dark:bg-gray-700 px-2 py-0.5 rounded">PHYS305</span>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <div class="flex items-center gap-1.5 text-gray-400">
-                                            <div class="size-2 rounded-full bg-gray-300 dark:bg-gray-600">
-                                            </div>
-                                            <span class="text-sm font-medium">Inactive</span>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4 text-right">
-                                        <div class="flex justify-end gap-2">
-                                            <button
-                                                class="p-2 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg text-gray-500 transition-colors">
-                                                <span class="material-symbols-outlined text-lg">edit</span>
-                                            </button>
-                                            <button
-                                                class="p-2 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg text-gray-500 hover:text-red-500 transition-colors">
-                                                <span class="material-symbols-outlined text-lg">delete</span>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <!-- Row 4 -->
-                                <tr class="hover:bg-gray-50 dark:hover:bg-gray-800/40 transition-colors">
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="flex items-center gap-3">
-                                            <div class="size-10 rounded-full bg-teal-100 dark:bg-teal-900/30 flex items-center justify-center text-teal-600 font-semibold"
-                                                data-alt="Portrait photo of Professor Marcus Williams">MW
-                                            </div>
-                                            <div>
-                                                <p class="text-sm font-semibold">Prof. Marcus Williams</p>
-                                                <p class="text-xs text-gray-500">m.williams@portal.edu</p>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4 text-sm font-mono text-gray-600 dark:text-gray-400">
-                                        PROF-2024-088</td>
-                                    <td class="px-6 py-4">
-                                        <span
-                                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-teal-100 text-teal-800 dark:bg-teal-900/30 dark:text-teal-300">
-                                            History
-                                        </span>
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <div class="flex gap-1 flex-wrap">
-                                            <span
-                                                class="text-[10px] bg-gray-100 dark:bg-gray-700 px-2 py-0.5 rounded">HIST110</span>
-                                            <span
-                                                class="text-[10px] bg-gray-100 dark:bg-gray-700 px-2 py-0.5 rounded">HIST205</span>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <div class="flex items-center gap-1.5">
-                                            <div class="size-2 rounded-full bg-green-500"></div>
-                                            <span class="text-sm font-medium">Active</span>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4 text-right">
-                                        <div class="flex justify-end gap-2">
-                                            <button
-                                                class="p-2 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg text-gray-500 transition-colors">
-                                                <span class="material-symbols-outlined text-lg">edit</span>
-                                            </button>
-                                            <button
-                                                class="p-2 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg text-gray-500 hover:text-red-500 transition-colors">
-                                                <span class="material-symbols-outlined text-lg">delete</span>
-                                            </button>
+                                            <p class="text-sm text-gray-500">Loading faculty data...</p>
                                         </div>
                                     </td>
                                 </tr>
@@ -443,6 +272,34 @@
     </div>
 
     <script>
+            // Dark Mode Functionality
+            (function initDarkMode() {
+                // Check for saved preference or system preference
+                const darkMode = localStorage.getItem('darkMode');
+                const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+                if (darkMode === 'enabled' || (darkMode === null && systemPrefersDark)) {
+                    document.documentElement.classList.add('dark');
+                }
+            })();
+
+        // Dark mode toggle
+        document.addEventListener('DOMContentLoaded', function () {
+            const darkModeToggle = document.getElementById('darkModeToggle');
+            if (darkModeToggle) {
+                darkModeToggle.addEventListener('click', function () {
+                    document.documentElement.classList.toggle('dark');
+
+                    // Save preference
+                    if (document.documentElement.classList.contains('dark')) {
+                        localStorage.setItem('darkMode', 'enabled');
+                    } else {
+                        localStorage.setItem('darkMode', 'disabled');
+                    }
+                });
+            }
+        });
+
         // API Base URL
         const API_BASE_URL = 'http://localhost:8081/admin/faculty';
         const BASE_URL = 'http://localhost:8081';
@@ -504,6 +361,17 @@
                 }
 
                 allFaculties = await response.json();
+
+                // Ensure activity field exists for each faculty
+                allFaculties = allFaculties.map(faculty => {
+                    // If activity is not present, default to ACTIVE
+                    if (!faculty.activity) {
+                        faculty.activity = 'ACTIVE';
+                    }
+                    return faculty;
+                });
+
+                console.log('Loaded faculties:', allFaculties); // Debug log
                 filteredFaculties = [...allFaculties];
 
                 renderFacultyTable(filteredFaculties);
@@ -537,18 +405,47 @@
             tbody.innerHTML = faculties.map(faculty => {
                 const initials = getInitials(faculty.fullName);
                 const avatarColor = getAvatarColor(faculty.fullName);
-                const status = faculty.termsAccepted ? 'Active' : 'Inactive';
-                const statusColor = faculty.termsAccepted ? 'bg-green-500' : 'bg-gray-300 dark:bg-gray-600';
+
+                // Activity status mapping
+                const activity = faculty.activity || 'INACTIVE';
+                let statusColor, statusBgColor, statusText;
+
+                switch (activity) {
+                    case 'ACTIVE':
+                        statusColor = 'text-green-700 dark:text-green-400';
+                        statusBgColor = 'bg-green-500';
+                        statusText = 'Active';
+                        break;
+                    case 'INACTIVE':
+                        statusColor = 'text-gray-700 dark:text-gray-400';
+                        statusBgColor = 'bg-gray-400';
+                        statusText = 'Inactive';
+                        break;
+                    case 'BLOCKED':
+                        statusColor = 'text-orange-700 dark:text-orange-400';
+                        statusBgColor = 'bg-orange-500';
+                        statusText = 'Blocked';
+                        break;
+                    case 'DELETED':
+                        statusColor = 'text-red-700 dark:text-red-400';
+                        statusBgColor = 'bg-red-500';
+                        statusText = 'Deleted';
+                        break;
+                    default:
+                        statusColor = 'text-gray-700 dark:text-gray-400';
+                        statusBgColor = 'bg-gray-400';
+                        statusText = 'Unknown';
+                }
 
                 return `
                     <tr class="hover:bg-gray-50 dark:hover:bg-gray-800/40 transition-colors">
                         <td class="px-6 py-4 whitespace-nowrap">
                             <div class="flex items-center gap-3">
                                 ${faculty.photofilename ?
-                        `<img src="${API_BASE_URL}/${faculty.username}/photo" 
+                        `<img src="${API_BASE_URL}/${faculty.username}/profile-picture" 
                                          alt="${faculty.fullName}" 
                                          class="size-10 rounded-full object-cover border-2 border-gray-200"
-                                         onerror="this.onerror=null; this.outerHTML='<div class=\\'size-10 rounded-full ${avatarColor} flex items-center justify-center font-semibold\\'>${initials}</div>';">`
+                                         onerror="this.onerror=null; this.outerHTML='<div class=\\'size-10 rounded-full ${avatarColor} flex items-center justify-center font-semibold\\'>${initials}</div>';"`
                         :
                         `<div class="size-10 rounded-full ${avatarColor} flex items-center justify-center font-semibold">${initials}</div>`
                     }
@@ -574,9 +471,9 @@
                             </div>
                         </td>
                         <td class="px-6 py-4">
-                            <div class="flex items-center gap-1.5 ${!faculty.termsAccepted ? 'text-gray-400' : ''}">
-                                <div class="size-2 rounded-full ${statusColor}"></div>
-                                <span class="text-sm font-medium">${status}</span>
+                            <div class="flex items-center gap-1.5 ${statusColor}">
+                                <div class="size-2 rounded-full ${statusBgColor}"></div>
+                                <span class="text-sm font-medium">${statusText}</span>
                             </div>
                         </td>
                         <td class="px-6 py-4 text-right">
@@ -603,13 +500,13 @@
         // Update statistics
         function updateStats(faculties) {
             const totalFaculties = faculties.length;
-            const activeFaculties = faculties.filter(f => f.termsAccepted).length;
+            const activeFaculties = faculties.filter(f => f.activity === 'ACTIVE').length;
             const departments = new Set(faculties.map(f => f.department).filter(d => d)).size;
 
-            // Update stat cards
-            document.querySelector('.grid.grid-cols-1.md\\:grid-cols-3 p:first-of-type').textContent = totalFaculties;
-            document.querySelector('.grid.grid-cols-1.md\\:grid-cols-3 > div:nth-child(2) p:last-child').textContent = activeFaculties;
-            document.querySelector('.grid.grid-cols-1.md\\:grid-cols-3 > div:nth-child(3) p:last-child').textContent = departments;
+            // Update stat cards using IDs
+            document.getElementById('totalCount').textContent = totalFaculties;
+            document.getElementById('activeCount').textContent = activeFaculties;
+            document.getElementById('departmentCount').textContent = departments;
         }
 
         // Update pagination info
@@ -666,8 +563,8 @@
 
         // Edit faculty
         function editFaculty(username) {
-            // Redirect to edit page (to be created)
-            window.location.href = `admin-edit-faculty.html?username=${username}`;
+            // Redirect to edit page with username
+            window.location.href = `/admin/dashboard/professor/edit/${username}`;
         }
 
         // Delete faculty

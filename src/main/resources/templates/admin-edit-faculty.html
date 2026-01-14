@@ -78,8 +78,9 @@
                     </div>
                     <nav class="hidden md:flex items-center gap-6">
                         <a class="text-[#111318] dark:text-gray-300 text-sm font-medium hover:text-primary transition-colors"
-                            href="#">Dashboard</a>
-                        <a class="text-primary text-sm font-bold border-b-2 border-primary" href="#">Faculty</a>
+                            href="/admin/dashboard">Dashboard</a>
+                        <a class="text-primary text-sm font-bold border-b-2 border-primary"
+                            href="/admin/dashboard/professor">Faculty</a>
                         <a class="text-[#111318] dark:text-gray-300 text-sm font-medium hover:text-primary transition-colors"
                             href="#">Exams</a>
                         <a class="text-[#111318] dark:text-gray-300 text-sm font-medium hover:text-primary transition-colors"
@@ -87,6 +88,11 @@
                     </nav>
                 </div>
                 <div class="flex flex-1 justify-end gap-4 items-center">
+                    <button id="darkModeToggle"
+                        class="flex items-center justify-center rounded-lg h-10 w-10 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
+                        title="Toggle dark mode">
+                        <span class="material-symbols-outlined">dark_mode</span>
+                    </button>
                     <button id="saveChangesBtn"
                         class="flex min-w-[120px] cursor-pointer items-center justify-center rounded-lg h-10 px-5 bg-primary text-white text-sm font-bold shadow-sm hover:bg-primary/90 transition-all">
                         <span>Save Changes</span>
@@ -96,9 +102,11 @@
                 <div class="max-w-[1000px] mx-auto space-y-6">
                     <!-- Breadcrumbs -->
                     <div class="flex flex-wrap gap-2 items-center text-sm font-medium">
-                        <a class="text-gray-500 dark:text-gray-400 hover:text-primary" href="#">Dashboard</a>
+                        <a class="text-gray-500 dark:text-gray-400 hover:text-primary"
+                            href="/admin/dashboard">Dashboard</a>
                         <span class="material-symbols-outlined text-gray-400 text-sm">chevron_right</span>
-                        <a class="text-gray-500 dark:text-gray-400 hover:text-primary" href="#">Faculty Management</a>
+                        <a class="text-gray-500 dark:text-gray-400 hover:text-primary"
+                            href="/admin/dashboard/professor">Faculty Management</a>
                         <span class="material-symbols-outlined text-gray-400 text-sm">chevron_right</span>
                         <span class="text-primary">Edit Professor</span>
                     </div>
@@ -111,7 +119,7 @@
                             <p class="text-gray-500 dark:text-gray-400 text-base font-normal mt-1">Update profile
                                 information, managed assigned courses, and account security.</p>
                         </div>
-                        <a href="http://localhost:8081/admin-manage-faculty.html">
+                        <a href="http://localhost:8081/admin/dashboard/professor">
                             <button
                                 class="flex items-center gap-2 px-4 py-2 text-sm font-bold text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors">
                                 <span class="material-symbols-outlined text-lg">arrow_back</span>
@@ -209,43 +217,6 @@
                                 class="bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 p-6">
                                 <div
                                     class="flex items-center gap-2 border-b border-gray-100 dark:border-gray-800 pb-4 mb-6">
-                                    <span class="material-symbols-outlined text-primary">library_books</span>
-                                    <h2 class="text-xl font-bold">Course Management</h2>
-                                </div>
-                                <div class="space-y-4">
-                                    <p class="text-sm text-gray-500 dark:text-gray-400">Assigned Courses (Primary
-                                        Instructor)</p>
-                                    <div
-                                        class="flex flex-wrap gap-2 p-3 border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50/50 dark:bg-gray-800/30">
-                                        <div
-                                            class="flex items-center gap-1.5 bg-primary/10 text-primary px-3 py-1.5 rounded-full text-sm font-semibold border border-primary/20">
-                                            CS101 - Intro to Programming
-                                            <button
-                                                class="material-symbols-outlined text-xs hover:text-red-500">close</button>
-                                        </div>
-                                        <div
-                                            class="flex items-center gap-1.5 bg-primary/10 text-primary px-3 py-1.5 rounded-full text-sm font-semibold border border-primary/20">
-                                            CS402 - Artificial Intelligence
-                                            <button
-                                                class="material-symbols-outlined text-xs hover:text-red-500">close</button>
-                                        </div>
-                                        <div
-                                            class="flex items-center gap-1.5 bg-primary/10 text-primary px-3 py-1.5 rounded-full text-sm font-semibold border border-primary/20">
-                                            MATH202 - Calculus II
-                                            <button
-                                                class="material-symbols-outlined text-xs hover:text-red-500">close</button>
-                                        </div>
-                                        <button
-                                            class="flex items-center gap-1 px-3 py-1.5 rounded-full text-sm font-semibold border-2 border-dashed border-gray-300 text-gray-400 hover:border-primary hover:text-primary transition-all">
-                                            <span class="material-symbols-outlined text-sm">add</span> Add Course
-                                        </button>
-                                    </div>
-                                </div>
-                            </section>
-                            <section
-                                class="bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 p-6">
-                                <div
-                                    class="flex items-center gap-2 border-b border-gray-100 dark:border-gray-800 pb-4 mb-6">
                                     <span class="material-symbols-outlined text-primary">security</span>
                                     <h2 class="text-xl font-bold">Update Credentials</h2>
                                 </div>
@@ -253,13 +224,13 @@
                                     <label class="flex flex-col gap-2">
                                         <span class="text-sm font-bold text-gray-700 dark:text-gray-300">New
                                             Password</span>
-                                        <input
+                                        <input id="newPassword"
                                             class="rounded-lg border-gray-200 dark:border-gray-700 dark:bg-gray-800 focus:ring-primary focus:border-primary h-12 px-4"
-                                            placeholder="••••••••" type="password" />
+                                            placeholder="Leave blank to keep current password" type="password" />
                                     </label>
-                                    <button
+                                    <button id="generatePasswordBtn" type="button"
                                         class="bg-primary/10 text-primary hover:bg-primary hover:text-white font-bold h-12 px-6 rounded-lg transition-all border border-primary/20">
-                                        Generate Random &amp; Update
+                                        Generate Random Password
                                     </button>
                                 </div>
                                 <p class="mt-4 text-xs text-gray-400 italic">User will be prompted to change their
@@ -268,6 +239,33 @@
                         </div>
                         <!-- Right Column: Sidebar Actions (Danger Zone) -->
                         <div class="space-y-6">
+                            <!-- Profile Picture Upload -->
+                            <div
+                                class="bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 p-6">
+                                <h3 class="text-lg font-bold mb-4 flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-primary">account_circle</span>
+                                    Profile Picture
+                                </h3>
+                                <div class="flex flex-col items-center gap-4">
+                                    <div class="relative">
+                                        <div id="profileImageContainer"
+                                            class="w-32 h-32 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center overflow-hidden border-4 border-gray-100 dark:border-gray-800 shadow-lg">
+                                            <img id="profileImage" src="" alt="Profile"
+                                                class="w-full h-full object-cover hidden">
+                                            <span id="profileInitials" class="text-4xl font-bold text-gray-400">?</span>
+                                        </div>
+                                        <button type="button" onclick="document.getElementById('photoInput').click()"
+                                            class="absolute bottom-0 right-0 w-10 h-10 bg-primary hover:bg-primary/90 text-white rounded-full flex items-center justify-center shadow-lg transition-transform hover:scale-110">
+                                            <span class="material-symbols-outlined text-lg">edit</span>
+                                        </button>
+                                    </div>
+                                    <input type="file" id="photoInput" accept="image/*" class="hidden">
+                                    <p class="text-xs text-gray-500 text-center">
+                                        Click the edit button to upload a new photo<br>
+                                        <span class="text-gray-400">Max size: 2MB (JPG, PNG)</span>
+                                    </p>
+                                </div>
+                            </div>
                             <div
                                 class="bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 p-6">
                                 <h3 class="text-lg font-bold mb-1 flex items-center gap-2">
@@ -277,7 +275,16 @@
                                 <p class="text-sm text-gray-500 dark:text-gray-400 mb-6">Status: <span
                                         id="activityStatus" class="text-green-600 font-bold">Active</span></p>
                                 <div class="flex flex-col gap-3">
-                                    <button
+                                    <button id="activateBtn"
+                                        class="group flex items-center justify-between w-full px-4 py-3 rounded-lg border border-green-500/30 text-green-600 font-bold hover:bg-green-500 hover:text-white transition-all text-sm hidden">
+                                        <span class="flex items-center gap-2">
+                                            <span class="material-symbols-outlined text-lg">check_circle</span>
+                                            Activate Account
+                                        </span>
+                                        <span
+                                            class="material-symbols-outlined opacity-0 group-hover:opacity-100 text-sm">chevron_right</span>
+                                    </button>
+                                    <button id="deactivateBtn"
                                         class="group flex items-center justify-between w-full px-4 py-3 rounded-lg border border-warning-amber/30 text-warning-amber font-bold hover:bg-warning-amber hover:text-white transition-all text-sm">
                                         <span class="flex items-center gap-2">
                                             <span class="material-symbols-outlined text-lg">block</span>
@@ -286,7 +293,7 @@
                                         <span
                                             class="material-symbols-outlined opacity-0 group-hover:opacity-100 text-sm">chevron_right</span>
                                     </button>
-                                    <button
+                                    <button id="blockBtn"
                                         class="group flex items-center justify-between w-full px-4 py-3 rounded-lg border border-warning-amber/30 text-warning-amber font-bold hover:bg-warning-amber hover:text-white transition-all text-sm">
                                         <span class="flex items-center gap-2">
                                             <span class="material-symbols-outlined text-lg">gpp_maybe</span>
@@ -296,7 +303,7 @@
                                             class="material-symbols-outlined opacity-0 group-hover:opacity-100 text-sm">chevron_right</span>
                                     </button>
                                     <div class="h-px bg-gray-100 dark:bg-gray-800 my-2"></div>
-                                    <button
+                                    <button id="deleteBtn"
                                         class="group flex items-center justify-between w-full px-4 py-3 rounded-lg bg-destructive-red/5 border border-destructive-red/20 text-destructive-red font-bold hover:bg-destructive-red hover:text-white transition-all text-sm">
                                         <span class="flex items-center gap-2">
                                             <span class="material-symbols-outlined text-lg">delete_forever</span>
@@ -332,16 +339,41 @@
     </div>
 
     <script>
+            // Dark Mode Functionality
+            (function initDarkMode() {
+                const darkMode = localStorage.getItem('darkMode');
+                const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+                if (darkMode === 'enabled' || (darkMode === null && systemPrefersDark)) {
+                    document.documentElement.classList.add('dark');
+                }
+            })();
+
+        // Dark mode toggle
+        document.addEventListener('DOMContentLoaded', function () {
+            const darkModeToggle = document.getElementById('darkModeToggle');
+            if (darkModeToggle) {
+                darkModeToggle.addEventListener('click', function () {
+                    document.documentElement.classList.toggle('dark');
+                    if (document.documentElement.classList.contains('dark')) {
+                        localStorage.setItem('darkMode', 'enabled');
+                    } else {
+                        localStorage.setItem('darkMode', 'disabled');
+                    }
+                });
+            }
+        });
+
         // API Base URL
         const API_BASE_URL = 'http://localhost:8081/admin/faculty';
 
-        // Get username from URL parameter
-        const urlParams = new URLSearchParams(window.location.search);
-        const username = urlParams.get('username');
+        // Get username from URL path (e.g., /admin/dashboard/professor/edit/{username})
+        const pathParts = window.location.pathname.split('/');
+        const username = pathParts[pathParts.length - 1]; // Last segment of the URL path
 
-        if (!username) {
+        if (!username || username === 'edit') {
             alert('No faculty username provided');
-            window.location.href = 'admin-manage-faculty.html';
+            window.location.href = '/admin/dashboard/professor';
         }
 
         let currentFaculty = null;
@@ -380,32 +412,56 @@
                     statusElement.textContent = currentFaculty.activity;
                     statusElement.className = currentFaculty.activity === 'ACTIVE' ?
                         'text-green-600 font-bold' : 'text-red-600 font-bold';
+
+                    // Update button visibility based on activity status
+                    updateAccountActionButtons(currentFaculty.activity);
                 }
 
             } catch (error) {
                 console.error('Error loading faculty data:', error);
                 showNotification('Failed to load faculty data', 'error');
                 setTimeout(() => {
-                    window.location.href = 'admin-manage-faculty.html';
+                    window.location.href = '/admin/dashboard/professor';
                 }, 2000);
             }
         })();
 
         // Load profile picture
         async function loadProfilePicture() {
+            const profileImg = document.getElementById('profileImage');
+            const profileInitials = document.getElementById('profileInitials');
+
             try {
                 const response = await fetch(`${API_BASE_URL}/${username}/profile-picture`);
                 if (response.ok) {
                     const blob = await response.blob();
-                    const imageUrl = URL.createObjectURL(blob);
-                    const profileImg = document.getElementById('profileImage');
-                    if (profileImg) {
+                    if (blob && blob.size > 0) {
+                        const imageUrl = URL.createObjectURL(blob);
                         profileImg.src = imageUrl;
+                        profileImg.classList.remove('hidden');
+                        profileInitials.classList.add('hidden');
+                        return;
                     }
                 }
             } catch (error) {
                 console.log('No profile picture available');
             }
+
+            // Show initials if no photo
+            if (currentFaculty && currentFaculty.fullName) {
+                const initials = getInitials(currentFaculty.fullName);
+                profileInitials.textContent = initials;
+            }
+        }
+
+        // Helper function to get initials
+        function getInitials(name) {
+            if (!name) return '?';
+            const parts = name.trim().split(' ');
+            if (parts.length >= 2) {
+                return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+            }
+            return name.substring(0, 2).toUpperCase();
         }
 
         // Handle profile picture upload
@@ -422,6 +478,17 @@
                     return;
                 }
 
+                // Show preview immediately
+                const reader = new FileReader();
+                reader.onload = function (event) {
+                    const profileImg = document.getElementById('profileImage');
+                    const profileInitials = document.getElementById('profileInitials');
+                    profileImg.src = event.target.result;
+                    profileImg.classList.remove('hidden');
+                    profileInitials.classList.add('hidden');
+                };
+                reader.readAsDataURL(file);
+
                 // Upload to server
                 const formData = new FormData();
                 formData.append('file', file);
@@ -434,13 +501,157 @@
 
                     if (response.ok) {
                         showNotification('Profile picture updated successfully!', 'success');
-                        loadProfilePicture(); // Reload the image
                     } else {
                         throw new Error('Upload failed');
                     }
                 } catch (error) {
                     console.error('Error uploading photo:', error);
                     showNotification('Failed to upload profile picture', 'error');
+                    loadProfilePicture(); // Reload original photo
+                }
+            });
+        }
+
+        // Account Action Handlers
+        const activateBtn = document.getElementById('activateBtn');
+        const deactivateBtn = document.getElementById('deactivateBtn');
+        const blockBtn = document.getElementById('blockBtn');
+        const deleteBtn = document.getElementById('deleteBtn');
+
+        // Update button visibility based on current status
+        function updateAccountActionButtons(status) {
+            // Hide all first
+            activateBtn.classList.add('hidden');
+            deactivateBtn.classList.remove('hidden');
+            blockBtn.classList.remove('hidden');
+            deleteBtn.classList.remove('hidden');
+
+            // Show/hide based on status
+            if (status === 'ACTIVE') {
+                activateBtn.classList.add('hidden');
+            } else if (status === 'INACTIVE' || status === 'BLOCKED' || status === 'DELETED') {
+                activateBtn.classList.remove('hidden');
+            }
+        }
+
+        // Update status in UI
+        function updateStatusDisplay(status) {
+            const statusElement = document.getElementById('activityStatus');
+            if (statusElement) {
+                statusElement.textContent = status;
+                // Update color based on status
+                if (status === 'ACTIVE') {
+                    statusElement.className = 'text-green-600 font-bold';
+                } else if (status === 'INACTIVE') {
+                    statusElement.className = 'text-gray-600 font-bold';
+                } else if (status === 'BLOCKED') {
+                    statusElement.className = 'text-orange-600 font-bold';
+                } else if (status === 'DELETED') {
+                    statusElement.className = 'text-red-600 font-bold';
+                }
+            }
+            updateAccountActionButtons(status);
+        }
+
+        // Activate Account
+        if (activateBtn) {
+            activateBtn.addEventListener('click', async function () {
+                if (!confirm('Are you sure you want to activate this account?')) return;
+
+                try {
+                    const response = await fetch(`${API_BASE_URL}/${username}/activate`, {
+                        method: 'PUT'
+                    });
+
+                    if (response.ok) {
+                        showNotification('Account activated successfully!', 'success');
+                        updateStatusDisplay('ACTIVE');
+                        currentFaculty.activity = 'ACTIVE';
+                    } else {
+                        throw new Error('Failed to activate');
+                    }
+                } catch (error) {
+                    console.error('Error activating account:', error);
+                    showNotification('Failed to activate account', 'error');
+                }
+            });
+        }
+
+        // Deactivate Account
+        if (deactivateBtn) {
+            deactivateBtn.addEventListener('click', async function () {
+                if (!confirm('Are you sure you want to deactivate this account? The faculty member will not be able to log in.')) return;
+
+                try {
+                    const response = await fetch(`${API_BASE_URL}/${username}/deactivate`, {
+                        method: 'PUT'
+                    });
+
+                    if (response.ok) {
+                        showNotification('Account deactivated successfully!', 'success');
+                        updateStatusDisplay('INACTIVE');
+                        currentFaculty.activity = 'INACTIVE';
+                    } else {
+                        throw new Error('Failed to deactivate');
+                    }
+                } catch (error) {
+                    console.error('Error deactivating account:', error);
+                    showNotification('Failed to deactivate account', 'error');
+                }
+            });
+        }
+
+        // Block Account
+        if (blockBtn) {
+            blockBtn.addEventListener('click', async function () {
+                if (!confirm('Are you sure you want to block this account? This is a stronger restriction than deactivation.')) return;
+
+                try {
+                    const response = await fetch(`${API_BASE_URL}/${username}/block`, {
+                        method: 'PUT'
+                    });
+
+                    if (response.ok) {
+                        showNotification('Account blocked successfully!', 'success');
+                        updateStatusDisplay('BLOCKED');
+                        currentFaculty.activity = 'BLOCKED';
+                    } else {
+                        throw new Error('Failed to block');
+                    }
+                } catch (error) {
+                    console.error('Error blocking account:', error);
+                    showNotification('Failed to block account', 'error');
+                }
+            });
+        }
+
+        // Delete Account (Mark as deleted)
+        if (deleteBtn) {
+            deleteBtn.addEventListener('click', async function () {
+                if (!confirm('Are you sure you want to DELETE this account? This action marks the account as deleted and cannot be easily undone.')) return;
+
+                try {
+                    const response = await fetch(`${API_BASE_URL}/${username}/delete`, {
+                        method: 'PUT'
+                    });
+
+                    if (response.ok) {
+                        showNotification('Account marked as deleted!', 'success');
+                        updateStatusDisplay('DELETED');
+                        currentFaculty.activity = 'DELETED';
+
+                        // Optionally redirect after a delay
+                        setTimeout(() => {
+                            if (confirm('Return to faculty list?')) {
+                                window.location.href = '/admin/dashboard/professor';
+                            }
+                        }, 2000);
+                    } else {
+                        throw new Error('Failed to delete');
+                    }
+                } catch (error) {
+                    console.error('Error deleting account:', error);
+                    showNotification('Failed to delete account', 'error');
                 }
             });
         }
@@ -449,6 +660,42 @@
         const saveBtn = document.getElementById('saveChangesBtn');
         if (saveBtn) {
             saveBtn.addEventListener('click', updateFaculty);
+        }
+
+        // Generate random password
+        function generateRandomPassword() {
+            const length = 12;
+            const charset = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*';
+            let password = '';
+            for (let i = 0; i < length; i++) {
+                password += charset.charAt(Math.floor(Math.random() * charset.length));
+            }
+            return password;
+        }
+
+        // Generate password button handler
+        const generatePasswordBtn = document.getElementById('generatePasswordBtn');
+        if (generatePasswordBtn) {
+            generatePasswordBtn.addEventListener('click', function () {
+                const newPassword = generateRandomPassword();
+                const passwordInput = document.getElementById('newPassword');
+                passwordInput.type = 'text'; // Show the password
+                passwordInput.value = newPassword;
+
+                showNotification(`Generated password: ${newPassword}`, 'info');
+
+                // Copy to clipboard
+                navigator.clipboard.writeText(newPassword).then(() => {
+                    showNotification('Password copied to clipboard!', 'success');
+                }).catch(err => {
+                    console.error('Failed to copy password:', err);
+                });
+
+                // Hide password after 5 seconds
+                setTimeout(() => {
+                    passwordInput.type = 'password';
+                }, 5000);
+            });
         }
 
         // Update faculty function
@@ -464,6 +711,12 @@
             formData.append('qualification', document.getElementById('qualification').value.trim());
             formData.append('subject', document.getElementById('subject').value.trim());
 
+            // Include password only if it's been changed
+            const newPassword = document.getElementById('newPassword').value.trim();
+            if (newPassword) {
+                formData.append('password', newPassword);
+            }
+
             try {
                 const response = await fetch(`${API_BASE_URL}/${username}`, {
                     method: 'PUT',
@@ -473,7 +726,7 @@
                 if (response.ok) {
                     showNotification('Faculty updated successfully!', 'success');
                     setTimeout(() => {
-                        window.location.href = 'admin-manage-faculty.html';
+                        window.location.href = '/admin/dashboard/professor';
                     }, 1500);
                 } else {
                     throw new Error('Update failed');

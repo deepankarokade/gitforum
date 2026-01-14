@@ -94,7 +94,7 @@
             <p class="text-sm font-medium">Manage Students</p>
           </a>
           <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
-            href="http://localhost:8081/admin-manage-faculty.html">
+            href="http://localhost:8081/admin/dashboard/professor">
             <span class="material-symbols-outlined">school</span>
             <p class="text-sm font-medium">Manage Professors</p>
           </a>
@@ -102,6 +102,18 @@
       </div>
       <!-- Footer Sidebar -->
       <div class="flex flex-col gap-1 px-6">
+        <button id="darkModeToggle"
+          class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">
+          <span class="material-symbols-outlined">dark_mode</span>
+          <p class="text-sm font-medium">Dark Mode</p>
+          <div class="ml-auto">
+            <div class="relative inline-block w-10 h-5 rounded-full bg-gray-300 dark:bg-primary transition-colors">
+              <div
+                class="absolute left-0.5 top-0.5 w-4 h-4 bg-white rounded-full transition-transform dark:transform dark:translate-x-5">
+              </div>
+            </div>
+          </div>
+        </button>
         <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
           href="#">
           <span class="material-symbols-outlined">settings</span>
@@ -314,6 +326,31 @@
     </main>
   </div>
   <script>
+      // Dark Mode Functionality
+      (function initDarkMode() {
+        const darkMode = localStorage.getItem('darkMode');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        if (darkMode === 'enabled' || (darkMode === null && systemPrefersDark)) {
+          document.documentElement.classList.add('dark');
+        }
+      })();
+
+    // Dark mode toggle
+    document.addEventListener('DOMContentLoaded', function () {
+      const darkModeToggle = document.getElementById('darkModeToggle');
+      if (darkModeToggle) {
+        darkModeToggle.addEventListener('click', function () {
+          document.documentElement.classList.toggle('dark');
+          if (document.documentElement.classList.contains('dark')) {
+            localStorage.setItem('darkMode', 'enabled');
+          } else {
+            localStorage.setItem('darkMode', 'disabled');
+          }
+        });
+      }
+    });
+
     const BASE_URL = "http://localhost:8081";
     const uid = localStorage.getItem('adminUid');
 

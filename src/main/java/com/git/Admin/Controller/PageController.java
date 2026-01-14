@@ -36,9 +36,4 @@ public class PageController {
     public String editProfessor(@PathVariable String id) {
         return "admin-edit-faculty";
     }
-
-    @GetMapping("/admin/dashboard/professor/delete/{id}")
-    public String deleteProfessor(@PathVariable String id) {
-        return "admin-manage-faculty";
-    }
 }
