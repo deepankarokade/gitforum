@@ -1,4 +1,4 @@
-package com.git.Admin;
+package com.git;
 
 public enum Activity {
     ACTIVE,

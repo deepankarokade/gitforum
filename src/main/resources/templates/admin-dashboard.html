@@ -89,7 +89,7 @@
             <p class="text-sm font-medium">Manage Profile</p>
           </a>
           <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
-            href="#">
+            href="http://localhost:8081/admin/dashboard/student">
             <span class="material-symbols-outlined">group</span>
             <p class="text-sm font-medium">Manage Students</p>
           </a>
@@ -158,10 +158,6 @@
               <h3 class="text-slate-900 dark:text-white text-2xl font-bold">Dashboard Overview</h3>
               <p class="text-slate-500 dark:text-slate-400 text-sm">Welcome back, here's what's happening today.</p>
             </div>
-            <div
-              class="text-sm font-medium text-slate-500 bg-white dark:bg-slate-800 px-4 py-2 rounded-lg border border-slate-200 dark:border-slate-700">
-              Oct 24, 2023 - Oct 31, 2023
-            </div>
           </div>
           <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             <!-- Stat Card 1 -->
@@ -170,11 +166,10 @@
               <div class="flex items-start justify-between">
                 <div>
                   <p class="text-slate-500 dark:text-slate-400 text-sm font-medium mb-1">Total Students</p>
-                  <h4 class="text-slate-900 dark:text-white text-3xl font-bold">1,240</h4>
-                  <div class="mt-2 flex items-center gap-1 text-emerald-600 text-sm font-bold">
-                    <span class="material-symbols-outlined text-sm">trending_up</span>
-                    <span>+5.2%</span>
-                    <span class="text-slate-400 font-normal">vs last month</span>
+                  <h4 id="totalStudentsCount" class="text-slate-900 dark:text-white text-3xl font-bold">Loading...</h4>
+                  <div class="mt-2 flex items-center gap-1 text-sm font-bold">
+                    <span id="activeStudentsCount" class="text-emerald-600">Loading...</span>
+                    <span class="text-slate-400 font-normal">Active Students</span>
                   </div>
                 </div>
                 <div
@@ -189,11 +184,11 @@
               <div class="flex items-start justify-between">
                 <div>
                   <p class="text-slate-500 dark:text-slate-400 text-sm font-medium mb-1">Total Professors</p>
-                  <h4 class="text-slate-900 dark:text-white text-3xl font-bold">45</h4>
-                  <div class="mt-2 flex items-center gap-1 text-emerald-600 text-sm font-bold">
-                    <span class="material-symbols-outlined text-sm">trending_up</span>
-                    <span>+2.1%</span>
-                    <span class="text-slate-400 font-normal">vs last month</span>
+                  <h4 id="totalProfessorsCount" class="text-slate-900 dark:text-white text-3xl font-bold">Loading...
+                  </h4>
+                  <div class="mt-2 flex items-center gap-1 text-sm font-bold">
+                    <span id="activeProfessorsCount" class="text-purple-600">Loading...</span>
+                    <span class="text-slate-400 font-normal">Active Professors</span>
                   </div>
                 </div>
                 <div
@@ -231,16 +226,20 @@
               <p class="text-slate-500 dark:text-slate-400 text-sm mt-1">Easily add new records to your database.</p>
             </div>
             <div class="flex flex-wrap gap-4">
-              <button
-                class="flex items-center gap-2 px-6 py-3 bg-primary hover:bg-blue-700 text-white rounded-xl font-bold transition-all shadow-lg shadow-primary/25">
-                <span class="material-symbols-outlined">person_add</span>
-                <span>Add New Student</span>
-              </button>
-              <button
-                class="flex items-center gap-2 px-6 py-3 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-900 dark:text-white rounded-xl font-bold transition-all border border-slate-200 dark:border-slate-700">
-                <span class="material-symbols-outlined">person_add_alt</span>
-                <span>Add New Professor</span>
-              </button>
+              <a href="http://localhost:8081/admin/dashboard/student/add">
+                <button
+                  class="flex items-center gap-2 px-6 py-3 bg-primary hover:bg-blue-700 text-white rounded-xl font-bold transition-all shadow-lg shadow-primary/25">
+                  <span class="material-symbols-outlined">person_add</span>
+                  <span>Add New Student</span>
+                </button>
+              </a>
+              <a href="http://localhost:8081/admin/dashboard/professor/add">
+                <button
+                  class="flex items-center gap-2 px-6 py-3 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-900 dark:text-white rounded-xl font-bold transition-all border border-slate-200 dark:border-slate-700">
+                  <span class="material-symbols-outlined">person_add_alt</span>
+                  <span>Add New Professor</span>
+                </button>
+              </a>
             </div>
           </div>
         </section>
@@ -387,6 +386,73 @@
 
       } catch (e) {
         console.warn('Failed to load sidebar info', e);
+      }
+    })();
+
+    // Load Student Counts
+    (async function loadStudentCounts() {
+      try {
+        // Fetch total student count
+        const totalResponse = await fetch(`${BASE_URL}/admin/student/count/total`);
+        if (totalResponse.ok) {
+          const totalCount = await totalResponse.json();
+          const totalEl = document.getElementById('totalStudentsCount');
+          if (totalEl) totalEl.textContent = totalCount.toLocaleString();
+        } else {
+          console.warn('Failed to fetch total student count');
+        }
+      } catch (error) {
+        console.error('Error fetching total student count:', error);
+        const totalEl = document.getElementById('totalStudentsCount');
+        if (totalEl) totalEl.textContent = '0';
+      }
+
+      try {
+        // Fetch active student count
+        const activeResponse = await fetch(`${BASE_URL}/admin/student/count/active`);
+        if (activeResponse.ok) {
+          const activeCount = await activeResponse.json();
+          const activeEl = document.getElementById('activeStudentsCount');
+          if (activeEl) activeEl.textContent = activeCount.toLocaleString();
+        } else {
+          console.warn('Failed to fetch active student count');
+        }
+      } catch (error) {
+        console.error('Error fetching active student count:', error);
+        const activeEl = document.getElementById('activeStudentsCount');
+        if (activeEl) activeEl.textContent = '0';
+      }
+
+      try {
+        // Fetch total professor count
+        const totalProfResponse = await fetch(`${BASE_URL}/admin/faculty/count/total`);
+        if (totalProfResponse.ok) {
+          const totalProfCount = await totalProfResponse.json();
+          const totalProfEl = document.getElementById('totalProfessorsCount');
+          if (totalProfEl) totalProfEl.textContent = totalProfCount.toLocaleString();
+        } else {
+          console.warn('Failed to fetch total professor count');
+        }
+      } catch (error) {
+        console.error('Error fetching total professor count:', error);
+        const totalProfEl = document.getElementById('totalProfessorsCount');
+        if (totalProfEl) totalProfEl.textContent = '0';
+      }
+
+      try {
+        // Fetch active professor count
+        const activeProfResponse = await fetch(`${BASE_URL}/admin/faculty/count/active`);
+        if (activeProfResponse.ok) {
+          const activeProfCount = await activeProfResponse.json();
+          const activeProfEl = document.getElementById('activeProfessorsCount');
+          if (activeProfEl) activeProfEl.textContent = activeProfCount.toLocaleString();
+        } else {
+          console.warn('Failed to fetch active professor count');
+        }
+      } catch (error) {
+        console.error('Error fetching active professor count:', error);
+        const activeProfEl = document.getElementById('activeProfessorsCount');
+        if (activeProfEl) activeProfEl.textContent = '0';
       }
     })();
   </script>

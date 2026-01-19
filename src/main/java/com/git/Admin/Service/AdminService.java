@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.git.Admin.Entity.Admin;
-import com.git.Admin.Repositry.AdminRepository;
+import com.git.Admin.Repository.AdminRepository;
 
 import jakarta.transaction.Transactional;
 

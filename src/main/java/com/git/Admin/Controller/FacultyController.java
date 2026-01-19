@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.git.Admin.Activity;
+import com.git.Activity;
 import com.git.Admin.Entity.Faculty;
 import com.git.Admin.Service.FacultyService;
 
@@ -146,5 +146,19 @@ public class FacultyController {
     @PutMapping("/{username}/delete")
     public void delete(@PathVariable String username) {
         facultyService.updateAccountStatus(username, Activity.DELETED);
+    }
+
+    // COUNT ENDPOINTS
+
+    // Get total faculty count
+    @GetMapping("/count/total")
+    public long getTotalFacultyCount() {
+        return facultyService.getTotalFacultyCount();
+    }
+
+    // Get active faculty count
+    @GetMapping("/count/active")
+    public long getActiveFacultyCount() {
+        return facultyService.getActiveFacultyCount();
     }
 }

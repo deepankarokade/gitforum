@@ -7,9 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.git.Admin.Activity;
+import com.git.Activity;
 import com.git.Admin.Entity.Faculty;
-import com.git.Admin.Repositry.FacultyRepository;
+import com.git.Admin.Repository.FacultyRepository;
 
 @Service
 public class FacultyService {
@@ -56,7 +56,7 @@ public class FacultyService {
 			throw new RuntimeException("Faculty username already exists");
 		}
 
-		faculty.setUsername(username); // ✅ SET HERE
+		faculty.setUsername(username);
 		faculty.setPhotofilename(photo.getOriginalFilename());
 		try {
 			faculty.setPhoto(photo.getBytes());
@@ -153,5 +153,15 @@ public class FacultyService {
 
 		faculty.setActivity(activity);
 		facultyRepository.save(faculty);
+	}
+
+	// Get total faculty count
+	public long getTotalFacultyCount() {
+		return facultyRepository.count();
+	}
+
+	// Get active faculty count
+	public long getActiveFacultyCount() {
+		return facultyRepository.countByActivity(Activity.ACTIVE);
 	}
 }

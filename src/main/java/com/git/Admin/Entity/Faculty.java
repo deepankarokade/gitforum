@@ -3,7 +3,7 @@ package com.git.Admin.Entity;
 import java.util.Arrays;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.git.Admin.Activity;
+import com.git.Activity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

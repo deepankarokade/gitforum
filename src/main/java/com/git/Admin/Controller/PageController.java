@@ -9,7 +9,7 @@ public class PageController {
 
     @GetMapping("/admin/login")
     public String loginPage() {
-        return "admin-login"; // admin-login.html
+        return "admin-login";
     }
 
     @GetMapping("/admin/dashboard")
@@ -35,5 +35,20 @@ public class PageController {
     @GetMapping("/admin/dashboard/professor/edit/{id}")
     public String editProfessor(@PathVariable String id) {
         return "admin-edit-faculty";
+    }
+
+    @GetMapping("/admin/dashboard/student")
+    public String manageStudent() {
+        return "admin-manage-student";
+    }
+
+    @GetMapping("/admin/dashboard/student/add")
+    public String addStudent() {
+        return "admin-student-registration";
+    }
+
+    @GetMapping("/admin/dashboard/student/edit")
+    public String editStudent() {
+        return "admin-edit-student";
     }
 }
