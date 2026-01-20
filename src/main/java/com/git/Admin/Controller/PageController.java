@@ -51,4 +51,9 @@ public class PageController {
     public String editStudent() {
         return "admin-edit-student";
     }
+
+    @GetMapping("/payment")
+    public String paymentPage() {
+        return "payment";
+    }
 }
