@@ -8,18 +8,19 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
+
 @Entity
-@Table(name="questions")
-public class Questions {
+@Table(name="demoquestions")
+public class Demoquestions {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 	
 	@ManyToOne
 	@JoinColumn(name = "paper_id")
-	private Questionpaper questionPaper;
+	private Demoquestionpaper demoquestionpaper;
 	
-    private String questionText;
+	private String questionText;
     private String options;
     private String correctAnswer;
     private String matchPairs; 
@@ -28,16 +29,16 @@ public class Questions {
     private String fillintheblanks;
     private String questionType;
     private int marks;
-	public Questions() {
+	public Demoquestions() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Questions(long id, Questionpaper questionPaper, String questionText, String options, String correctAnswer,
-			String matchPairs, String essay, String shortAnswer, String fillintheblanks, String questionType,
-			int marks) {
+	public Demoquestions(long id, Demoquestionpaper demoquestionpaper, String questionText, String options,
+			String correctAnswer, String matchPairs, String essay, String shortAnswer, String fillintheblanks,
+			String questionType, int marks) {
 		super();
 		this.id = id;
-		this.questionPaper = questionPaper;
+		this.demoquestionpaper = demoquestionpaper;
 		this.questionText = questionText;
 		this.options = options;
 		this.correctAnswer = correctAnswer;
@@ -50,7 +51,7 @@ public class Questions {
 	}
 	@Override
 	public String toString() {
-		return "Questions [id=" + id + ", questionPaper=" + questionPaper + ", questionText=" + questionText
+		return "Demoquestions [id=" + id + ", demoquestionpaper=" + demoquestionpaper + ", questionText=" + questionText
 				+ ", options=" + options + ", correctAnswer=" + correctAnswer + ", matchPairs=" + matchPairs
 				+ ", essay=" + essay + ", shortAnswer=" + shortAnswer + ", fillintheblanks=" + fillintheblanks
 				+ ", questionType=" + questionType + ", marks=" + marks + "]";
@@ -61,11 +62,11 @@ public class Questions {
 	public void setId(long id) {
 		this.id = id;
 	}
-	public Questionpaper getQuestionPaper() {
-		return questionPaper;
+	public Demoquestionpaper getDemoquestionpaper() {
+		return demoquestionpaper;
 	}
-	public void setQuestionPaper(Questionpaper questionPaper) {
-		this.questionPaper = questionPaper;
+	public void setDemoquestionpaper(Demoquestionpaper demoquestionpaper) {
+		this.demoquestionpaper = demoquestionpaper;
 	}
 	public String getQuestionText() {
 		return questionText;
@@ -121,9 +122,9 @@ public class Questions {
 	public void setMarks(int marks) {
 		this.marks = marks;
 	}
-
 	
-	
+    
+  
 	
 	
 }

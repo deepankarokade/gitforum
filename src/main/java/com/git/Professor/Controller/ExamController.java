@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import com.git.Professor.Entity.Exam;
 import com.git.Professor.Service.ExamService;
 
-
-
 @Controller
 @RequestMapping("/professor/exams")
 public class ExamController {
@@ -23,14 +21,12 @@ public class ExamController {
     @Autowired
     private ExamService examService;
 
-
     @GetMapping("/create")
     public String createExamForm(Model model) {
         model.addAttribute("exam", new Exam());
         return "professor/exam-create";
     }
 
-   
     @GetMapping("/update/{id}")
     public String updateExamForm(@PathVariable Long id, Model model) {
         Exam exam = examService.getExamById(id);
@@ -41,7 +37,6 @@ public class ExamController {
         return "redirect:/professor/dashboard";
     }
 
-   
     @PostMapping("/save")
     @ResponseBody
     public ResponseEntity<String> saveExam(@RequestBody Exam exam) {
@@ -71,14 +66,13 @@ public class ExamController {
             return ResponseEntity.ok("Exam updated successfully");
 
         } else {
-            exam.setFacilityName("Demo Professor");
+            // exam.setFacilityName("Demo Professor");
 
             examService.updateExamStatus(exam);
 
             return ResponseEntity.ok("Exam created successfully");
         }
     }
-
 
     // LIST EXAMS (AJAX)
     @GetMapping("/list")
@@ -94,6 +88,7 @@ public class ExamController {
         examService.deleteExam(id);
         return ResponseEntity.ok("Exam deleted successfully");
     }
+
     @PutMapping("/reschedule/{id}")
     @ResponseBody
     public ResponseEntity<?> rescheduleExam(@PathVariable Long id, @RequestBody Map<String, String> body) {
@@ -105,7 +100,7 @@ public class ExamController {
         }
 
         try {
-            String newDateStr = body.get("examDate"); 
+            String newDateStr = body.get("examDate");
             LocalDate newDate = LocalDate.parse(newDateStr);
             exam.setExamDate(newDate);
             examService.updateExamStatus(exam); // status auto update

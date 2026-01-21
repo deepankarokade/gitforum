@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.git.Professor.Entity.Exam;
-import com.git.Professor.Repositry.ExamRepository;
+import com.git.Professor.Repository.ExamRepository;
 
 @Service
 public class ExamService {

@@ -164,4 +164,22 @@ public class FacultyService {
 	public long getActiveFacultyCount() {
 		return facultyRepository.countByActivity(Activity.ACTIVE);
 	}
+
+	public Faculty loginFaculty(String username, String password) {
+
+		Faculty faculty = facultyRepository.findByUsername(username)
+				.orElseThrow(() -> new RuntimeException("Invalid username"));
+
+		// Account status check
+		if (faculty.getActivity() != Activity.ACTIVE) {
+			throw new RuntimeException("Your account is not active. Please contact admin.");
+		}
+
+		// Password match (plain text – for now)
+		if (!faculty.getPassword().equals(password)) {
+			throw new RuntimeException("Invalid password");
+		}
+
+		return faculty; // Login successful
+	}
 }

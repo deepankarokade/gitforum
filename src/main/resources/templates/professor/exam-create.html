@@ -1,138 +1,546 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html class="light" lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title th:text="${exam.id != null ? 'Update Exam' : 'Create Exam'}">Exam</title>
+	<meta charset="utf-8" />
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+	<title th:text="${exam.id != null ? 'Update Exam' : 'Create Exam'}">Create Exam - ExamPortal</title>
+	<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+	<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap"
+		rel="stylesheet" />
+	<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+		rel="stylesheet" />
+	<script>
+		tailwind.config = {
+			darkMode: "class",
+			theme: {
+				extend: {
+					colors: {
+						"primary": "#135bec",
+						"background-light": "#f6f6f8",
+						"background-dark": "#101622",
+					},
+					fontFamily: {
+						"display": ["Lexend", "sans-serif"]
+					},
+					borderRadius: {
+						"DEFAULT": "0.25rem",
+						"lg": "0.5rem",
+						"xl": "0.75rem",
+						"2xl": "1rem",
+						"full": "9999px"
+					},
+				},
+			},
+		}
+	</script>
+	<style>
+		body {
+			font-family: 'Lexend', sans-serif;
+		}
 
-    <style>
-        .form-container {
-            max-width: 650px;
-            margin: 40px auto;
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-        }
+		.geometric-bg {
+			background-color: #f6f6f8;
+			background-image: radial-gradient(#135bec11 1px, transparent 1px);
+			background-size: 24px 24px;
+		}
 
-        h3 {
-            text-align: center;
-            color: #1e3c72;
-            margin-bottom: 25px;
-        }
+		.dark .geometric-bg {
+			background-color: #101622;
+			background-image: radial-gradient(#135bec22 1px, transparent 1px);
+		}
 
-        label {
-            display: block;
-            margin-top: 14px;
-            font-weight: 500;
-        }
+		/* Custom scrollbar */
+		::-webkit-scrollbar {
+			width: 6px;
+		}
 
-        input, select, textarea {
-            width: 100%;
-            padding: 8px 10px;
-            margin-top: 5px;
-            border-radius: 6px;
-            border: 1px solid #ccc;
-        }
+		::-webkit-scrollbar-track {
+			background: transparent;
+		}
 
-        button {
-            margin-top: 25px;
-            background: #2563eb;
-            color: white;
-            border: none;
-            padding: 10px;
-            border-radius: 6px;
-            width: 100%;
-            font-size: 16px;
-            cursor: pointer;
-        }
+		::-webkit-scrollbar-thumb {
+			background: #cbd5e1;
+			border-radius: 3px;
+		}
 
-        button:hover {
-            background: #1e40af;
-        }
-    </style>
+		.dark ::-webkit-scrollbar-thumb {
+			background: #475569;
+		}
+
+		/* Input focus animation */
+		.form-input-animated:focus {
+			transform: translateY(-1px);
+			box-shadow: 0 4px 12px rgba(19, 91, 236, 0.15);
+		}
+
+		/* Checkbox styling */
+		.custom-checkbox:checked {
+			background-color: #135bec;
+			border-color: #135bec;
+		}
+	</style>
 </head>
 
-<body>
+<body class="bg-background-light dark:bg-background-dark text-[#111318] dark:text-white antialiased">
+	<div class="flex h-screen overflow-hidden">
+		<!-- Sidebar Navigation -->
+		<aside
+			class="w-72 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 flex flex-col justify-between py-6">
+			<div class="flex flex-col gap-8 px-6">
+				<!-- Profile Section -->
+				<div class="flex gap-3 items-center">
+					<div id="sidebarAvatar"
+						class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-12 border-2 border-primary bg-gradient-to-br from-primary/20 to-purple-500/20 flex items-center justify-center">
+						<span class="material-symbols-outlined text-primary text-2xl">person</span>
+					</div>
+					<div class="flex flex-col">
+						<h1 id="sidebarProfName"
+							class="text-[#111318] dark:text-white text-base font-semibold leading-tight"
+							aria-busy="true">Professor</h1>
+						<h5 class="text-slate-500 dark:text-slate-400 text-sm font-normal leading-tight">Faculty</h5>
+					</div>
+				</div>
+				<!-- Nav Links -->
+				<nav class="flex flex-col gap-1">
+					<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
+						href="/professor/dashboard">
+						<span class="material-symbols-outlined">dashboard</span>
+						<p class="text-sm font-medium">Dashboard</p>
+					</a>
+					<a class="flex items-center gap-3 px-4 py-3 rounded-xl bg-primary text-white shadow-lg shadow-primary/20 transition-all"
+						href="#">
+						<span class="material-symbols-outlined fill-1">add_circle</span>
+						<p class="text-sm font-medium">Create Exam</p>
+					</a>
+					<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
+						href="/professor/exams">
+						<span class="material-symbols-outlined">quiz</span>
+						<p class="text-sm font-medium">My Exams</p>
+					</a>
+					<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
+						href="/professor/profile">
+						<span class="material-symbols-outlined">account_circle</span>
+						<p class="text-sm font-medium">My Profile</p>
+					</a>
+				</nav>
+			</div>
+			<!-- Footer Sidebar -->
+			<div class="flex flex-col gap-1 px-6">
+				<button id="darkModeToggle"
+					class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">
+					<span class="material-symbols-outlined">dark_mode</span>
+					<p class="text-sm font-medium">Dark Mode</p>
+					<div class="ml-auto">
+						<div
+							class="relative inline-block w-10 h-5 rounded-full bg-gray-300 dark:bg-primary transition-colors">
+							<div
+								class="absolute left-0.5 top-0.5 w-4 h-4 bg-white rounded-full transition-transform dark:transform dark:translate-x-5">
+							</div>
+						</div>
+					</div>
+				</button>
+				<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
+					href="#">
+					<span class="material-symbols-outlined">settings</span>
+					<p class="text-sm font-medium">Settings</p>
+				</a>
+				<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition-all"
+					href="/professor/login">
+					<span class="material-symbols-outlined">logout</span>
+					<p class="text-sm font-medium">Logout</p>
+				</a>
+			</div>
+		</aside>
 
-<div class="form-container">
+		<!-- Main Content Area -->
+		<main class="flex-1 flex flex-col overflow-y-auto geometric-bg">
+			<!-- Top Navigation Bar -->
+			<header
+				class="flex items-center justify-between sticky top-0 z-10 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 px-8 py-4">
+				<div class="flex items-center gap-6">
+					<div class="flex items-center gap-2">
+						<div class="text-primary">
+							<svg class="size-8" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+								<path d="M44 4H30.6666V17.3334H17.3334V30.6666H4V44H44V4Z" fill="currentColor"></path>
+							</svg>
+						</div>
+						<h2 class="text-slate-900 dark:text-white text-xl font-bold tracking-tight">Professor Portal
+						</h2>
+					</div>
+				</div>
+				<div class="flex items-center gap-4">
+					<a href="/professor/dashboard"
+						class="flex items-center gap-2 text-slate-600 dark:text-slate-400 hover:text-primary transition-colors">
+						<span class="material-symbols-outlined">arrow_back</span>
+						<span class="text-sm font-medium">Back to Dashboard</span>
+					</a>
+				</div>
+			</header>
 
-    <h3 th:text="${exam.id != null ? 'Update Exam' : 'Create New Exam'}"></h3>
+			<!-- Form Content -->
+			<div class="p-8 max-w-[900px] mx-auto w-full flex flex-col gap-8">
+				<!-- Page Header -->
+				<section>
+					<div class="flex items-center gap-4 mb-2">
+						<div class="size-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
+							<span class="material-symbols-outlined text-2xl"
+								th:text="${exam.id != null ? 'edit_note' : 'note_add'}">note_add</span>
+						</div>
+						<div>
+							<h3 class="text-slate-900 dark:text-white text-2xl font-bold"
+								th:text="${exam.id != null ? 'Update Exam' : 'Create New Exam'}">Create New Exam</h3>
+							<p class="text-slate-500 dark:text-slate-400 text-sm">Fill in the details below to create a
+								new examination.</p>
+						</div>
+					</div>
+				</section>
 
-    <form id="examForm" th:object="${exam}">
+				<!-- Form Card -->
+				<section
+					class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm">
+					<form id="examForm" th:object="${exam}" class="p-8">
+						<!-- Hidden ID field for updates -->
+						<input type="hidden" th:field="*{id}">
 
-        <!-- ID for Update -->
-        <input type="hidden" th:field="*{id}">
+						<!-- Form Grid -->
+						<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+							<!-- Exam Title - Full Width -->
+							<div class="md:col-span-2">
+								<label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+									<span class="flex items-center gap-2">
+										<span class="material-symbols-outlined text-lg text-primary">title</span>
+										Exam Title
+									</span>
+								</label>
+								<input type="text" th:field="*{title}" required minlength="3"
+									placeholder="Enter Exam Title"
+									class="form-input-animated w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200">
+							</div>
 
-        <label>Exam Title</label>
-        <input type="text" th:field="*{title}" required>
+							<!-- Professor Name -->
+							<div class="md:col-span-2">
+								<label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+									<span class="flex items-center gap-2">
+										<span class="material-symbols-outlined text-lg text-teal-500">person</span>
+										Professor Name
+									</span>
+								</label>
+								<input type="text" th:field="*{professorName}" required minlength="2"
+									placeholder="Enter Professor Name"
+									class="form-input-animated w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200">
+							</div>
 
-        <label>Course Name (Demo)</label>
-        <input type="text" th:field="*{courseName}" required>
+							<!-- Course Name -->
+							<div>
+								<label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+									<span class="flex items-center gap-2">
+										<span class="material-symbols-outlined text-lg text-purple-500">menu_book</span>
+										Course Name
+									</span>
+								</label>
+								<select th:field="*{courseName}" required
+									class="form-input-animated w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 cursor-pointer">
+									<option value="">-- Select Course --</option>
+									<option value="CET(PCM)">CET (PCM)</option>
+									<option value="CET(PCB)">CET (PCB)</option>
+									<option value="JEE">JEE</option>
+									<option value="NEET">NEET</option>
+								</select>
+							</div>
 
-        <label>Batch</label>
-        <input type="text" th:field="*{batch}" required>
+							<!-- Batch -->
+							<div>
+								<label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+									<span class="flex items-center gap-2">
+										<span class="material-symbols-outlined text-lg text-emerald-500">groups</span>
+										Batch
+									</span>
+								</label>
+								<input type="text" th:field="*{batch}" required placeholder="Eg: 2024-25"
+									class="form-input-animated w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200">
+							</div>
 
-        <label>Section</label>
-        <input type="text" th:field="*{section}">
+							<!-- Section -->
+							<div>
+								<label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+									<span class="flex items-center gap-2">
+										<span class="material-symbols-outlined text-lg text-orange-500">category</span>
+										Section
+									</span>
+								</label>
+								<input type="text" th:field="*{section}" placeholder="Eg: A / B"
+									class="form-input-animated w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200">
+							</div>
 
-        <label>Exam Type</label>
-        <select th:field="*{examType}">
-            <option value="MIDTERM">Mid Term</option>
-            <option value="FINAL">Final</option>
-            <option value="QUIZ">Quiz</option>
-        </select>
+							<!-- Exam Type -->
+							<div>
+								<label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+									<span class="flex items-center gap-2">
+										<span class="material-symbols-outlined text-lg text-blue-500">assignment</span>
+										Exam Type
+									</span>
+								</label>
+								<select th:field="*{examType}" required
+									class="form-input-animated w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 cursor-pointer">
+									<option value="">-- Select Exam Type --</option>
+									<option value="MIDTERM">Mid Term</option>
+									<option value="FINAL">Final</option>
+									<option value="QUIZ">Quiz</option>
+								</select>
+							</div>
 
-        <label>Exam Date</label>
-        <input type="date" th:field="*{examDate}" required>
+							<!-- Exam Date -->
+							<div>
+								<label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+									<span class="flex items-center gap-2">
+										<span
+											class="material-symbols-outlined text-lg text-pink-500">calendar_month</span>
+										Exam Date
+									</span>
+								</label>
+								<input type="date" th:field="*{examDate}" required
+									class="form-input-animated w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 cursor-pointer">
+							</div>
 
-        <label>Exam Venue</label>
-        <select th:field="*{examVenueType}">
-            <option value="ONLINE">Online</option>
-            <option value="OFFLINE">Offline</option>
-        </select>
+							<!-- Exam Venue -->
+							<div>
+								<label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+									<span class="flex items-center gap-2">
+										<span class="material-symbols-outlined text-lg text-cyan-500">location_on</span>
+										Exam Venue
+									</span>
+								</label>
+								<select th:field="*{examVenueType}" required
+									class="form-input-animated w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 cursor-pointer">
+									<option value="">-- Select Venue --</option>
+									<option value="ONLINE">Online</option>
+									<option value="OFFLINE">Offline</option>
+								</select>
+							</div>
 
-        <label>Duration (minutes)</label>
-        <input type="number" th:field="*{duration}" required>
+							<!-- Duration -->
+							<div>
+								<label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+									<span class="flex items-center gap-2">
+										<span class="material-symbols-outlined text-lg text-amber-500">timer</span>
+										Duration (minutes)
+									</span>
+								</label>
+								<input type="number" th:field="*{duration}" required min="10"
+									placeholder="Duration in minutes"
+									class="form-input-animated w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200">
+							</div>
 
-        <label>Total Marks</label>
-        <input type="number" th:field="*{totalMarks}" required>
+							<!-- Total Marks -->
+							<div>
+								<label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+									<span class="flex items-center gap-2">
+										<span class="material-symbols-outlined text-lg text-green-500">grade</span>
+										Total Marks
+									</span>
+								</label>
+								<input type="number" th:field="*{totalMarks}" required min="1" placeholder="Total Marks"
+									class="form-input-animated w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200">
+							</div>
 
-        <label>Exam Set</label>
-        <input type="text" th:field="*{examSet}">
+							<!-- Exam Set -->
+							<div>
+								<label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+									<span class="flex items-center gap-2">
+										<span
+											class="material-symbols-outlined text-lg text-indigo-500">format_list_numbered</span>
+										Exam Set
+									</span>
+								</label>
+								<select th:field="*{examSet}"
+									class="form-input-animated w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 cursor-pointer">
+									<option value="">-- Select Exam Set --</option>
+									<option value="Set A">Set A</option>
+									<option value="Set B">Set B</option>
+									<option value="Set C">Set C</option>
+									<option value="Set D">Set D</option>
+									<option value="None">None</option>
+								</select>
+							</div>
 
-        <label>Additional Information</label>
-        <textarea rows="3" th:field="*{additionalInformation}"></textarea>
+							<!-- Additional Information - Full Width -->
+							<div class="md:col-span-2">
+								<label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+									<span class="flex items-center gap-2">
+										<span class="material-symbols-outlined text-lg text-slate-500">info</span>
+										Additional Information
+									</span>
+								</label>
+								<textarea rows="4" th:field="*{additionalInformation}" maxlength="250"
+									placeholder="Max 250 characters - Add any special instructions or notes..."
+									class="form-input-animated w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 resize-none"></textarea>
+							</div>
 
-        <button type="submit"
-                th:text="${exam.id != null ? 'Update Exam' : 'Create Exam'}">
-        </button>
+							<!-- Enable Exam Checkbox -->
+							<div class="md:col-span-2">
+								<div
+									class="flex items-center gap-3 p-4 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+									<input type="checkbox" th:field="*{enabled}" id="enableExam"
+										class="custom-checkbox w-5 h-5 rounded border-slate-300 dark:border-slate-600 text-primary focus:ring-primary focus:ring-offset-0 cursor-pointer transition-all">
+									<label for="enableExam" class="flex-1 cursor-pointer">
+										<span class="text-sm font-medium text-slate-700 dark:text-slate-300">Enable
+											Exam</span>
+										<p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">The exam will be
+											visible to students after admin approval</p>
+									</label>
+									<span class="material-symbols-outlined text-amber-500 text-xl">verified</span>
+								</div>
+							</div>
+						</div>
 
-    </form>
-</div>
+						<!-- Form Actions -->
+						<div
+							class="flex flex-col sm:flex-row gap-4 mt-8 pt-6 border-t border-slate-200 dark:border-slate-700">
+							<button type="submit"
+								class="flex-1 flex items-center justify-center gap-2 px-6 py-4 bg-primary hover:bg-blue-700 text-white rounded-xl font-bold transition-all duration-200 shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 hover:-translate-y-0.5">
+								<span class="material-symbols-outlined"
+									th:text="${exam.id != null ? 'save' : 'add_circle'}">add_circle</span>
+								<span th:text="${exam.id != null ? 'Update Exam' : 'Create Exam'}">Create Exam</span>
+							</button>
+							<a href="/professor/dashboard"
+								class="flex items-center justify-center gap-2 px-6 py-4 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-xl font-bold transition-all duration-200 border border-slate-200 dark:border-slate-700">
+								<span class="material-symbols-outlined">close</span>
+								<span>Cancel</span>
+							</a>
+						</div>
+					</form>
+				</section>
 
-<script>
-document.getElementById("examForm").addEventListener("submit", function (e) {
-    e.preventDefault();
+				<!-- Help Card -->
+				<section
+					class="bg-gradient-to-r from-primary/5 to-purple-500/5 dark:from-primary/10 dark:to-purple-500/10 rounded-2xl p-6 border border-primary/20 dark:border-primary/30">
+					<div class="flex items-start gap-4">
+						<div
+							class="size-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary flex-shrink-0">
+							<span class="material-symbols-outlined">help</span>
+						</div>
+						<div>
+							<h4 class="text-slate-900 dark:text-white font-semibold mb-1">Need Help?</h4>
+							<p class="text-sm text-slate-600 dark:text-slate-400">
+								After creating the exam, you can add questions and configure additional settings.
+								The exam will be visible to students only after admin approval and when the exam is
+								enabled.
+							</p>
+						</div>
+					</div>
+				</section>
+			</div>
+		</main>
+	</div>
 
-    const formData = new FormData(this);
-    const examData = Object.fromEntries(formData.entries());
+	<script>
+			// Dark Mode Functionality
+			(function initDarkMode() {
+				const darkMode = localStorage.getItem('darkMode');
+				const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
-    fetch("/professor/exams/save", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(examData)
-    })
-    .then(res => res.text())
-    .then(msg => {
-        alert(msg);
-        window.location.href = "/professor/dashboard";
-    })
-    .catch(err => {
-        alert("Error occurred");
-        console.error(err);
-    });
-});
-</script>
+				if (darkMode === 'enabled' || (darkMode === null && systemPrefersDark)) {
+					document.documentElement.classList.add('dark');
+				}
+			})();
 
+		// Dark mode toggle
+		document.addEventListener('DOMContentLoaded', function () {
+			const darkModeToggle = document.getElementById('darkModeToggle');
+			if (darkModeToggle) {
+				darkModeToggle.addEventListener('click', function () {
+					document.documentElement.classList.toggle('dark');
+					if (document.documentElement.classList.contains('dark')) {
+						localStorage.setItem('darkMode', 'enabled');
+					} else {
+						localStorage.setItem('darkMode', 'disabled');
+					}
+				});
+			}
+		});
+
+		document.addEventListener("DOMContentLoaded", () => {
+			const dateInput = document.querySelector("input[type='date']");
+
+			// ONLY create case - set minimum date to today
+			if (dateInput && !dateInput.value) {
+				const today = new Date().toISOString().split("T")[0];
+				dateInput.setAttribute("min", today);
+			}
+		});
+
+		document.getElementById("examForm").addEventListener("submit", function (e) {
+			e.preventDefault();
+
+			const duration = document.querySelector("[name='duration']").value;
+			const totalMarks = document.querySelector("[name='totalMarks']").value;
+
+			if (duration < 10) {
+				showToast("Duration must be at least 10 minutes", "error");
+				return;
+			}
+
+			if (totalMarks <= 0) {
+				showToast("Total Marks must be greater than 0", "error");
+				return;
+			}
+
+			// Show loading state
+			const submitBtn = this.querySelector('button[type="submit"]');
+			const originalText = submitBtn.innerHTML;
+			submitBtn.innerHTML = '<span class="material-symbols-outlined animate-spin">progress_activity</span><span>Processing...</span>';
+			submitBtn.disabled = true;
+
+			const formData = new FormData(this);
+			const examData = Object.fromEntries(formData.entries());
+
+			fetch("/professor/exams/save", {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify(examData)
+			})
+				.then(res => res.text())
+				.then(msg => {
+					showToast(msg, "success");
+					setTimeout(() => {
+						window.location.href = "/professor/dashboard";
+					}, 1500);
+				})
+				.catch(err => {
+					showToast("Error occurred while saving exam", "error");
+					console.error(err);
+					submitBtn.innerHTML = originalText;
+					submitBtn.disabled = false;
+				});
+		});
+
+		// Toast notification function
+		function showToast(message, type = "info") {
+			const toast = document.createElement('div');
+			const bgColor = type === 'success' ? 'bg-emerald-500' : type === 'error' ? 'bg-red-500' : 'bg-primary';
+			const icon = type === 'success' ? 'check_circle' : type === 'error' ? 'error' : 'info';
+
+			toast.className = `fixed bottom-6 right-6 ${bgColor} text-white px-6 py-4 rounded-xl shadow-lg flex items-center gap-3 z-50 transform translate-y-20 opacity-0 transition-all duration-300`;
+			toast.innerHTML = `
+                <span class="material-symbols-outlined">${icon}</span>
+                <span class="font-medium">${message}</span>
+            `;
+
+			document.body.appendChild(toast);
+
+			// Trigger animation
+			setTimeout(() => {
+				toast.classList.remove('translate-y-20', 'opacity-0');
+			}, 10);
+
+			// Remove toast after 3 seconds
+			setTimeout(() => {
+				toast.classList.add('translate-y-20', 'opacity-0');
+				setTimeout(() => toast.remove(), 300);
+			}, 3000);
+		}
+	</script>
 </body>
+
 </html>

@@ -1,6 +1,5 @@
 package com.git.Professor.Entity;
 
-
 import java.util.Arrays;
 import java.util.List;
 
@@ -13,9 +12,10 @@ import jakarta.persistence.Lob;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
+
 @Entity
-@Table(name="questionpaper")
-public class Questionpaper {
+@Table(name="demoquestionpaper")
+public class Demoquestionpaper {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,6 +27,7 @@ public class Questionpaper {
     private String difficulty;
     private String selectset;
 
+    
     // question paper image 
     private String questionpaperphotoname;
 	@Lob
@@ -46,19 +47,19 @@ public class Questionpaper {
 	private byte [] attachment;
 
 	
-	@OneToMany(mappedBy = "questionPaper")
-	private List<Questions> lq;
+	@OneToMany(mappedBy = "demoquestionpaper")
+	private List<Demoquestions> lq;
 
 
-	public Questionpaper() {
+	public Demoquestionpaper() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
 
-	public Questionpaper(long qid, String coursename, String subject, String chapter, int duration, String difficulty,
-			String selectset, String questionpaperphotoname, byte[] questionpaperimage, String explanation,
-			String attachmentname, byte[] attachment, List<Questions> lq) {
+	public Demoquestionpaper(long qid, String coursename, String subject, String chapter, int duration,
+			String difficulty, String selectset, String questionpaperphotoname, byte[] questionpaperimage,
+			String explanation, String attachmentname, byte[] attachment, List<Demoquestions> lq) {
 		super();
 		this.qid = qid;
 		this.coursename = coursename;
@@ -78,7 +79,7 @@ public class Questionpaper {
 
 	@Override
 	public String toString() {
-		return "Questionpaper [qid=" + qid + ", coursename=" + coursename + ", subject=" + subject + ", chapter="
+		return "Demoquestionpaper [qid=" + qid + ", coursename=" + coursename + ", subject=" + subject + ", chapter="
 				+ chapter + ", duration=" + duration + ", difficulty=" + difficulty + ", selectset=" + selectset
 				+ ", questionpaperphotoname=" + questionpaperphotoname + ", questionpaperimage="
 				+ Arrays.toString(questionpaperimage) + ", explanation=" + explanation + ", attachmentname="
@@ -206,19 +207,19 @@ public class Questionpaper {
 	}
 
 
-	public List<Questions> getLq() {
+	public List<Demoquestions> getLq() {
 		return lq;
 	}
 
 
-	public void setLq(List<Questions> lq) {
+	public void setLq(List<Demoquestions> lq) {
 		this.lq = lq;
 	}
 
 
 	
-	
-	
+
 	
 
+	
 }

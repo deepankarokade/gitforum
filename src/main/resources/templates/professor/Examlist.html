@@ -128,17 +128,26 @@
                                 </span>
                             </td>
                             <td>
-                                <a th:href="@{'/professor/exams/update/' + ${exam.id}}" class="btn btn-primary btn-sm btn-action">
+                                <a th:href="@{'/professor/exams/update/' + ${exam.id}}"
+                                    class="btn btn-primary btn-sm btn-action">
                                     <i class="fas fa-edit"></i> Edit
                                 </a>
                                 <button class="btn btn-danger btn-sm btn-action"
-                                    th:onclick="'deleteExam(' + ${exam.id} + ')'" >
+                                    th:onclick="'deleteExam(' + ${exam.id} + ')'">
                                     <i class="fas fa-trash"></i> Delete
                                 </button>
-								<button class="btn btn-info btn-sm btn-action"
-								    th:onclick="'rescheduleExam(' + ${exam.id} + ')'" >
-								    <i class="fas fa-calendar-alt"></i> Reschedule
-								</button>
+                                <button class="btn btn-info btn-sm btn-action"
+                                    th:onclick="'rescheduleExam(' + ${exam.id} + ')'">
+                                    <i class="fas fa-calendar-alt"></i> Reschedule
+                                </button>
+
+                                <a th:href="@{/questionpaper/viewpaper(examId=${exam.id})}"
+                                    class="btn btn-secondary btn-sm">
+                                    Set Paper
+                                </a>
+
+
+
 
                             </td>
                         </tr>
@@ -163,23 +172,23 @@
                 });
             }
         }
-		
-		function rescheduleExam(id) {
-		    let newDate = prompt("Enter new exam date (YYYY-MM-DD):");
-		    if (newDate) {
-		        fetch('/professor/exams/reschedule/' + id, {
-		            method: 'PUT',
-		            headers: { 'Content-Type': 'application/json' },
-		            body: JSON.stringify({ examDate: newDate })
-		        })
-		        .then(response => response.json())
-		        .then(data => {
-		            alert(data.message); // Success message
-		            location.reload(); // Refresh table
-		        })
-		        .catch(err => console.error("Error:", err));
-		    }
-		}
+
+        function rescheduleExam(id) {
+            let newDate = prompt("Enter new exam date (YYYY-MM-DD):");
+            if (newDate) {
+                fetch('/professor/exams/reschedule/' + id, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ examDate: newDate })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        alert(data.message); // Success message
+                        location.reload(); // Refresh table
+                    })
+                    .catch(err => console.error("Error:", err));
+            }
+        }
 
     </script>
 

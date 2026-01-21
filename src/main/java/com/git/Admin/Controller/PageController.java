@@ -9,47 +9,47 @@ public class PageController {
 
     @GetMapping("/admin/login")
     public String loginPage() {
-        return "admin-login";
+        return "admin/admin-login";
     }
 
     @GetMapping("/admin/dashboard")
     public String adminDashboard() {
-        return "admin-dashboard";
+        return "admin/admin-dashboard";
     }
 
     @GetMapping("/admin/profile")
     public String adminProfile() {
-        return "admin-manage-profile";
+        return "admin/admin-manage-profile";
     }
 
     @GetMapping("/admin/dashboard/professor")
     public String manageProfessor() {
-        return "admin-manage-faculty";
+        return "admin/admin-manage-faculty";
     }
 
     @GetMapping("/admin/dashboard/professor/add")
     public String addProfessor() {
-        return "admin-add-faculty";
+        return "admin/admin-add-faculty";
     }
 
     @GetMapping("/admin/dashboard/professor/edit/{id}")
     public String editProfessor(@PathVariable String id) {
-        return "admin-edit-faculty";
+        return "admin/admin-edit-faculty";
     }
 
     @GetMapping("/admin/dashboard/student")
     public String manageStudent() {
-        return "admin-manage-student";
+        return "admin/admin-manage-student";
     }
 
     @GetMapping("/admin/dashboard/student/add")
     public String addStudent() {
-        return "admin-student-registration";
+        return "admin/admin-student-registration";
     }
 
     @GetMapping("/admin/dashboard/student/edit")
     public String editStudent() {
-        return "admin-edit-student";
+        return "admin/admin-edit-student";
     }
 
     @GetMapping("/payment")

@@ -1,8 +1,9 @@
 package com.git.Professor.Entity;
 
 import jakarta.persistence.*;
-
 import java.time.LocalDate;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "exams")
@@ -12,45 +13,40 @@ public class Exam {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-  
     private String title;
 
-   
     private String courseName;
 
-  
     private String batch;
 
     private String section;
 
-   
     private String examType;
 
-    
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate examDate;
 
-   
     private String examVenueType;
 
-    
     @Column(length = 1000)
     private String additionalInformation;
 
-    private String facilityName;
+    // private String facilityName;
 
-    
     private String examSet;
 
- 
     private String status;
+
+    @Column(nullable = false)
+    private boolean enabled = false;
 
     private int duration;
     private int totalMarks;
+    private String professorName;
 
-  
-    public Exam() {}
+    public Exam() {
+    }
 
-   
     public Long getId() {
         return id;
     }
@@ -123,13 +119,13 @@ public class Exam {
         this.additionalInformation = additionalInformation;
     }
 
-    public String getFacilityName() {
-        return facilityName;
-    }
+    // public String getFacilityName() {
+    // return facilityName;
+    // }
 
-    public void setFacilityName(String facilityName) {
-        this.facilityName = facilityName;
-    }
+    // public void setFacilityName(String facilityName) {
+    // this.facilityName = facilityName;
+    // }
 
     public String getExamSet() {
         return examSet;
@@ -147,6 +143,14 @@ public class Exam {
         this.status = status;
     }
 
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
     public int getDuration() {
         return duration;
     }
@@ -161,5 +165,13 @@ public class Exam {
 
     public void setTotalMarks(int totalMarks) {
         this.totalMarks = totalMarks;
+    }
+
+    public String getProfessorName() {
+        return professorName;
+    }
+
+    public void setProfessorName(String professorName) {
+        this.professorName = professorName;
     }
 }
