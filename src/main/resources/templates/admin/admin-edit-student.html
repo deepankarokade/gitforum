@@ -347,11 +347,7 @@
                                                     Courses</span>
                                                 <select id="subjects" name="subjects"
                                                     class="form-select w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:border-primary focus:ring-primary h-12 px-3">
-                                                    <option disabled value="">Select primary subject stream</option>
-                                                    <option>Science (Physics, Chemistry, Math)</option>
-                                                    <option>Commerce (Accounts, Economics, Business)</option>
-                                                    <option>Arts (History, Pol Science, Geography)</option>
-                                                    <option>Computer Science</option>
+                                                    <option disabled value="">Loading courses...</option>
                                                 </select>
                                             </label>
                                         </div>
@@ -442,13 +438,50 @@
     </div>
     <script>
         const BASE_URL = 'http://localhost:8081';
+        const COURSE_API_URL = 'http://localhost:8081/admin/course';
         const urlParams = new URLSearchParams(window.location.search);
         const studentUid = urlParams.get('uid');
+        let currentSubjects = ''; // Store current subject for later selection
 
         if (!studentUid) {
             alert('No student UID provided!');
             window.location.href = `${BASE_URL}/admin/dashboard/student`;
         }
+
+        // Load courses for subjects dropdown
+        async function loadCoursesForDropdown() {
+            const subjectsDropdown = document.getElementById('subjects');
+            if (!subjectsDropdown) return;
+
+            try {
+                const response = await fetch(COURSE_API_URL);
+                if (!response.ok) throw new Error('Failed to fetch courses');
+
+                const courses = await response.json();
+
+                // Clear existing options
+                subjectsDropdown.innerHTML = '<option disabled value="">Select primary subject stream</option>';
+
+                // Add courses as options
+                courses.forEach(course => {
+                    const option = document.createElement('option');
+                    option.value = course.courseName;
+                    option.textContent = course.courseName;
+                    subjectsDropdown.appendChild(option);
+                });
+
+                // If we already loaded the student data, select the current subject
+                if (currentSubjects) {
+                    subjectsDropdown.value = currentSubjects;
+                }
+            } catch (error) {
+                console.error('Error loading courses:', error);
+                subjectsDropdown.innerHTML = '<option disabled selected value="">Failed to load courses</option>';
+            }
+        }
+
+        // Load courses on page load
+        document.addEventListener('DOMContentLoaded', loadCoursesForDropdown);
 
         // Photo upload functionality
         const photoInput = document.getElementById('photoInput');
@@ -518,7 +551,10 @@
                     document.getElementById('studentClass').value = student.studentClass || '';
                     document.getElementById('registrationId').value = student.registrationId || '';
                     document.getElementById('preferredExamDate').value = student.preferredExamDate || '';
-                    document.getElementById('subjects').value = student.subjects || '';
+
+                    // Store subject and try to select it (courses might still be loading)
+                    currentSubjects = student.subjects || '';
+                    document.getElementById('subjects').value = currentSubjects;
 
                     // Set gender radio button
                     if (student.gender === 'Male') {

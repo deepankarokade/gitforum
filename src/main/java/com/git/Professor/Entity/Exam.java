@@ -2,6 +2,7 @@ package com.git.Professor.Entity;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -12,6 +13,9 @@ public class Exam {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(unique = true)
+    private String examCode;
 
     private String title;
 
@@ -44,6 +48,9 @@ public class Exam {
     private int totalMarks;
     private String professorName;
 
+    @OneToMany(mappedBy = "exam", cascade = CascadeType.ALL)
+    private List<Questionpaper> questionPapers;
+
     public Exam() {
     }
 
@@ -53,6 +60,14 @@ public class Exam {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getExamCode() {
+        return examCode;
+    }
+
+    public void setExamCode(String examCode) {
+        this.examCode = examCode;
     }
 
     public String getTitle() {

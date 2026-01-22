@@ -66,81 +66,102 @@
 <body
     class="bg-background-light dark:bg-background-dark font-sans text-slate-900 dark:text-slate-100 min-h-screen flex">
     <aside
-        class="w-64 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 flex flex-col fixed h-full z-20 transition-colors duration-300">
-        <div class="p-6 flex items-center gap-3">
-            <div id="sidebarAdminAvatar"
-                class="w-10 h-10 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden flex-shrink-0">
-                <img alt="Admin Profile"
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-sCxFA8gILZ8ElQyqzMEii-LQG4LhHaQ_sSUR1f3nioxyB6UATDsCK3vNtl1RLfEUEt3SrS7zcSzQ8mCSh--ix1OUdIJm693dxnVLgsoiyYFZywpLxRIxGziBS9oAWga1UCZsQrDCJ4ODhuc4UYhcoS_18Sfbma9AAevTq59wkXncCBI-_3PXI8Y9JSeGZ_ces_SZY7B0oRFycEmYx6zNuDxje0s4NzaTlxW7_ONLrtuCfXS9S8cXK-LnNCjIUlQgx7BlvssmFts" />
-            </div>
-            <div>
-                <h2 id="sidebarAdminName" class="font-semibold text-sm">Loading...</h2>
-                <p class="text-xs text-slate-500 dark:text-slate-400">Admin</p>
-            </div>
-        </div>
-        <nav class="flex-1 px-4 mt-4 space-y-1">
-            <a class="flex items-center gap-3 px-3 py-2.5 text-sm font-medium text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition-all group"
-                href="http://localhost:8081/admin/dashboard">
-                <span class="material-symbols-rounded text-[20px] group-hover:text-primary">dashboard</span>
-                Dashboard
-            </a>
-            <a class="flex items-center gap-3 px-3 py-2.5 text-sm font-medium text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition-all group"
-                href="http://localhost:8081/admin/dashboard/profile">
-                <span class="material-symbols-rounded text-[20px] group-hover:text-primary">account_circle</span>
-                Manage Profile
-            </a>
-            <a class="flex items-center gap-3 px-3 py-2.5 text-sm font-medium active-nav rounded-lg shadow-md shadow-blue-500/20"
-                href="">
-                <span class="material-symbols-rounded text-[20px]">group</span>
-                Manage Students
-            </a>
-            <a class="flex items-center gap-3 px-3 py-2.5 text-sm font-medium text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition-all group"
-                href="http://localhost:8081/admin/dashboard/professor">
-                <span class="material-symbols-rounded text-[20px] group-hover:text-primary">school</span>
-                Manage Professors
-            </a>
-        </nav>
-        <div class="p-4 border-t border-slate-200 dark:border-slate-800 space-y-1">
-            <div class="flex items-center justify-between px-3 py-2.5">
-                <div class="flex items-center gap-3 text-sm font-medium text-slate-600 dark:text-slate-400">
-                    <span class="material-symbols-rounded text-[20px]">dark_mode</span>
-                    Dark Mode
+        class="w-72 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 flex flex-col justify-between py-6 fixed h-full z-20 transition-colors duration-300">
+        <div class="flex flex-col gap-8 px-6">
+            <!-- Profile Section -->
+            <div class="flex gap-3 items-center">
+                <div id="sidebarAvatar"
+                    class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-12 border-2 border-primary"
+                    data-alt="Professional portrait of the portal administrator"
+                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAHDav7IDfvT9cSxg4jMV-mSFf7EAges7dHFo-J7bVhWbd2Vnwb6fU7qulhn4mAoXTNHaGRtii7HB08NakQLsiRy1rERs3XB6tFyH6_4gmkI3hs0rF9WhKVuQkq8lJZmciga4IrnqJIF7nH-QGLIH6DxNPVsfDe3oALQgeASqMBu5QzXZrlTsCvl_DC00n3wJ6BZ5ZrnL8FPADJ7VvtAFcZYhwJJ2rXDM0oocbtDvqSjeR10pPfjtGcmJlcKx7XsyrhAlgMwbinmmU");'>
                 </div>
-                <button
-                    class="relative inline-flex h-5 w-10 flex-shrink-0 cursor-pointer items-center justify-center rounded-full focus:outline-none"
-                    id="theme-toggle">
-                    <span
-                        class="bg-slate-200 dark:bg-primary absolute mx-auto h-4 w-9 rounded-full transition-colors duration-200 ease-in-out"
-                        id="toggle-bg"></span>
-                    <span
-                        class="translate-x-[-10px] dark:translate-x-[10px] pointer-events-none absolute left-0 ml-0.5 inline-block h-4 w-4 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"
-                        id="toggle-dot"></span>
-                </button>
+                <div class="flex flex-col">
+                    <h1 id="sidebarAdminName"
+                        class="text-[#111318] dark:text-white text-base font-semibold leading-tight" aria-busy="true">
+                        Loading…</h1>
+                    <h5 class="text-slate-500 dark:text-slate-400 text-sm font-medium leading-tight">Admin</h5>
+                </div>
             </div>
-            <a class="flex items-center gap-3 px-3 py-2.5 text-sm font-medium text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition-all"
+            <!-- Nav Links -->
+            <nav class="flex flex-col gap-1">
+                <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
+                    href="/admin/dashboard">
+                    <span class="material-symbols-rounded text-[20px]">dashboard</span>
+                    <p class="text-sm font-medium">Dashboard</p>
+                </a>
+                <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
+                    href="/admin/profile">
+                    <span class="material-symbols-rounded text-[20px]">account_circle</span>
+                    <p class="text-sm font-medium">Manage Profile</p>
+                </a>
+                <a class="flex items-center gap-3 px-4 py-3 rounded-xl bg-primary text-white shadow-lg shadow-primary/20 transition-all"
+                    href="#">
+                    <span class="material-symbols-rounded text-[20px]">group</span>
+                    <p class="text-sm font-medium">Manage Students</p>
+                </a>
+                <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
+                    href="/admin/dashboard/professor">
+                    <span class="material-symbols-rounded text-[20px]">school</span>
+                    <p class="text-sm font-medium">Manage Professors</p>
+                </a>
+                <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
+                    href="/admin/dashboard/course">
+                    <span class="material-symbols-rounded text-[20px]">menu_book</span>
+                    <p class="text-sm font-medium">Manage Courses</p>
+                </a>
+                <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
+                    href="/admin/dashboard/exam">
+                    <span class="material-symbols-rounded text-[20px]">quiz</span>
+                    <p class="text-sm font-medium">Manage Exam</p>
+                </a>
+                <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
+                    href="/admin/dashboard/payment">
+                    <span class="material-symbols-rounded text-[20px]">payments</span>
+                    <p class="text-sm font-medium">Manage Payments</p>
+                </a>
+            </nav>
+        </div>
+        <!-- Footer Sidebar -->
+        <div class="flex flex-col gap-1 px-6">
+            <button id="darkModeToggle"
+                class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">
+                <span class="material-symbols-rounded text-[20px]">dark_mode</span>
+                <p class="text-sm font-medium">Dark Mode</p>
+                <div class="ml-auto">
+                    <div
+                        class="relative inline-block w-10 h-5 rounded-full bg-gray-300 dark:bg-primary transition-colors">
+                        <div
+                            class="absolute left-0.5 top-0.5 w-4 h-4 bg-white rounded-full transition-transform dark:transform dark:translate-x-5">
+                        </div>
+                    </div>
+                </div>
+            </button>
+            <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
                 href="#">
                 <span class="material-symbols-rounded text-[20px]">settings</span>
-                Settings
+                <p class="text-sm font-medium">Settings</p>
             </a>
-            <a class="flex items-center gap-3 px-3 py-2.5 text-sm font-medium text-red-500 hover:bg-red-50 dark:hover:bg-red-950/30 rounded-lg transition-all"
-                href="#">
+            <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition-all"
+                href="/admin/login">
                 <span class="material-symbols-rounded text-[20px]">logout</span>
-                Logout
+                <p class="text-sm font-medium">Logout</p>
             </a>
         </div>
     </aside>
-    <main class="flex-1 ml-64 p-8 transition-colors duration-300">
+    <main class="flex-1 ml-72 p-8 transition-colors duration-300">
         <header class="flex justify-between items-start mb-8">
             <div>
                 <h1 class="text-3xl font-bold tracking-tight">Manage Students</h1>
                 <p class="text-slate-500 dark:text-slate-400 mt-1">Oversee and manage student records across all
                     departments.</p>
             </div>
-            <a href="http://localhost:8081/admin/dashboard/student/add"
+            <!--
+            <a href="/admin/dashboard/student/add"
                 class="bg-primary text-white px-5 py-2.5 rounded-lg font-medium flex items-center gap-2 hover:bg-blue-700 transition-colors shadow-lg shadow-blue-500/20">
                 <span class="material-symbols-rounded">add</span>
                 Add New Student
             </a>
+        -->
         </header>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
             <div
@@ -172,8 +193,8 @@
                     <span class="material-symbols-rounded text-2xl">hub</span>
                 </div>
                 <div>
-                    <h3 class="text-3xl font-bold">32</h3>
-                    <p class="text-sm text-slate-500 dark:text-slate-400">Total Batches</p>
+                    <h3 id="totalBatchesCount" class="text-3xl font-bold">Loading...</h3>
+                    <p class="text-sm text-slate-500 dark:text-slate-400">Active courses</p>
                 </div>
             </div>
         </div>
@@ -186,17 +207,16 @@
                     class="w-full pl-10 pr-4 py-2.5 bg-slate-50 dark:bg-slate-800 border-none rounded-xl text-sm focus:ring-2 focus:ring-primary dark:placeholder-slate-500"
                     placeholder="Search by name, UID, or email..." type="text" />
             </div>
-            <select
+            <select id="departmentFilter" onchange="applyFilters()"
                 class="bg-slate-50 dark:bg-slate-800 border-none rounded-xl text-sm px-4 py-2.5 min-w-[160px] focus:ring-2 focus:ring-primary">
-                <option>All Departments</option>
-                <option>Computer Science</option>
-                <option>Mechanical</option>
-                <option>Electronics</option>
+                <option value="">All Departments</option>
+                <!-- Courses loaded dynamically -->
             </select>
-            <select
+            <select id="statusFilter" onchange="applyFilters()"
                 class="bg-slate-50 dark:bg-slate-800 border-none rounded-xl text-sm px-4 py-2.5 min-w-[140px] focus:ring-2 focus:ring-primary">
-                <option>Status: Active</option>
-                <option>Status: Inactive</option>
+                <option value="">All Status</option>
+                <option value="ACTIVE">Active</option>
+                <option value="INACTIVE">Inactive</option>
             </select>
             <div class="relative">
                 <button
@@ -260,27 +280,64 @@
         </div>
     </main>
     <script>
-        const themeToggleBtn = document.getElementById('theme-toggle');
-        const htmlElement = document.documentElement;
-        // Check local storage for theme preference
-        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            htmlElement.classList.add('dark');
-        } else {
-            htmlElement.classList.remove('dark');
-        }
-        themeToggleBtn.addEventListener('click', () => {
-            if (htmlElement.classList.contains('dark')) {
-                htmlElement.classList.remove('dark');
-                localStorage.theme = 'light';
-            } else {
-                htmlElement.classList.add('dark');
-                localStorage.theme = 'dark';
+        // Dark Mode Functionality
+        (function initDarkMode() {
+            const darkMode = localStorage.getItem('darkMode');
+            const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+            if (darkMode === 'enabled' || (darkMode === null && systemPrefersDark)) {
+                document.documentElement.classList.add('dark');
+            }
+        })();
+
+        // Dark mode toggle
+        document.addEventListener('DOMContentLoaded', function () {
+            const darkModeToggle = document.getElementById('darkModeToggle');
+            if (darkModeToggle) {
+                darkModeToggle.addEventListener('click', function () {
+                    document.documentElement.classList.toggle('dark');
+                    if (document.documentElement.classList.contains('dark')) {
+                        localStorage.setItem('darkMode', 'enabled');
+                    } else {
+                        localStorage.setItem('darkMode', 'disabled');
+                    }
+                });
             }
         });
 
 
-        // Fetch and display all students
+        // API URLs
         const BASE_URL = 'http://localhost:8081';
+        const COURSE_API_URL = 'http://localhost:8081/admin/course';
+
+        // Store all students for filtering
+        let allStudents = [];
+
+        // Load courses for department filter dropdown
+        async function loadCoursesForFilter() {
+            const departmentFilter = document.getElementById('departmentFilter');
+            if (!departmentFilter) return;
+
+            try {
+                const response = await fetch(COURSE_API_URL);
+                if (!response.ok) throw new Error('Failed to fetch courses');
+
+                const courses = await response.json();
+
+                // Keep the "All Departments" option and add courses
+                courses.forEach(course => {
+                    const option = document.createElement('option');
+                    option.value = course.courseName;
+                    option.textContent = course.courseName;
+                    departmentFilter.appendChild(option);
+                });
+            } catch (error) {
+                console.error('Error loading courses for filter:', error);
+            }
+        }
+
+        // Load courses on page load
+        document.addEventListener('DOMContentLoaded', loadCoursesForFilter);
         const studentsTableBody = document.getElementById('studentsTableBody');
 
         // Load Admin Profile Information
@@ -315,8 +372,10 @@
                     const blob = await photoResponse.blob();
                     if (blob && blob.size > 0) {
                         const imageUrl = URL.createObjectURL(blob);
-                        const avatarDiv = document.getElementById('sidebarAdminAvatar');
-                        avatarDiv.innerHTML = `<img alt="Admin Profile" src="${imageUrl}" class="w-full h-full object-cover" />`;
+                        const avatarDiv = document.getElementById('sidebarAvatar');
+                        if (avatarDiv) {
+                            avatarDiv.style.backgroundImage = `url("${imageUrl}")`;
+                        }
 
                         // Clean up the object URL after 5 seconds
                         setTimeout(() => URL.revokeObjectURL(imageUrl), 5000);
@@ -360,6 +419,21 @@
             } catch (error) {
                 console.error('Error fetching active student count:', error);
                 document.getElementById('activeStudentCount').textContent = '0';
+            }
+
+            try {
+                // Fetch total courses count
+                const coursesResponse = await fetch(`${BASE_URL}/admin/course/count/total`);
+                if (coursesResponse.ok) {
+                    const coursesCount = await coursesResponse.json();
+                    document.getElementById('totalBatchesCount').textContent = coursesCount.toLocaleString();
+                } else {
+                    console.warn('Failed to fetch total courses count');
+                    document.getElementById('totalBatchesCount').textContent = '0';
+                }
+            } catch (error) {
+                console.error('Error fetching total courses count:', error);
+                document.getElementById('totalBatchesCount').textContent = '0';
             }
         }
 
@@ -468,7 +542,7 @@
                                     <span class="material-symbols-rounded text-lg">edit</span>
                                 </button>
                             </a>
-                            <button class="p-1.5 text-slate-400 hover:text-red-500 transition-colors" title="Delete student">
+                            <button onclick="deleteStudent('${student.uid}')" class="p-1.5 text-slate-400 hover:text-red-500 transition-colors" title="Delete student">
                                 <span class="material-symbols-rounded text-lg">delete</span>
                             </button>
                         </div>
@@ -497,9 +571,9 @@
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
 
-                const students = await response.json();
-                console.log('Fetched students:', students);
-                renderStudents(students);
+                allStudents = await response.json();
+                console.log('Fetched students:', allStudents);
+                applyFilters();
 
             } catch (error) {
                 console.error('Error fetching students:', error);
@@ -517,6 +591,66 @@
                         </td>
                     </tr>
                 `;
+            }
+        }
+
+        // Apply filters function
+        function applyFilters() {
+            const searchInput = document.querySelector('input[placeholder*="Search"]');
+            const searchTerm = searchInput ? searchInput.value.toLowerCase().trim() : '';
+            const departmentFilter = document.getElementById('departmentFilter').value;
+            const statusFilter = document.getElementById('statusFilter').value;
+
+            const filteredStudents = allStudents.filter(student => {
+                // Search filter
+                const matchesSearch = !searchTerm ||
+                    (student.fullName && student.fullName.toLowerCase().includes(searchTerm)) ||
+                    (student.uid && student.uid.toLowerCase().includes(searchTerm)) ||
+                    (student.email && student.email.toLowerCase().includes(searchTerm));
+
+                // Department filter (subjects field for students)
+                const matchesDepartment = !departmentFilter ||
+                    (student.subjects && student.subjects.toLowerCase().includes(departmentFilter.toLowerCase()));
+
+                // Status filter
+                const matchesStatus = !statusFilter ||
+                    (student.activityStudent && student.activityStudent === statusFilter);
+
+                return matchesSearch && matchesDepartment && matchesStatus;
+            });
+
+            renderStudents(filteredStudents);
+        }
+
+        // Add search input listener
+        document.addEventListener('DOMContentLoaded', function () {
+            const searchInput = document.querySelector('input[placeholder*="Search"]');
+            if (searchInput) {
+                searchInput.addEventListener('input', applyFilters);
+            }
+        });
+
+        // Delete student function (hard delete - removes from database)
+        async function deleteStudent(uid) {
+            if (!confirm(`Are you sure you want to PERMANENTLY delete student with UID: ${uid}? This action cannot be undone!`)) {
+                return;
+            }
+
+            try {
+                const response = await fetch(`${BASE_URL}/admin/student/${uid}`, {
+                    method: 'DELETE'
+                });
+
+                if (response.ok) {
+                    alert('Student deleted successfully!');
+                    fetchAllStudents(); // Refresh the list
+                } else {
+                    const error = await response.text();
+                    alert('Failed to delete student: ' + error);
+                }
+            } catch (error) {
+                console.error('Error deleting student:', error);
+                alert('Error deleting student. Please try again.');
             }
         }
 

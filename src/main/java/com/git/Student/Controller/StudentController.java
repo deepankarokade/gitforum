@@ -5,10 +5,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,7 +29,7 @@ public class StudentController {
 
     // Save Student (Form Submit)
     @PostMapping("/register")
-    public ResponseEntity<String> registerStudent(
+    public ResponseEntity<?> registerStudent(
 
             @RequestParam("fullName") String fullName,
             @RequestParam(value = "dob", required = false) String dob,
@@ -72,16 +74,31 @@ public class StudentController {
                 student.setPhotofilename(photo.getOriginalFilename());
             }
 
-            studentService.registerStudent(student);
+            Student savedStudent = studentService.registerStudent(student);
 
-            return ResponseEntity.ok("Student registered successfully");
+            // Return JSON response with student UID for payment linking
+            java.util.Map<String, String> response = new java.util.HashMap<>();
+            response.put("message", "Student registered successfully");
+            response.put("uid", savedStudent.getUid());
+            return ResponseEntity.ok(response);
 
         } catch (Exception e) {
             e.printStackTrace();
+            java.util.Map<String, String> errorResponse = new java.util.HashMap<>();
+            errorResponse.put("message", "Error occurred while registering student: " + e.getMessage());
             return ResponseEntity
                     .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Error occurred while registering student");
+                    .body(errorResponse);
         }
+    }
+
+    // Student Login
+    @PostMapping("/login")
+    public ResponseEntity<Student> login(@RequestBody Student student) {
+
+        Student loggedInStudent = studentService.login(student.getUid(), student.getPassword());
+
+        return ResponseEntity.ok(loggedInStudent);
     }
 
     // Fetch All Students
@@ -183,10 +200,15 @@ public class StudentController {
         studentService.updateStudentActivityStatus(uid, ActivityStudent.INACTIVE);
     }
 
-    // DELETE
-    @PutMapping("/{uid}/delete")
-    public void delete(@PathVariable String uid) {
-        studentService.updateStudentActivityStatus(uid, ActivityStudent.DELETED);
+    // DELETE (Hard delete - removes from database)
+    @DeleteMapping("/{uid}")
+    public ResponseEntity<String> deleteStudent(@PathVariable String uid) {
+        try {
+            studentService.deleteStudent(uid);
+            return ResponseEntity.ok("Student deleted successfully");
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
     }
 
     // COUNT ENDPOINTS
@@ -201,5 +223,33 @@ public class StudentController {
     @GetMapping("/count/active")
     public long getActiveStudentCount() {
         return studentService.getActiveStudentCount();
+    }
+
+    // Lookup student UID by email or phone (for payment page)
+    @GetMapping("/lookup")
+    public ResponseEntity<?> lookupStudentUid(
+            @RequestParam(value = "email", required = false) String email,
+            @RequestParam(value = "phone", required = false) String phone) {
+
+        String uid = null;
+
+        // Try to find by email first
+        if (email != null && !email.isEmpty()) {
+            uid = studentService.getStudentUidByEmail(email);
+        }
+
+        // If not found, try by phone
+        if (uid == null && phone != null && !phone.isEmpty()) {
+            uid = studentService.getStudentUidByPhone(phone);
+        }
+
+        if (uid != null) {
+            java.util.Map<String, String> response = new java.util.HashMap<>();
+            response.put("uid", uid);
+            return ResponseEntity.ok(response);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Student not found with provided email or phone");
+        }
     }
 }

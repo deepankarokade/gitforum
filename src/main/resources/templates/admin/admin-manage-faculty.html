@@ -86,17 +86,17 @@
                 <!-- Nav Links -->
                 <nav class="flex flex-col gap-1">
                     <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
-                        href="http://localhost:8081/admin/dashboard">
+                        href="/admin/dashboard">
                         <span class="material-symbols-outlined fill-1">dashboard</span>
                         <p class="text-sm font-medium">Dashboard</p>
                     </a>
                     <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
-                        href="http://localhost:8081/admin/profile">
+                        href="/admin/profile">
                         <span class="material-symbols-outlined">account_circle</span>
                         <p class="text-sm font-medium">Manage Profile</p>
                     </a>
                     <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
-                        href="http://localhost:8081/admin/dashboard/student">
+                        href="/admin/dashboard/student">
                         <span class="material-symbols-outlined">group</span>
                         <p class="text-sm font-medium">Manage Students</p>
                     </a>
@@ -104,6 +104,26 @@
                         href="#">
                         <span class="material-symbols-outlined">school</span>
                         <p class="text-sm font-medium">Manage Professors</p>
+                    </a>
+                    <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
+                        href="/admin/dashboard/course">
+                        <svg xmlns="http://www.w3.org" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-5 h-5">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M9 12h3.75M9 15h3.75M9 18h3.75m.75-12h4.5M12 3v1.5M12 21v-1.5M7.5 6.75h9a2.25 2.25 0 0 1 2.25 2.25v10.5A2.25 2.25 0 0 1 16.5 21h-9a2.25 2.25 0 0 1-2.25-2.25V9a2.25 2.25 0 0 1 2.25-2.25Z" />
+                        </svg>
+                        <p class="text-sm font-medium">Manage Courses</p>
+                    </a>
+                    <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
+                        href="/admin/dashboard/exam">
+                        <span class="material-symbols-outlined">quiz</span>
+                        <p class="text-sm font-medium">Manage Exam</p>
+                    </a>
+                    <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
+                        href="/admin/dashboard/payment">
+                        <!-- Payment Icon -->
+                        <span class="material-symbols-outlined">payments</span>
+                        <p class="text-sm font-medium">Manage Payments</p>
                     </a>
                 </nav>
             </div>
@@ -128,7 +148,7 @@
                     <p class="text-sm font-medium">Settings</p>
                 </a>
                 <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition-all"
-                    href="http://localhost:8081/admin/login">
+                    href="/admin/login">
                     <span class="material-symbols-outlined">logout</span>
                     <p class="text-sm font-medium">Logout</p>
                 </a>
@@ -201,21 +221,17 @@
                             </label>
                         </div>
                         <div class="flex gap-3 w-full md:w-auto overflow-x-auto pb-1 md:pb-0">
-                            <button
-                                class="flex h-12 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-background-light dark:bg-gray-800 px-4 border border-transparent hover:border-gray-300 dark:hover:border-gray-700 transition-all">
-                                <p class="text-sm font-medium">All Departments</p>
-                                <span class="material-symbols-outlined text-gray-500">expand_more</span>
-                            </button>
-                            <button
-                                class="flex h-12 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-background-light dark:bg-gray-800 px-4 border border-transparent hover:border-gray-300 dark:hover:border-gray-700 transition-all">
-                                <p class="text-sm font-medium">Status: Active</p>
-                                <span class="material-symbols-outlined text-gray-500">expand_more</span>
-                            </button>
-                            <button
-                                class="flex h-12 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-background-light dark:bg-gray-800 px-4 border border-transparent hover:border-gray-300 dark:hover:border-gray-700 transition-all">
-                                <p class="text-sm font-medium">Courses: All</p>
-                                <span class="material-symbols-outlined text-gray-500">filter_alt</span>
-                            </button>
+                            <select id="departmentFilter" onchange="applyFilters()"
+                                class="h-12 shrink-0 rounded-lg bg-background-light dark:bg-gray-800 px-4 border border-transparent hover:border-gray-300 dark:hover:border-gray-700 text-sm font-medium transition-all focus:ring-2 focus:ring-primary">
+                                <option value="">All Departments</option>
+                                <!-- Courses loaded dynamically -->
+                            </select>
+                            <select id="statusFilter" onchange="applyFilters()"
+                                class="h-12 shrink-0 rounded-lg bg-background-light dark:bg-gray-800 px-4 border border-transparent hover:border-gray-300 dark:hover:border-gray-700 text-sm font-medium transition-all focus:ring-2 focus:ring-primary">
+                                <option value="">All Status</option>
+                                <option value="ACTIVE">Active</option>
+                                <option value="INACTIVE">Inactive</option>
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -303,9 +319,36 @@
         // API Base URL
         const API_BASE_URL = 'http://localhost:8081/admin/faculty';
         const BASE_URL = 'http://localhost:8081';
+        const COURSE_API_URL = 'http://localhost:8081/admin/course';
 
         let allFaculties = [];
         let filteredFaculties = [];
+
+        // Load courses for department filter dropdown
+        async function loadCoursesForFilter() {
+            const departmentFilter = document.getElementById('departmentFilter');
+            if (!departmentFilter) return;
+
+            try {
+                const response = await fetch(COURSE_API_URL);
+                if (!response.ok) throw new Error('Failed to fetch courses');
+
+                const courses = await response.json();
+
+                // Keep the "All Departments" option and add courses
+                courses.forEach(course => {
+                    const option = document.createElement('option');
+                    option.value = course.courseName;
+                    option.textContent = course.courseName;
+                    departmentFilter.appendChild(option);
+                });
+            } catch (error) {
+                console.error('Error loading courses for filter:', error);
+            }
+        }
+
+        // Load courses on page load
+        document.addEventListener('DOMContentLoaded', loadCoursesForFilter);
 
         // Fetch admin profile on page load
         const adminUid = localStorage.getItem('adminUid');
@@ -540,26 +583,42 @@
             return colors[index];
         }
 
-        // Search functionality
-        const searchInput = document.querySelector('input[placeholder*="Search"]');
-        searchInput.addEventListener('input', function (e) {
-            const searchTerm = e.target.value.toLowerCase().trim();
+        // Apply filters function (search, department, status)
+        function applyFilters() {
+            const searchInput = document.querySelector('input[placeholder*="Search"]');
+            const searchTerm = searchInput ? searchInput.value.toLowerCase().trim() : '';
+            const departmentFilter = document.getElementById('departmentFilter').value;
+            const statusFilter = document.getElementById('statusFilter').value;
 
-            if (!searchTerm) {
-                filteredFaculties = [...allFaculties];
-            } else {
-                filteredFaculties = allFaculties.filter(faculty =>
-                    faculty.fullName?.toLowerCase().includes(searchTerm) ||
-                    faculty.username?.toLowerCase().includes(searchTerm) ||
-                    faculty.email?.toLowerCase().includes(searchTerm) ||
-                    faculty.department?.toLowerCase().includes(searchTerm) ||
-                    faculty.subject?.toLowerCase().includes(searchTerm)
-                );
-            }
+            filteredFaculties = allFaculties.filter(faculty => {
+                // Search filter
+                const matchesSearch = !searchTerm ||
+                    (faculty.fullName && faculty.fullName.toLowerCase().includes(searchTerm)) ||
+                    (faculty.username && faculty.username.toLowerCase().includes(searchTerm)) ||
+                    (faculty.email && faculty.email.toLowerCase().includes(searchTerm)) ||
+                    (faculty.department && faculty.department.toLowerCase().includes(searchTerm)) ||
+                    (faculty.subject && faculty.subject.toLowerCase().includes(searchTerm));
+
+                // Department filter
+                const matchesDepartment = !departmentFilter ||
+                    (faculty.department && faculty.department.toLowerCase().includes(departmentFilter.toLowerCase()));
+
+                // Status filter
+                const matchesStatus = !statusFilter ||
+                    (faculty.activity && faculty.activity === statusFilter);
+
+                return matchesSearch && matchesDepartment && matchesStatus;
+            });
 
             renderFacultyTable(filteredFaculties);
             updateStats(filteredFaculties);
-        });
+        }
+
+        // Search input listener
+        const searchInput = document.querySelector('input[placeholder*="Search"]');
+        if (searchInput) {
+            searchInput.addEventListener('input', applyFilters);
+        }
 
         // Edit faculty
         function editFaculty(username) {

@@ -2,8 +2,8 @@ package com.git.Admin.Service;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -13,32 +13,25 @@ import com.git.Admin.Repository.FacultyRepository;
 
 @Service
 public class FacultyService {
-	@Autowired
-	private FacultyRepository facultyRepository;
+
+	private final FacultyRepository facultyRepository;
+
+	private final EmailService emailService;
+
+	public FacultyService(FacultyRepository facultyRepository, EmailService emailService) {
+		this.facultyRepository = facultyRepository;
+		this.emailService = emailService;
+	}
 
 	public Faculty registerFaculty(Faculty faculty) {
 		return facultyRepository.save(faculty);
 	}
 
 	// Generate Faculty Username
-	private String generateFacultyUsername(String fullName, String mobileNumber) {
-
-		if (fullName == null || fullName.length() < 2) {
-			throw new RuntimeException("Faculty name must have at least 2 characters");
-		}
-
-		if (mobileNumber == null || mobileNumber.length() < 5) {
-			throw new RuntimeException("Mobile number must have at least 5 digits");
-		}
-
-		String namePart = fullName
-				.trim()
-				.substring(0, 2)
-				.toUpperCase();
-
-		String mobilePart = mobileNumber.substring(0, 5);
-
-		return "FAC-" + mobilePart + "-" + namePart;
+	private String generateFacultyUsername() {
+		long count = facultyRepository.count();
+		long nextNumber = count + 1;
+		return String.format("F%03d", nextNumber);
 	}
 
 	// Register Faculty in Database
@@ -48,9 +41,7 @@ public class FacultyService {
 			throw new RuntimeException("Profile photo is mandatory");
 		}
 
-		String username = generateFacultyUsername(
-				faculty.getFullName(),
-				faculty.getMobileNo());
+		String username = generateFacultyUsername();
 
 		if (facultyRepository.existsByUsername(username)) {
 			throw new RuntimeException("Faculty username already exists");
@@ -58,11 +49,18 @@ public class FacultyService {
 
 		faculty.setUsername(username);
 		faculty.setPhotofilename(photo.getOriginalFilename());
+		faculty.setPassword(UUID.randomUUID().toString().substring(0, 6));
 		try {
 			faculty.setPhoto(photo.getBytes());
 		} catch (IOException ie) {
 			throw new RuntimeException("Failed to save profile photo");
 		}
+		try {
+			emailService.sendProfessorCredentials(faculty.getEmail(), faculty.getUsername(), faculty.getPassword());
+		} catch (Exception e) {
+			System.err.println("Failed to send email: " + e.getMessage());
+		}
+
 		return facultyRepository.save(faculty);
 	}
 

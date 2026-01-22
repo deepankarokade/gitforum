@@ -40,48 +40,54 @@ const BASE_URL = 'http://localhost:8081';
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    // Get all form inputs
+    // Get all form inputs using name attributes (more reliable)
     const formData = new FormData();
 
-    // Get form values - using querySelector to get the exact inputs
+    // Personal Information
     const fullName = form.querySelector('input[name="fullName"]').value;
     const dob = form.querySelector('input[name="dob"]').value;
     const gender = form.querySelector('input[name="gender"]:checked')?.value || '';
 
-    // Contact Details section - need to add name attributes via JavaScript
-    const emailInput = form.querySelectorAll('input[type="email"]')[0];
-    const contactInput = form.querySelectorAll('input[type="tel"]')[0];
-    const addressInput = form.querySelectorAll('input[placeholder="Apartment, Street, Area"]')[0];
-    const stateSelect = form.querySelector('select');
-    const cityInput = form.querySelectorAll('input[placeholder="e.g. Pune"]')[0];
+    // Contact Details - using name attributes
+    const email = form.querySelector('input[name="email"]')?.value || '';
+    const contactNumber = form.querySelector('input[name="contactNumber"]')?.value || '';
+    const address = form.querySelector('input[name="address"]')?.value || '';
+    const state = form.querySelector('select[name="state"]')?.value || '';
+    const city = form.querySelector('input[name="city"]')?.value || '';
 
     // Parent/Guardian section
-    const parentNameInput = form.querySelectorAll('input[placeholder="Full Name"]')[0];
-    const parentContactInput = form.querySelectorAll('input[placeholder="Phone Number"]')[0];
+    const parentName = form.querySelector('input[name="parentName"]')?.value || '';
+    const parentContact = form.querySelector('input[name="parentContact"]')?.value || '';
 
     // Academic section
-    const collegeNameInput = form.querySelectorAll('input[placeholder="Enter institution name"]')[0];
-    const classInput = form.querySelectorAll('input[placeholder="e.g. 11th / 12th"]')[0];
-    const registrationIdInput = form.querySelectorAll('input[placeholder="Enter ID if available"]')[0];
-    const examDateInput = form.querySelectorAll('input[type="date"]')[1]; // Second date input
-    const subjectsSelect = form.querySelectorAll('select')[1]; // Second select
+    const schoolCollegeName = form.querySelector('input[name="schoolCollegeName"]')?.value || '';
+    const studentClass = form.querySelector('input[name="studentClass"]')?.value || '';
+    const registrationId = form.querySelector('input[name="registrationId"]')?.value || '';
+    const preferredExamDate = form.querySelector('input[name="preferredExamDate"]')?.value || '';
+    const subjects = form.querySelector('select[name="subjects"]')?.value || '';
+
+    // Validation: Contact Number is required for UID generation
+    if (!contactNumber || contactNumber.length < 5) {
+        alert('❌ Contact Number is required and must have at least 5 digits');
+        return;
+    }
 
     // Append all data to FormData
     formData.append('fullName', fullName);
     if (dob) formData.append('dob', dob);
     if (gender) formData.append('gender', gender);
-    if (emailInput && emailInput.value) formData.append('email', emailInput.value);
-    if (contactInput && contactInput.value) formData.append('contactNumber', contactInput.value);
-    if (addressInput && addressInput.value) formData.append('address', addressInput.value);
-    if (stateSelect && stateSelect.value) formData.append('state', stateSelect.value);
-    if (cityInput && cityInput.value) formData.append('city', cityInput.value);
-    if (parentNameInput && parentNameInput.value) formData.append('parentName', parentNameInput.value);
-    if (parentContactInput && parentContactInput.value) formData.append('parentContact', parentContactInput.value);
-    if (collegeNameInput && collegeNameInput.value) formData.append('schoolCollegeName', collegeNameInput.value);
-    if (classInput && classInput.value) formData.append('studentClass', classInput.value);
-    if (registrationIdInput && registrationIdInput.value) formData.append('registrationId', registrationIdInput.value);
-    if (examDateInput && examDateInput.value) formData.append('preferredExamDate', examDateInput.value);
-    if (subjectsSelect && subjectsSelect.value) formData.append('subjects', subjectsSelect.value);
+    if (email) formData.append('email', email);
+    formData.append('contactNumber', contactNumber); // Required
+    if (address) formData.append('address', address);
+    if (state) formData.append('state', state);
+    if (city) formData.append('city', city);
+    if (parentName) formData.append('parentName', parentName);
+    if (parentContact) formData.append('parentContact', parentContact);
+    if (schoolCollegeName) formData.append('schoolCollegeName', schoolCollegeName);
+    if (studentClass) formData.append('studentClass', studentClass);
+    if (registrationId) formData.append('registrationId', registrationId);
+    if (preferredExamDate) formData.append('preferredExamDate', preferredExamDate);
+    if (subjects) formData.append('subjects', subjects);
 
     // Append photo if selected
     if (photoInput.files[0]) {
@@ -106,10 +112,15 @@ form.addEventListener('submit', async (e) => {
         });
 
         if (response.ok) {
-            const message = await response.text();
-            alert('✅ ' + message);
-            // Redirect to student management page
-            window.location.href = `${BASE_URL}/admin/dashboard/student`;
+            const responseData = await response.json();
+            const studentUid = responseData.uid || '';
+            alert('✅ ' + (responseData.message || 'Student registered successfully'));
+            // Redirect to payment page with name, phone, email, and studentUid as URL parameters
+            const encodedName = encodeURIComponent(fullName);
+            const encodedPhone = encodeURIComponent(contactNumber);
+            const encodedEmail = encodeURIComponent(email);
+            const encodedUid = encodeURIComponent(studentUid);
+            window.location.href = `${BASE_URL}/payment?name=${encodedName}&phone=${encodedPhone}&email=${encodedEmail}&uid=${encodedUid}`;
         } else {
             const error = await response.text();
             alert('❌ Error: ' + error);

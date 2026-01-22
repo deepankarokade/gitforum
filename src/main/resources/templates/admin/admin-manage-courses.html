@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Manage Courses - ExamPortal Admin</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#135bec",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Lexend"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Lexend', sans-serif;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .notification {
+            animation: slideIn 0.3s ease-out;
+            transition: all 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body
+    class="bg-background-light dark:bg-background-dark font-display text-[#111318] dark:text-white transition-colors duration-200">
+    <div class="flex h-screen overflow-hidden">
+
+        <!-- Sidebar Navigation -->
+        <aside
+            class="w-72 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 flex flex-col justify-between py-6">
+            <div class="flex flex-col gap-8 px-6">
+                <!-- Profile Section -->
+                <div class="flex gap-3 items-center">
+                    <div id="sidebarAvatar"
+                        class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-12 border-2 border-primary"
+                        data-alt="Professional portrait of the portal administrator"
+                        style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAHDav7IDfvT9cSxg4jMV-mSFf7EAges7dHFo-J7bVhWbd2Vnwb6fU7qulhn4mAoXTNHaGRtii7HB08NakQLsiRy1rERs3XB6tFyH6_4gmkI3hs0rF9WhKVuQkq8lJZmciga4IrnqJIF7nH-QGLIH6DxNPVsfDe3oALQgeASqMBu5QzXZrlTsCvl_DC00n3wJ6BZ5ZrnL8FPADJ7VvtAFcZYhwJJ2rXDM0oocbtDvqSjeR10pPfjtGcmJlcKx7XsyrhAlgMwbinmmU");'>
+                    </div>
+                    <div class="flex flex-col">
+                        <h1 id="sidebarAdminName"
+                            class="text-[#111318] dark:text-white text-base font-semibold leading-tight"
+                            aria-busy="true">Loading…</h1>
+                        <p class="text-[#616f89] dark:text-slate-400 text-sm">Admin</p>
+                    </div>
+                </div>
+                <!-- Nav Links -->
+                <nav class="flex flex-col gap-1">
+                    <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
+                        href="/admin/dashboard">
+                        <span class="material-symbols-outlined fill-1">dashboard</span>
+                        <p class="text-sm font-medium">Dashboard</p>
+                    </a>
+                    <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
+                        href="/admin/profile">
+                        <span class="material-symbols-outlined">account_circle</span>
+                        <p class="text-sm font-medium">Manage Profile</p>
+                    </a>
+                    <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
+                        href="/admin/dashboard/student">
+                        <span class="material-symbols-outlined">group</span>
+                        <p class="text-sm font-medium">Manage Students</p>
+                    </a>
+                    <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
+                        href="/admin/dashboard/professor">
+                        <span class="material-symbols-outlined">school</span>
+                        <p class="text-sm font-medium">Manage Professors</p>
+                    </a>
+                    <a class="flex items-center gap-3 px-4 py-3 rounded-xl bg-primary text-white shadow-lg shadow-primary/20 transition-all"
+                        href="#">
+                        <span class="material-symbols-outlined">menu_book</span>
+                        <p class="text-sm font-medium">Manage Courses</p>
+                    </a>
+                    <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
+                        href="/admin/dashboard/exam">
+                        <span class="material-symbols-outlined">quiz</span>
+                        <p class="text-sm font-medium">Manage Exam</p>
+                    </a>
+                    <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
+                        href="/admin/dashboard/payment">
+                        <span class="material-symbols-outlined">payments</span>
+                        <p class="text-sm font-medium">Manage Payments</p>
+                    </a>
+                </nav>
+            </div>
+            <!-- Footer Sidebar -->
+            <div class="flex flex-col gap-1 px-6">
+                <button id="darkModeToggle"
+                    class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">
+                    <span class="material-symbols-outlined">dark_mode</span>
+                    <p class="text-sm font-medium">Dark Mode</p>
+                    <div class="ml-auto">
+                        <div
+                            class="relative inline-block w-10 h-5 rounded-full bg-gray-300 dark:bg-primary transition-colors">
+                            <div
+                                class="absolute left-0.5 top-0.5 w-4 h-4 bg-white rounded-full transition-transform dark:transform dark:translate-x-5">
+                            </div>
+                        </div>
+                    </div>
+                </button>
+                <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
+                    href="#">
+                    <span class="material-symbols-outlined">settings</span>
+                    <p class="text-sm font-medium">Settings</p>
+                </a>
+                <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition-all"
+                    href="/admin/login">
+                    <span class="material-symbols-outlined">logout</span>
+                    <p class="text-sm font-medium">Logout</p>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="flex-1 overflow-y-auto bg-background-light dark:bg-background-dark">
+            <div class="max-w-6xl mx-auto py-8 px-6">
+                <!-- Page Heading -->
+                <div class="flex flex-wrap justify-between items-end gap-4 mb-8">
+                    <div class="flex flex-col gap-2">
+                        <h2 class="text-[#111318] dark:text-white text-3xl font-bold tracking-tight">Manage Courses</h2>
+                        <p class="text-[#616f89] dark:text-gray-400 text-base font-normal">Create, view, and manage
+                            available courses for examinations.</p>
+                    </div>
+                    <button onclick="openAddModal()"
+                        class="flex items-center justify-center gap-2 rounded-lg h-11 px-6 bg-primary text-white text-sm font-bold transition-transform hover:scale-[1.02] active:scale-95 shadow-lg shadow-primary/20">
+                        <span class="material-symbols-outlined text-xl">add</span>
+                        <span>Add New Course</span>
+                    </button>
+                </div>
+
+                <!-- Stats Overview -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                    <div
+                        class="flex flex-col gap-2 rounded-xl p-6 bg-white dark:bg-background-dark border border-[#dbdfe6] dark:border-gray-800 shadow-sm">
+                        <p id="totalCount" class="text-[#111318] dark:text-white text-3xl font-bold leading-tight">0</p>
+                        <div class="flex items-center gap-3">
+                            <span
+                                class="material-symbols-outlined text-primary bg-primary/10 p-2 rounded-lg">menu_book</span>
+                            <p class="text-gray-500 dark:text-gray-400 text-sm font-medium">Total Courses</p>
+                        </div>
+                    </div>
+                    <div
+                        class="flex flex-col gap-2 rounded-xl p-6 bg-white dark:bg-background-dark border border-[#dbdfe6] dark:border-gray-800 shadow-sm">
+                        <p id="activeCount" class="text-[#111318] dark:text-white text-3xl font-bold leading-tight">0
+                        </p>
+                        <div class="flex items-center gap-3">
+                            <span
+                                class="material-symbols-outlined text-green-500 bg-green-500/10 p-2 rounded-lg">check_circle</span>
+                            <p class="text-gray-500 dark:text-gray-400 text-sm font-medium">Active Courses</p>
+                        </div>
+                    </div>
+                    <div
+                        class="flex flex-col gap-2 rounded-xl p-6 bg-white dark:bg-background-dark border border-[#dbdfe6] dark:border-gray-800 shadow-sm">
+                        <p id="examCount" class="text-[#111318] dark:text-white text-3xl font-bold leading-tight">0</p>
+                        <div class="flex items-center gap-3">
+                            <span
+                                class="material-symbols-outlined text-orange-500 bg-orange-500/10 p-2 rounded-lg">quiz</span>
+                            <p class="text-gray-500 dark:text-gray-400 text-sm font-medium">Linked Exams</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Search and Filters -->
+                <div
+                    class="bg-white dark:bg-background-dark border border-[#dbdfe6] dark:border-gray-800 rounded-xl mb-6">
+                    <div class="p-4 flex flex-col md:flex-row gap-4 items-center">
+                        <div class="w-full md:flex-1">
+                            <label class="relative flex w-full">
+                                <div class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
+                                    <span class="material-symbols-outlined text-gray-400">search</span>
+                                </div>
+                                <input id="searchInput"
+                                    class="w-full h-12 rounded-lg border-none bg-background-light dark:bg-gray-800 pl-12 pr-4 text-[#111318] dark:text-white placeholder:text-[#616f89] focus:ring-2 focus:ring-primary transition-all"
+                                    placeholder="Search by course name or ID..." />
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Courses Table -->
+                <div
+                    class="bg-white dark:bg-background-dark border border-[#dbdfe6] dark:border-gray-800 rounded-xl overflow-hidden shadow-sm">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr
+                                    class="bg-gray-50 dark:bg-gray-800/50 border-b border-[#dbdfe6] dark:border-gray-800">
+                                    <th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-gray-500">#
+                                    </th>
+                                    <th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-gray-500">
+                                        Course ID</th>
+                                    <th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-gray-500">
+                                        Course Name</th>
+                                    <th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-gray-500">
+                                        Status</th>
+                                    <th
+                                        class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-gray-500 text-right">
+                                        Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="coursesTableBody" class="divide-y divide-gray-100 dark:divide-gray-800">
+                                <!-- Loading state -->
+                                <tr>
+                                    <td colspan="5" class="px-6 py-12 text-center">
+                                        <div class="flex flex-col items-center gap-3">
+                                            <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-primary">
+                                            </div>
+                                            <p class="text-sm text-gray-500">Loading courses...</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- Pagination -->
+                    <div id="paginationContainer"
+                        class="px-6 py-4 bg-gray-50 dark:bg-gray-800/50 flex items-center justify-between border-t border-[#dbdfe6] dark:border-gray-800">
+                        <p class="text-sm text-gray-500">
+                            Showing <span id="showingFrom"
+                                class="font-semibold text-gray-700 dark:text-gray-300">0</span> to
+                            <span id="showingTo" class="font-semibold text-gray-700 dark:text-gray-300">0</span> of
+                            <span id="totalRecords" class="font-semibold text-gray-700 dark:text-gray-300">0</span>
+                            results
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Add Course Modal -->
+    <div id="addCourseModal"
+        class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 hidden">
+        <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl w-full max-w-md mx-4 overflow-hidden">
+            <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
+                <h3 class="text-lg font-bold text-gray-900 dark:text-white">Add New Course</h3>
+                <button onclick="closeAddModal()"
+                    class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            <form id="addCourseForm" class="p-6 space-y-5">
+                <div class="space-y-2">
+                    <label class="text-sm font-semibold text-gray-700 dark:text-gray-300">Course ID <span
+                            class="text-red-500">*</span></label>
+                    <input type="text" id="courseIdInput" required
+                        class="w-full h-12 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-4 text-gray-900 dark:text-white focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
+                        placeholder="e.g., JEE-001" />
+                    <p class="text-xs text-gray-500">Unique identifier for the course</p>
+                </div>
+                <div class="space-y-2">
+                    <label class="text-sm font-semibold text-gray-700 dark:text-gray-300">Course Name <span
+                            class="text-red-500">*</span></label>
+                    <input type="text" id="courseNameInput" required
+                        class="w-full h-12 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-4 text-gray-900 dark:text-white focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
+                        placeholder="e.g., JEE Main" />
+                </div>
+                <div class="flex gap-3 pt-4">
+                    <button type="button" onclick="closeAddModal()"
+                        class="flex-1 px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-semibold hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+                        Cancel
+                    </button>
+                    <button type="submit"
+                        class="flex-1 px-4 py-3 rounded-lg bg-primary text-white font-semibold hover:bg-blue-700 transition-colors shadow-lg shadow-primary/20">
+                        Add Course
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div id="deleteModal"
+        class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 hidden">
+        <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl w-full max-w-sm mx-4 overflow-hidden">
+            <div class="p-6 text-center">
+                <div
+                    class="w-16 h-16 mx-auto mb-4 rounded-full bg-red-100 dark:bg-red-900/30 flex items-center justify-center">
+                    <span class="material-symbols-outlined text-3xl text-red-500">delete_forever</span>
+                </div>
+                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Delete Course?</h3>
+                <p class="text-sm text-gray-500 dark:text-gray-400 mb-6">
+                    Are you sure you want to delete "<span id="deleteCourseNameText" class="font-semibold"></span>"?
+                    This action cannot be undone.
+                </p>
+                <div class="flex gap-3">
+                    <button onclick="closeDeleteModal()"
+                        class="flex-1 px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-semibold hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+                        Cancel
+                    </button>
+                    <button id="confirmDeleteBtn"
+                        class="flex-1 px-4 py-3 rounded-lg bg-red-500 text-white font-semibold hover:bg-red-600 transition-colors">
+                        Delete
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+            // Dark Mode Functionality
+            (function initDarkMode() {
+                const darkMode = localStorage.getItem('darkMode');
+                const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+                if (darkMode === 'enabled' || (darkMode === null && systemPrefersDark)) {
+                    document.documentElement.classList.add('dark');
+                }
+            })();
+
+        // Dark mode toggle
+        document.addEventListener('DOMContentLoaded', function () {
+            const darkModeToggle = document.getElementById('darkModeToggle');
+            if (darkModeToggle) {
+                darkModeToggle.addEventListener('click', function () {
+                    document.documentElement.classList.toggle('dark');
+                    if (document.documentElement.classList.contains('dark')) {
+                        localStorage.setItem('darkMode', 'enabled');
+                    } else {
+                        localStorage.setItem('darkMode', 'disabled');
+                    }
+                });
+            }
+        });
+
+        // API Base URL
+        const BASE_URL = 'http://localhost:8081';
+        const API_URL = `${BASE_URL}/admin/course`;
+
+        let allCourses = [];
+        let filteredCourses = [];
+        let courseToDelete = null;
+
+        // Fetch admin profile on page load
+        const adminUid = localStorage.getItem('adminUid');
+
+        // Load admin name and photo
+        (async function loadAdminProfile() {
+            if (!adminUid) {
+                console.warn('No admin UID found in localStorage');
+                return;
+            }
+
+            try {
+                // Fetch admin name
+                const nameRes = await fetch(`${BASE_URL}/admin/profile/${adminUid}/name`);
+                if (nameRes.ok) {
+                    const name = await nameRes.text();
+                    const sidebarNameEl = document.getElementById('sidebarAdminName');
+                    if (sidebarNameEl) {
+                        sidebarNameEl.textContent = name;
+                        sidebarNameEl.removeAttribute('aria-busy');
+                    }
+                }
+
+                // Fetch admin profile picture
+                const picRes = await fetch(`${BASE_URL}/admin/profile/${adminUid}/profile-picture`);
+                if (picRes.ok) {
+                    const blob = await picRes.blob();
+                    if (blob && blob.size > 0) {
+                        const objectUrl = URL.createObjectURL(blob);
+                        const sidebarAvatar = document.getElementById('sidebarAvatar');
+                        if (sidebarAvatar) {
+                            sidebarAvatar.style.backgroundImage = `url("${objectUrl}")`;
+                        }
+                    }
+                }
+            } catch (error) {
+                console.error('Error loading admin profile:', error);
+            }
+        })();
+
+        // Fetch all courses on page load
+        document.addEventListener('DOMContentLoaded', function () {
+            fetchAllCourses();
+        });
+
+        // Fetch all courses from API
+        async function fetchAllCourses() {
+            try {
+                const response = await fetch(API_URL);
+
+                if (!response.ok) {
+                    throw new Error('Failed to fetch course data');
+                }
+
+                allCourses = await response.json();
+                filteredCourses = [...allCourses];
+
+                renderCoursesTable(filteredCourses);
+                updateStats(filteredCourses);
+
+            } catch (error) {
+                console.error('Error fetching courses:', error);
+                showError('Failed to load courses. Please refresh the page.');
+            }
+        }
+
+        // Render courses table
+        function renderCoursesTable(courses) {
+            const tbody = document.getElementById('coursesTableBody');
+
+            if (!courses || courses.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="5" class="px-6 py-12 text-center text-gray-500">
+                            <div class="flex flex-col items-center gap-3">
+                                <span class="material-symbols-outlined text-5xl text-gray-300">menu_book</span>
+                                <p class="text-lg font-medium">No courses found</p>
+                                <p class="text-sm">Add your first course to get started.</p>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+                updatePagination(0);
+                return;
+            }
+
+            tbody.innerHTML = courses.map((course, index) => `
+                <tr class="hover:bg-gray-50 dark:hover:bg-gray-800/40 transition-colors">
+                    <td class="px-6 py-4 text-sm font-medium text-gray-600 dark:text-gray-400">
+                        ${index + 1}
+                    </td>
+                    <td class="px-6 py-4">
+                        <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-bold bg-primary/10 text-primary">
+                            ${course.courseId || 'N/A'}
+                        </span>
+                    </td>
+                    <td class="px-6 py-4">
+                        <div class="flex items-center gap-3">
+                            <div class="size-10 rounded-xl bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center">
+                                <span class="material-symbols-outlined text-primary">menu_book</span>
+                            </div>
+                            <div>
+                                <p class="text-sm font-semibold text-gray-900 dark:text-white">${course.courseName || 'Unnamed Course'}</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4">
+                        <div class="flex items-center gap-1.5 text-green-700 dark:text-green-400">
+                            <div class="size-2 rounded-full bg-green-500"></div>
+                            <span class="text-sm font-medium">Active</span>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4 text-right">
+                        <div class="flex justify-end gap-2">
+                            <button onclick="deleteCourse('${course.courseId}', '${course.courseName}')" 
+                                class="p-2 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg text-gray-500 hover:text-red-500 transition-colors"
+                                title="Delete Course">
+                                <span class="material-symbols-outlined text-lg">delete</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+
+            updatePagination(courses.length);
+        }
+
+        // Update statistics
+        function updateStats(courses) {
+            const totalCourses = courses.length;
+            document.getElementById('totalCount').textContent = totalCourses;
+            document.getElementById('activeCount').textContent = totalCourses; // All active for now
+            document.getElementById('examCount').textContent = '0'; // Placeholder
+        }
+
+        // Update pagination info
+        function updatePagination(count) {
+            document.getElementById('showingFrom').textContent = count > 0 ? '1' : '0';
+            document.getElementById('showingTo').textContent = count;
+            document.getElementById('totalRecords').textContent = count;
+        }
+
+        // Search functionality
+        document.getElementById('searchInput').addEventListener('input', function (e) {
+            const searchTerm = e.target.value.toLowerCase().trim();
+
+            if (!searchTerm) {
+                filteredCourses = [...allCourses];
+            } else {
+                filteredCourses = allCourses.filter(course =>
+                    course.courseName?.toLowerCase().includes(searchTerm) ||
+                    course.courseId?.toLowerCase().includes(searchTerm)
+                );
+            }
+
+            renderCoursesTable(filteredCourses);
+            updateStats(filteredCourses);
+        });
+
+        // Modal functions
+        function openAddModal() {
+            document.getElementById('addCourseModal').classList.remove('hidden');
+            document.getElementById('courseIdInput').value = '';
+            document.getElementById('courseNameInput').value = '';
+        }
+
+        function closeAddModal() {
+            document.getElementById('addCourseModal').classList.add('hidden');
+        }
+
+        function openDeleteModal(courseId, courseName) {
+            courseToDelete = courseId;
+            document.getElementById('deleteCourseNameText').textContent = courseName;
+            document.getElementById('deleteModal').classList.remove('hidden');
+        }
+
+        function closeDeleteModal() {
+            courseToDelete = null;
+            document.getElementById('deleteModal').classList.add('hidden');
+        }
+
+        // Add course form submission
+        document.getElementById('addCourseForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const courseId = document.getElementById('courseIdInput').value.trim();
+            const courseName = document.getElementById('courseNameInput').value.trim();
+
+            if (!courseId || !courseName) {
+                showNotification('Please fill in all required fields', 'error');
+                return;
+            }
+
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        courseId: courseId,
+                        courseName: courseName
+                    })
+                });
+
+                if (response.ok) {
+                    showNotification('Course added successfully!', 'success');
+                    closeAddModal();
+                    fetchAllCourses();
+                } else {
+                    const error = await response.text();
+                    showNotification(error || 'Failed to add course', 'error');
+                }
+            } catch (error) {
+                console.error('Error adding course:', error);
+                showNotification('Network error. Please try again.', 'error');
+            }
+        });
+
+        // Delete course
+        function deleteCourse(courseId, courseName) {
+            openDeleteModal(courseId, courseName);
+        }
+
+        // Confirm delete
+        document.getElementById('confirmDeleteBtn').addEventListener('click', async function () {
+            if (!courseToDelete) return;
+
+            try {
+                const response = await fetch(`${API_URL}/${courseToDelete}`, {
+                    method: 'DELETE'
+                });
+
+                if (response.ok) {
+                    showNotification('Course deleted successfully!', 'success');
+                    closeDeleteModal();
+                    fetchAllCourses();
+                } else {
+                    const error = await response.text();
+                    showNotification(error || 'Failed to delete course', 'error');
+                }
+            } catch (error) {
+                console.error('Error deleting course:', error);
+                showNotification('Network error. Please try again.', 'error');
+            }
+        });
+
+        // Show notification
+        function showNotification(message, type = 'info') {
+            const existing = document.querySelector('.notification');
+            if (existing) existing.remove();
+
+            const notification = document.createElement('div');
+            notification.className = `notification fixed top-4 right-4 z-50 px-6 py-4 rounded-lg shadow-2xl flex items-center gap-3 ${type === 'success' ? 'bg-green-500 text-white' :
+                    type === 'error' ? 'bg-red-500 text-white' :
+                        'bg-blue-500 text-white'
+                }`;
+
+            notification.innerHTML = `
+                <span class="material-symbols-outlined">${type === 'success' ? 'check_circle' :
+                    type === 'error' ? 'error' :
+                        'info'
+                }</span>
+                <span class="font-medium">${message}</span>
+            `;
+
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                notification.style.transform = 'translateX(100%)';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+
+        // Show error message
+        function showError(message) {
+            const tbody = document.getElementById('coursesTableBody');
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="5" class="px-6 py-12 text-center text-red-500">
+                        <div class="flex flex-col items-center gap-3">
+                            <span class="material-symbols-outlined text-5xl">error</span>
+                            <p class="text-lg font-medium">${message}</p>
+                        </div>
+                    </td>
+                </tr>
+            `;
+        }
+
+        // Close modals on outside click
+        document.getElementById('addCourseModal').addEventListener('click', function (e) {
+            if (e.target === this) closeAddModal();
+        });
+
+        document.getElementById('deleteModal').addEventListener('click', function (e) {
+            if (e.target === this) closeDeleteModal();
+        });
+
+        // Close modals on Escape key
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                closeAddModal();
+                closeDeleteModal();
+            }
+        });
+    </script>
+</body>
+
+</html>

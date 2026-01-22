@@ -1,5 +1,7 @@
 package com.git.Professor.Service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,14 @@ public class QuestionpaperService {
 
 		qr.save(questionpaper);
 
+	}
+
+	public List<Questionpaper> getPapersByExam(Long examId) {
+		return qr.findByExamId(examId);
+	}
+
+	public Questionpaper getQuestionPaperById(Long qid) {
+		return qr.findById(qid).orElse(null);
 	}
 
 }

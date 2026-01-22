@@ -84,19 +84,39 @@
             <p class="text-sm font-medium">Dashboard</p>
           </a>
           <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
-            href="http://localhost:8081/admin/profile">
+            href="/admin/profile">
             <span class="material-symbols-outlined">account_circle</span>
             <p class="text-sm font-medium">Manage Profile</p>
           </a>
           <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
-            href="http://localhost:8081/admin/dashboard/student">
+            href="/admin/dashboard/student">
             <span class="material-symbols-outlined">group</span>
             <p class="text-sm font-medium">Manage Students</p>
           </a>
           <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
-            href="http://localhost:8081/admin/dashboard/professor">
+            href="/admin/dashboard/professor">
             <span class="material-symbols-outlined">school</span>
             <p class="text-sm font-medium">Manage Professors</p>
+          </a>
+          <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
+            href="/admin/dashboard/course">
+            <svg xmlns="http://www.w3.org" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+              class="w-5 h-5">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M9 12h3.75M9 15h3.75M9 18h3.75m.75-12h4.5M12 3v1.5M12 21v-1.5M7.5 6.75h9a2.25 2.25 0 0 1 2.25 2.25v10.5A2.25 2.25 0 0 1 16.5 21h-9a2.25 2.25 0 0 1-2.25-2.25V9a2.25 2.25 0 0 1 2.25-2.25Z" />
+            </svg>
+            <p class="text-sm font-medium">Manage Courses</p>
+          </a>
+          <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
+            href="/admin/dashboard/exam">
+            <span class="material-symbols-outlined">quiz</span>
+            <p class="text-sm font-medium">Manage Exam</p>
+          </a>
+          <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
+            href="/admin/dashboard/payment">
+            <!-- Payment Icon -->
+            <span class="material-symbols-outlined">payments</span>
+            <p class="text-sm font-medium">Manage Payments</p>
           </a>
         </nav>
       </div>
@@ -120,7 +140,7 @@
           <p class="text-sm font-medium">Settings</p>
         </a>
         <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition-all"
-          href="http://localhost:8081/admin/login">
+          href="/admin/login">
           <span class="material-symbols-outlined">logout</span>
           <p class="text-sm font-medium">Logout</p>
         </a>
@@ -226,14 +246,16 @@
               <p class="text-slate-500 dark:text-slate-400 text-sm mt-1">Easily add new records to your database.</p>
             </div>
             <div class="flex flex-wrap gap-4">
-              <a href="http://localhost:8081/admin/dashboard/student/add">
+              <a href="/admin/dashboard/student/add">
+                <!--
                 <button
                   class="flex items-center gap-2 px-6 py-3 bg-primary hover:bg-blue-700 text-white rounded-xl font-bold transition-all shadow-lg shadow-primary/25">
                   <span class="material-symbols-outlined">person_add</span>
                   <span>Add New Student</span>
                 </button>
+              -->
               </a>
-              <a href="http://localhost:8081/admin/dashboard/professor/add">
+              <a href="/admin/dashboard/professor/add">
                 <button
                   class="flex items-center gap-2 px-6 py-3 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-900 dark:text-white rounded-xl font-bold transition-all border border-slate-200 dark:border-slate-700">
                   <span class="material-symbols-outlined">person_add_alt</span>

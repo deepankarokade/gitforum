@@ -57,6 +57,24 @@ public class ProfessorController {
         return "professor/Examlist";
     }
 
+    // Temporary test mapping for questionpaper
+    @GetMapping("/questionpaper-test")
+    public String questionpaperTest(@RequestParam(required = false) Long examId, Model model) {
+        List<Exam> exams = examService.getAllExams();
+        model.addAttribute("exams", exams);
+        
+        if (examId != null) {
+            // Find exam by ID (simple implementation)
+            Exam selectedExam = exams.stream()
+                .filter(exam -> exam.getId().equals(examId))
+                .findFirst()
+                .orElse(null);
+            model.addAttribute("selectedExam", selectedExam);
+        }
+        
+        return "professor/question-paper";
+    }
+
     @GetMapping("/login")
     public String showLoginPage() {
         return "professor/login";

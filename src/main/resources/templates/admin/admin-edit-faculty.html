@@ -119,7 +119,7 @@
                             <p class="text-gray-500 dark:text-gray-400 text-base font-normal mt-1">Update profile
                                 information, managed assigned courses, and account security.</p>
                         </div>
-                        <a href="http://localhost:8081/admin/dashboard/professor">
+                        <a href="/admin/dashboard/professor">
                             <button
                                 class="flex items-center gap-2 px-4 py-2 text-sm font-bold text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors">
                                 <span class="material-symbols-outlined text-lg">arrow_back</span>
@@ -188,13 +188,7 @@
                                             class="text-sm font-bold text-gray-700 dark:text-gray-300">Department</span>
                                         <select id="department"
                                             class="rounded-lg border-gray-200 dark:border-gray-700 dark:bg-gray-800 focus:ring-primary focus:border-primary h-12 px-4">
-                                            <option value="">Select Department</option>
-                                            <option>Computer Science</option>
-                                            <option>Information Technology</option>
-                                            <option>Mechanical Engineering</option>
-                                            <option>Civil Engineering</option>
-                                            <option>Electronics Engineering</option>
-                                            <option>Business Analytics</option>
+                                            <option value="">Loading courses...</option>
                                         </select>
                                     </label>
                                     <label class="flex flex-col gap-2">
@@ -364,8 +358,44 @@
             }
         });
 
-        // API Base URL
+        // API Base URLs
         const API_BASE_URL = 'http://localhost:8081/admin/faculty';
+        const COURSE_API_URL = 'http://localhost:8081/admin/course';
+
+        // Load courses for department dropdown
+        async function loadCoursesForDropdown() {
+            const departmentSelect = document.getElementById('department');
+            if (!departmentSelect) return;
+
+            try {
+                const response = await fetch(COURSE_API_URL);
+                if (!response.ok) throw new Error('Failed to fetch courses');
+
+                const courses = await response.json();
+
+                // Clear existing options
+                departmentSelect.innerHTML = '<option value="">Select Department</option>';
+
+                // Add courses as options
+                courses.forEach(course => {
+                    const option = document.createElement('option');
+                    option.value = course.courseName;
+                    option.textContent = course.courseName;
+                    departmentSelect.appendChild(option);
+                });
+
+                // If we have currentFaculty data, set the selected value
+                if (currentFaculty && currentFaculty.department) {
+                    departmentSelect.value = currentFaculty.department;
+                }
+            } catch (error) {
+                console.error('Error loading courses:', error);
+                departmentSelect.innerHTML = '<option value="">Failed to load courses</option>';
+            }
+        }
+
+        // Load courses when DOM is ready
+        document.addEventListener('DOMContentLoaded', loadCoursesForDropdown);
 
         // Get username from URL path (e.g., /admin/dashboard/professor/edit/{username})
         const pathParts = window.location.pathname.split('/');

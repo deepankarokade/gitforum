@@ -89,7 +89,7 @@
             <nav class="flex flex-col gap-1">
 
               <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
-                href="http://localhost:8081/admin/dashboard">
+                href="/admin/dashboard">
                 <span class="material-symbols-outlined fill-1">dashboard</span>
                 <p class="text-sm font-medium">Dashboard</p>
               </a>
@@ -101,13 +101,13 @@
               </a>
 
               <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
-                href="#">
+                href="/admin/dashboard/student">
                 <span class="material-symbols-outlined">group</span>
                 <p class="text-sm font-medium">Manage Students</p>
               </a>
 
               <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
-                href="http://localhost:8081/admin/dashboard/professor">
+                href="/admin/dashboard/professor">
                 <span class="material-symbols-outlined">school</span>
                 <p class="text-sm font-medium">Manage Professors</p>
               </a>
@@ -290,7 +290,7 @@
 
     if (!uid) {
       alert("Session expired. Please login again.");
-      window.location.href = "http://localhost:8081/admin/dashboard";
+      window.location.href = "/admin/dashboard";
     }
 
     const nameInput = document.getElementById("fullName");

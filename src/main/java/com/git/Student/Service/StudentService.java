@@ -2,7 +2,6 @@ package com.git.Student.Service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.git.Student.Entity.Student;
@@ -12,36 +11,51 @@ import com.git.Student.enumactivity.ActivityStudent;
 @Service
 public class StudentService {
 
-    @Autowired
-    private StudentRepository studentRepository;
+    private final StudentRepository studentRepository;
 
-    // Save / Register Student
+    public StudentService(StudentRepository studentRepository) {
+        this.studentRepository = studentRepository;
+    }
+
+    // Save / Register Student (no credentials sent - will be sent after payment
+    // approval)
     public Student registerStudent(Student student) {
-        // Generate and set the UID before saving
-        String uid = generateStudentUid(student.getFullName(), student.getContactNumber());
+        String uid = generateStudentUid();
         student.setUid(uid);
+        student.setActivityStudent(ActivityStudent.INACTIVE);
         return studentRepository.save(student);
     }
 
-    // Generate Student Username
-    private String generateStudentUid(String fullName, String mobileNumber) {
+    public Student login(String uid, String password) {
 
-        if (fullName == null || fullName.length() <= 2) {
-            throw new RuntimeException("Student name must have at least 2 characters");
+        Student student = studentRepository.findByUid(uid)
+                .orElseThrow(() -> new RuntimeException("Admin not found with UID " + uid));
+
+        if (!student.getPassword().equals(password)) {
+            throw new RuntimeException("Invalid Password");
         }
 
-        if (mobileNumber == null || mobileNumber.length() < 5) {
-            throw new RuntimeException("Mobile number must have at least 5 digits");
-        }
+        return student;
+    }
 
-        String namePart = fullName
-                .trim()
-                .substring(0, 2)
-                .toUpperCase();
-
-        String mobilePart = mobileNumber.substring(0, 5);
-
-        return "STU-" + mobilePart + "-" + namePart;
+    // Generate Student Username - uses last student's UID to prevent duplicates
+    private String generateStudentUid() {
+        return studentRepository.findTopByOrderByIdDesc()
+                .map(lastStudent -> {
+                    String lastUid = lastStudent.getUid();
+                    if (lastUid != null && lastUid.startsWith("S")) {
+                        try {
+                            int lastNumber = Integer.parseInt(lastUid.substring(1));
+                            return String.format("S%03d", lastNumber + 1);
+                        } catch (NumberFormatException e) {
+                            // Fallback if parsing fails
+                            return String.format("S%03d", lastStudent.getId() + 1);
+                        }
+                    }
+                    // Fallback if UID format is unexpected
+                    return String.format("S%03d", lastStudent.getId() + 1);
+                })
+                .orElse("S001"); // First student
     }
 
     // Fetch all students
@@ -112,6 +126,38 @@ public class StudentService {
     // Get active student count
     public long getActiveStudentCount() {
         return studentRepository.countByActivityStudent(ActivityStudent.ACTIVE);
+    }
+
+    // Delete student permanently from database
+    public void deleteStudent(String uid) {
+        Student student = studentRepository.findByUid(uid)
+                .orElseThrow(() -> new RuntimeException("Student not found with UID: " + uid));
+        studentRepository.delete(student);
+    }
+
+    // Find student UID by email
+    public String getStudentUidByEmail(String email) {
+        return studentRepository.findByEmail(email)
+                .map(Student::getUid)
+                .orElse(null);
+    }
+
+    // Find student UID by contact number
+    public String getStudentUidByPhone(String phone) {
+        return studentRepository.findByContactNumber(phone)
+                .map(Student::getUid)
+                .orElse(null);
+    }
+
+    // Find student by email or phone
+    public Student findByEmailOrPhone(String email, String phone) {
+        if (email != null && !email.isEmpty()) {
+            return studentRepository.findByEmail(email).orElse(null);
+        }
+        if (phone != null && !phone.isEmpty()) {
+            return studentRepository.findByContactNumber(phone).orElse(null);
+        }
+        return null;
     }
 
 }

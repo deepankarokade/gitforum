@@ -1,5 +1,6 @@
 package com.git.Payment.Controller;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.http.HttpStatus;
@@ -24,18 +25,41 @@ public class PaymentController {
         this.paymentService = paymentService;
     }
 
+    // GET all Payments
+    @GetMapping
+    public ResponseEntity<List<Payment>> getAllPayment() {
+        List<Payment> allPayments = paymentService.getAllPayment();
+        return ResponseEntity.ok(allPayments);
+    }
+
     // Create Razorpay Order
     @PostMapping("/create")
     public ResponseEntity<?> createOrder(@RequestBody Map<String, Object> payload) {
         try {
             Long amount = Long.valueOf(payload.get("amount").toString());
             String currency = payload.getOrDefault("currency", "INR").toString();
+            String studentName = payload.getOrDefault("studentName", "").toString();
+            String studentUid = payload.getOrDefault("studentUid", "").toString();
+            String studentEmail = payload.getOrDefault("studentEmail", "").toString();
 
-            Map<String, Object> orderResponse = paymentService.createRazorpayOrder(amount, currency);
+            Map<String, Object> orderResponse = paymentService.createRazorpayOrder(
+                    amount, currency, studentName, studentUid, studentEmail);
             return ResponseEntity.ok(orderResponse);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Error creating order: " + e.getMessage());
+        }
+    }
+
+    // Approve Payment - Admin approves after reviewing
+    @PostMapping("/{id}/approve")
+    public ResponseEntity<?> approvePayment(@PathVariable Long id) {
+        try {
+            Payment approvedPayment = paymentService.approvePayment(id);
+            return ResponseEntity.ok(approvedPayment);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Error approving payment: " + e.getMessage());
         }
     }
 

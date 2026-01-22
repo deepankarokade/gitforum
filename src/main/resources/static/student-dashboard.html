@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Student Dashboard</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0f766e",
+                        "secondary": "#6366f1",
+                        "background-light": "#f0fdfa",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Lexend", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Lexend', sans-serif;
+        }
+
+        .geometric-bg {
+            background-color: #f0fdfa;
+            background-image: radial-gradient(#0f766e11 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+
+        .dark .geometric-bg {
+            background-color: #101622;
+            background-image: radial-gradient(#0f766e22 1px, transparent 1px);
+        }
+    </style>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark text-[#111318] dark:text-white antialiased">
+    <div class="flex h-screen overflow-hidden">
+        <!-- Sidebar Navigation -->
+        <aside
+            class="w-72 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 flex flex-col justify-between py-6">
+            <div class="flex flex-col gap-8 px-6">
+                <!-- Profile Section -->
+                <div class="flex gap-3 items-center">
+                    <div id="sidebarAvatar"
+                        class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-12 border-2 border-primary"
+                        style='background-image: url("https://ui-avatars.com/api/?name=Student&background=0f766e&color=fff&bold=true");'>
+                    </div>
+                    <div class="flex flex-col">
+                        <h1 id="sidebarStudentName"
+                            class="text-[#111318] dark:text-white text-base font-semibold leading-tight">Student</h1>
+                        <h5 class="text-slate-500 dark:text-slate-400 text-sm font-medium leading-tight">Student
+                            Dashboard</h5>
+                    </div>
+                </div>
+                <!-- Nav Links -->
+                <nav class="flex flex-col gap-1">
+                    <!-- Manage Exams -->
+                    <div class="flex flex-col">
+                        <button onclick="toggleSubmenu('examSubmenu')"
+                            class="flex items-center justify-between gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">
+                            <div class="flex items-center gap-3">
+                                <span class="material-symbols-outlined">quiz</span>
+                                <p class="text-sm font-medium">Manage Exams</p>
+                            </div>
+                            <span class="material-symbols-outlined text-sm transition-transform"
+                                id="examSubmenuIcon">expand_more</span>
+                        </button>
+                        <div id="examSubmenu" class="hidden flex-col gap-1 ml-8 mt-1">
+                            <a href="#"
+                                class="px-4 py-2 text-sm text-slate-500 dark:text-slate-400 hover:text-primary hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition-all">Previous</a>
+                            <a href="#"
+                                class="px-4 py-2 text-sm text-slate-500 dark:text-slate-400 hover:text-primary hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition-all">Current</a>
+                            <a href="#"
+                                class="px-4 py-2 text-sm text-slate-500 dark:text-slate-400 hover:text-primary hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition-all">Future</a>
+                        </div>
+                    </div>
+
+                    <!-- Study Material -->
+                    <div class="flex flex-col">
+                        <button onclick="toggleSubmenu('studySubmenu')"
+                            class="flex items-center justify-between gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">
+                            <div class="flex items-center gap-3">
+                                <span class="material-symbols-outlined">menu_book</span>
+                                <p class="text-sm font-medium">Study Material</p>
+                            </div>
+                            <span class="material-symbols-outlined text-sm transition-transform"
+                                id="studySubmenuIcon">expand_more</span>
+                        </button>
+                        <div id="studySubmenu" class="hidden flex-col gap-1 ml-8 mt-1">
+                            <a href="#"
+                                class="px-4 py-2 text-sm text-slate-500 dark:text-slate-400 hover:text-primary hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition-all">Syllabus</a>
+                            <a href="#"
+                                class="px-4 py-2 text-sm text-slate-500 dark:text-slate-400 hover:text-primary hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition-all">Video</a>
+                            <a href="#"
+                                class="px-4 py-2 text-sm text-slate-500 dark:text-slate-400 hover:text-primary hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition-all">PDF</a>
+                            <a href="#"
+                                class="px-4 py-2 text-sm text-slate-500 dark:text-slate-400 hover:text-primary hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition-all">Presentation
+                                Files</a>
+                        </div>
+                    </div>
+
+                    <!-- Exam Preparation -->
+                    <div class="flex flex-col">
+                        <button onclick="toggleSubmenu('prepSubmenu')"
+                            class="flex items-center justify-between gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">
+                            <div class="flex items-center gap-3">
+                                <span class="material-symbols-outlined">edit_note</span>
+                                <p class="text-sm font-medium">Exam Preparation</p>
+                            </div>
+                            <span class="material-symbols-outlined text-sm transition-transform"
+                                id="prepSubmenuIcon">expand_more</span>
+                        </button>
+                        <div id="prepSubmenu" class="hidden flex-col gap-1 ml-8 mt-1">
+                            <a href="#"
+                                class="px-4 py-2 text-sm text-slate-500 dark:text-slate-400 hover:text-primary hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition-all">Previous
+                                Exam</a>
+                            <a href="#"
+                                class="px-4 py-2 text-sm text-slate-500 dark:text-slate-400 hover:text-primary hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition-all">Demo
+                                Test</a>
+                        </div>
+                    </div>
+
+                    <!-- Results -->
+                    <div class="flex flex-col">
+                        <button onclick="toggleSubmenu('resultSubmenu')"
+                            class="flex items-center justify-between gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">
+                            <div class="flex items-center gap-3">
+                                <span class="material-symbols-outlined">leaderboard</span>
+                                <p class="text-sm font-medium">Results</p>
+                            </div>
+                            <span class="material-symbols-outlined text-sm transition-transform"
+                                id="resultSubmenuIcon">expand_more</span>
+                        </button>
+                        <div id="resultSubmenu" class="hidden flex-col gap-1 ml-8 mt-1">
+                            <a href="#"
+                                class="px-4 py-2 text-sm text-slate-500 dark:text-slate-400 hover:text-primary hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition-all">Previous</a>
+                            <a href="#"
+                                class="px-4 py-2 text-sm text-slate-500 dark:text-slate-400 hover:text-primary hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition-all">Current</a>
+                            <a href="#"
+                                class="px-4 py-2 text-sm text-slate-500 dark:text-slate-400 hover:text-primary hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition-all">Certificate</a>
+                        </div>
+                    </div>
+
+                    <!-- Support Ticket -->
+                    <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
+                        href="#">
+                        <span class="material-symbols-outlined">support_agent</span>
+                        <p class="text-sm font-medium">Support Ticket</p>
+                    </a>
+
+                    <!-- Payment -->
+                    <div class="flex flex-col">
+                        <button onclick="toggleSubmenu('paymentSubmenu')"
+                            class="flex items-center justify-between gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">
+                            <div class="flex items-center gap-3">
+                                <span class="material-symbols-outlined">payments</span>
+                                <p class="text-sm font-medium">Payment</p>
+                            </div>
+                            <span class="material-symbols-outlined text-sm transition-transform"
+                                id="paymentSubmenuIcon">expand_more</span>
+                        </button>
+                        <div id="paymentSubmenu" class="hidden flex-col gap-1 ml-8 mt-1">
+                            <a href="#"
+                                class="px-4 py-2 text-sm text-slate-500 dark:text-slate-400 hover:text-primary hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition-all">History</a>
+                            <a href="#"
+                                class="px-4 py-2 text-sm text-slate-500 dark:text-slate-400 hover:text-primary hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition-all">Invoice</a>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+            <!-- Footer Sidebar -->
+            <div class="flex flex-col gap-1 px-6">
+                <button id="darkModeToggle"
+                    class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">
+                    <span class="material-symbols-outlined">dark_mode</span>
+                    <p class="text-sm font-medium">Dark Mode</p>
+                    <div class="ml-auto">
+                        <div
+                            class="relative inline-block w-10 h-5 rounded-full bg-gray-300 dark:bg-primary transition-colors">
+                            <div
+                                class="absolute left-0.5 top-0.5 w-4 h-4 bg-white rounded-full transition-transform dark:transform dark:translate-x-5">
+                            </div>
+                        </div>
+                    </div>
+                </button>
+                <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
+                    href="#">
+                    <span class="material-symbols-outlined">settings</span>
+                    <p class="text-sm font-medium">Settings</p>
+                </a>
+                <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition-all"
+                    href="#">
+                    <span class="material-symbols-outlined">logout</span>
+                    <p class="text-sm font-medium">Logout</p>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="flex-1 flex flex-col overflow-y-auto geometric-bg">
+            <!-- Top Navigation Bar -->
+            <header
+                class="flex items-center justify-between sticky top-0 z-10 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 px-8 py-4">
+                <div class="flex items-center gap-6">
+                    <div class="flex items-center gap-2">
+                        <div class="text-primary">
+                            <span class="material-symbols-outlined text-3xl">school</span>
+                        </div>
+                        <h2 class="text-slate-900 dark:text-white text-xl font-bold tracking-tight">ExamPortal</h2>
+                    </div>
+                    <div class="hidden md:flex relative group">
+                        <span
+                            class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">search</span>
+                        <input
+                            class="form-input w-80 pl-10 pr-4 py-2 rounded-xl border-none bg-slate-100 dark:bg-slate-800 text-sm focus:ring-2 focus:ring-primary transition-all"
+                            placeholder="Search exams, materials..." />
+                    </div>
+                </div>
+                <div class="flex items-center gap-4">
+                    <button
+                        class="relative p-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+                        <span class="material-symbols-outlined">notifications</span>
+                        <span class="absolute top-1 right-1 size-2 bg-red-500 rounded-full"></span>
+                    </button>
+                    <div class="relative group">
+                        <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border-2 border-primary cursor-pointer"
+                            style='background-image: url("https://ui-avatars.com/api/?name=Student&background=0f766e&color=fff&bold=true");'>
+                        </div>
+                        <div
+                            class="absolute right-0 top-12 w-48 bg-white dark:bg-slate-900 rounded-xl shadow-lg border border-slate-200 dark:border-slate-700 py-2 hidden group-hover:block">
+                            <a href="#"
+                                class="flex items-center gap-2 px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800">
+                                <span class="material-symbols-outlined text-lg">person</span> Profile
+                            </a>
+                            <a href="#"
+                                class="flex items-center gap-2 px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800">
+                                <span class="material-symbols-outlined text-lg">settings</span> Settings
+                            </a>
+                            <hr class="my-2 border-slate-200 dark:border-slate-700">
+                            <a href="#"
+                                class="flex items-center gap-2 px-4 py-2 text-sm text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20">
+                                <span class="material-symbols-outlined text-lg">logout</span> Logout
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard Content -->
+            <div class="p-8 max-w-[1200px] mx-auto w-full flex flex-col gap-8">
+                <!-- Stats Section -->
+                <section>
+                    <div class="flex items-end justify-between mb-6">
+                        <div>
+                            <h3 class="text-slate-900 dark:text-white text-2xl font-bold">Welcome Student 👋</h3>
+                            <p class="text-slate-500 dark:text-slate-400 text-sm">Track your exams, results, and
+                                learning progress.</p>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <!-- Total Courses Card -->
+                        <div
+                            class="bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-shadow">
+                            <div class="flex items-start justify-between">
+                                <div>
+                                    <p class="text-slate-500 dark:text-slate-400 text-sm font-medium mb-1">Total Courses
+                                    </p>
+                                    <h4 class="text-slate-900 dark:text-white text-3xl font-bold">08</h4>
+                                    <div class="mt-2 flex items-center gap-1 text-sm font-medium">
+                                        <span class="text-slate-400">Enrolled</span>
+                                    </div>
+                                </div>
+                                <div
+                                    class="size-12 rounded-xl bg-cyan-50 dark:bg-cyan-900/20 flex items-center justify-center text-cyan-600">
+                                    <span class="material-symbols-outlined">book</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Upcoming Exams Card -->
+                        <div
+                            class="bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-shadow">
+                            <div class="flex items-start justify-between">
+                                <div>
+                                    <p class="text-slate-500 dark:text-slate-400 text-sm font-medium mb-1">Upcoming
+                                        Exams</p>
+                                    <h4 class="text-slate-900 dark:text-white text-3xl font-bold">03</h4>
+                                    <div class="mt-2 flex items-center gap-1 text-emerald-600 text-sm font-medium">
+                                        <span class="material-symbols-outlined text-sm">schedule</span>
+                                        <span class="text-slate-400">This week</span>
+                                    </div>
+                                </div>
+                                <div
+                                    class="size-12 rounded-xl bg-emerald-50 dark:bg-emerald-900/20 flex items-center justify-center text-emerald-600">
+                                    <span class="material-symbols-outlined">event</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Certificates Card -->
+                        <div
+                            class="bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-shadow">
+                            <div class="flex items-start justify-between">
+                                <div>
+                                    <p class="text-slate-500 dark:text-slate-400 text-sm font-medium mb-1">Certificates
+                                    </p>
+                                    <h4 class="text-slate-900 dark:text-white text-3xl font-bold">04</h4>
+                                    <div class="mt-2 flex items-center gap-1 text-sm font-medium">
+                                        <span class="text-slate-400">Earned</span>
+                                    </div>
+                                </div>
+                                <div
+                                    class="size-12 rounded-xl bg-amber-50 dark:bg-amber-900/20 flex items-center justify-center text-amber-600">
+                                    <span class="material-symbols-outlined">workspace_premium</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Chatbot Button -->
+    <div id="chatbotBtn" onclick="toggleChat()"
+        class="fixed bottom-6 right-6 w-14 h-14 bg-gradient-to-br from-secondary to-cyan-400 text-white rounded-full flex items-center justify-center shadow-lg shadow-secondary/30 cursor-pointer hover:scale-110 transition-transform z-50">
+        <span class="material-symbols-outlined text-2xl">smart_toy</span>
+    </div>
+
+    <!-- Chatbot Modal -->
+    <div id="chatbot"
+        class="fixed bottom-24 right-6 w-80 bg-white dark:bg-slate-900 rounded-2xl shadow-2xl overflow-hidden z-50 hidden border border-slate-200 dark:border-slate-800">
+        <div class="bg-gradient-to-r from-secondary to-cyan-400 text-white px-4 py-3 flex items-center justify-between">
+            <span class="font-bold">EduBot 🤖</span>
+            <button onclick="toggleChat()" class="hover:bg-white/20 rounded-full p-1 transition-colors">
+                <span class="material-symbols-outlined text-sm">close</span>
+            </button>
+        </div>
+        <div class="p-4 h-48 text-sm text-slate-600 dark:text-slate-300">
+            Hi 👋 How can I help you today?
+        </div>
+        <div class="flex border-t border-slate-200 dark:border-slate-700">
+            <input type="text" placeholder="Type a message..."
+                class="flex-1 border-none bg-transparent px-4 py-3 text-sm focus:outline-none focus:ring-0 dark:text-white" />
+            <button class="px-4 bg-secondary text-white hover:bg-secondary/90 transition-colors">
+                <span class="material-symbols-outlined">send</span>
+            </button>
+        </div>
+    </div>
+
+    <script>
+            // Dark Mode Functionality
+            (function initDarkMode() {
+                const darkMode = localStorage.getItem('darkMode');
+                const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                if (darkMode === 'enabled' || (darkMode === null && systemPrefersDark)) {
+                    document.documentElement.classList.add('dark');
+                }
+            })();
+
+        // Dark mode toggle
+        document.addEventListener('DOMContentLoaded', function () {
+            const darkModeToggle = document.getElementById('darkModeToggle');
+            if (darkModeToggle) {
+                darkModeToggle.addEventListener('click', function () {
+                    document.documentElement.classList.toggle('dark');
+                    if (document.documentElement.classList.contains('dark')) {
+                        localStorage.setItem('darkMode', 'enabled');
+                    } else {
+                        localStorage.setItem('darkMode', 'disabled');
+                    }
+                });
+            }
+        });
+
+        // Submenu toggle function
+        function toggleSubmenu(submenuId) {
+            const submenu = document.getElementById(submenuId);
+            const icon = document.getElementById(submenuId + 'Icon');
+
+            if (submenu.classList.contains('hidden')) {
+                submenu.classList.remove('hidden');
+                submenu.classList.add('flex');
+                if (icon) icon.style.transform = 'rotate(180deg)';
+            } else {
+                submenu.classList.add('hidden');
+                submenu.classList.remove('flex');
+                if (icon) icon.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        // Chatbot toggle function
+        function toggleChat() {
+            const chat = document.getElementById("chatbot");
+            chat.classList.toggle("hidden");
+        }
+    </script>
+</body>
+
+</html>

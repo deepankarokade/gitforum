@@ -43,6 +43,14 @@ public class Payment {
 
     private LocalDateTime updatedAt;
 
+    private String studentName;
+
+    // Student UID to link payment to student
+    private String studentUid;
+
+    // Student email for sending credentials after approval
+    private String studentEmail;
+
     @PrePersist
     public void onCreate() {
         this.createdAt = LocalDateTime.now();
@@ -117,4 +125,29 @@ public class Payment {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
+
+    public String getStudentName() {
+        return studentName;
+    }
+
+    public void setStudentName(String studentName) {
+        this.studentName = studentName;
+    }
+
+    public String getStudentUid() {
+        return studentUid;
+    }
+
+    public void setStudentUid(String studentUid) {
+        this.studentUid = studentUid;
+    }
+
+    public String getStudentEmail() {
+        return studentEmail;
+    }
+
+    public void setStudentEmail(String studentEmail) {
+        this.studentEmail = studentEmail;
+    }
+
 }

@@ -47,7 +47,10 @@ public class Student {
     private String dob;
 
     @Enumerated(EnumType.STRING)
-    private ActivityStudent activityStudent = ActivityStudent.ACTIVE;
+    private ActivityStudent activityStudent = ActivityStudent.INACTIVE;
+
+    // Password for student login (set after payment approval)
+    private String password;
 
     public ActivityStudent getActivityStudent() {
         return activityStudent;
@@ -55,6 +58,14 @@ public class Student {
 
     public void setActivityStudent(ActivityStudent activityStudent) {
         this.activityStudent = activityStudent;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Long getId() {
@@ -212,7 +223,6 @@ public class Student {
     private String email;
 
     // Contact No
-    @Column(unique = true)
     private String contactNumber;
 
     // Address
@@ -235,7 +245,7 @@ public class Student {
     private String studentClass;
 
     // Registration ID
-    @Column(unique = true)
+    @Column(unique = true, nullable = true)
     private String registrationId;
 
     // Preferred Exam Date
@@ -261,7 +271,7 @@ public class Student {
     public Student(Long id, String photofilename, byte[] photo, String fullName, String dob, String gender,
             String email, String contactNumber, String address, String state, String city, String parentName,
             String parentContact, String schoolCollegeName, String studentClass, String registrationId,
-            String preferredExamDate, String photoPath, String subjects) {
+            String preferredExamDate, String photoPath, String subjects, String uid) {
         super();
         this.id = id;
         this.photofilename = photofilename;
@@ -282,6 +292,7 @@ public class Student {
         this.preferredExamDate = preferredExamDate;
         this.photoPath = photoPath;
         this.subjects = subjects;
+        this.uid = uid;
     }
 
     public Student() {

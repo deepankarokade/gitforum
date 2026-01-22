@@ -2,18 +2,22 @@ package com.git.Payment.Service;
 
 import org.springframework.stereotype.Service;
 
+import com.git.Admin.Service.EmailService;
 import com.git.Payment.Entity.Payment;
 import com.git.Payment.Repository.PaymentRepository;
+import com.git.Student.Entity.Student;
+import com.git.Student.Repository.StudentRepository;
+import com.git.Student.enumactivity.ActivityStudent;
 import com.razorpay.Order;
 import com.razorpay.RazorpayClient;
 import com.razorpay.RazorpayException;
 
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
-import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
@@ -33,9 +37,15 @@ public class PaymentService {
     private String webhookSecret;
 
     private final PaymentRepository paymentRepository;
+    private final StudentRepository studentRepository;
+    private final EmailService emailService;
 
-    public PaymentService(PaymentRepository paymentRepository) {
+    public PaymentService(PaymentRepository paymentRepository,
+            StudentRepository studentRepository,
+            EmailService emailService) {
         this.paymentRepository = paymentRepository;
+        this.studentRepository = studentRepository;
+        this.emailService = emailService;
     }
 
     public Payment createPayment(Long amount, String currency) {
@@ -47,12 +57,22 @@ public class PaymentService {
         return paymentRepository.save(payment);
     }
 
-    // Create Razorpay Order
-    public Map<String, Object> createRazorpayOrder(Long amount, String currency) throws RazorpayException {
+    // GET All Payments
+    public List<Payment> getAllPayment() {
+        return paymentRepository.findAll();
+    }
+
+    // Create Razorpay Order (with student details for approval flow)
+    public Map<String, Object> createRazorpayOrder(Long amount, String currency,
+            String studentName, String studentUid, String studentEmail)
+            throws RazorpayException {
 
         Payment payment = new Payment();
         payment.setAmount(amount);
         payment.setCurrency(currency);
+        payment.setStudentName(studentName);
+        payment.setStudentUid(studentUid);
+        payment.setStudentEmail(studentEmail);
         payment = paymentRepository.save(payment);
 
         RazorpayClient razorpayClient = new RazorpayClient(keyId, keySecret);
@@ -75,6 +95,46 @@ public class PaymentService {
         response.put("key", keyId);
 
         return response;
+    }
+
+    // Approve Payment - Admin approves and credentials are sent to student
+    public Payment approvePayment(Long paymentId) {
+        Payment payment = paymentRepository.findById(paymentId)
+                .orElseThrow(() -> new RuntimeException("Payment not found"));
+
+        // Check if payment is SUCCESS (paid)
+        if (!"SUCCESS".equals(payment.getStatus())) {
+            throw new RuntimeException("Cannot approve payment. Payment status is: " + payment.getStatus());
+        }
+
+        // Find the student by UID
+        Student student = studentRepository.findByUid(payment.getStudentUid())
+                .orElseThrow(() -> new RuntimeException("Student not found with UID: " + payment.getStudentUid()));
+
+        // Generate password for student
+        String generatedPassword = UUID.randomUUID().toString().substring(0, 10);
+        student.setPassword(generatedPassword);
+
+        // Activate student account
+        student.setActivityStudent(ActivityStudent.ACTIVE);
+        studentRepository.save(student);
+
+        // Send credentials email
+        try {
+            emailService.sendStudentCredentials(
+                    payment.getStudentEmail(),
+                    student.getUid(),
+                    generatedPassword);
+        } catch (Exception e) {
+            System.err.println("Failed to send student credentials email: " + e.getMessage());
+        }
+
+        // Update payment status to APPROVED
+        payment.setStatus("APPROVED");
+        payment.setUpdatedAt(LocalDateTime.now());
+        paymentRepository.save(payment);
+
+        return payment;
     }
 
     // Verify Payment
