@@ -52,6 +52,7 @@
             background: #334155;
         }
     </style>
+    <script src="/js/config.js"></script>
 </head>
 
 <body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-white antialiased">
@@ -437,8 +438,8 @@
     </div>
     </div>
     <script>
-        const BASE_URL = 'http://localhost:8081';
-        const COURSE_API_URL = 'http://localhost:8081/admin/course';
+        // BASE_URL comes from /js/config.js
+        const COURSE_API_URL = BASE_URL + '/admin/course';
         const urlParams = new URLSearchParams(window.location.search);
         const studentUid = urlParams.get('uid');
         let currentSubjects = ''; // Store current subject for later selection

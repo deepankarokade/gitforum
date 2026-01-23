@@ -61,6 +61,7 @@
             background: #334155;
         }
     </style>
+    <script src="/js/config.js"></script>
 </head>
 
 <body
@@ -306,9 +307,8 @@
         });
 
 
-        // API URLs
-        const BASE_URL = 'http://localhost:8081';
-        const COURSE_API_URL = 'http://localhost:8081/admin/course';
+        // API URLs - BASE_URL comes from /js/config.js
+        const COURSE_API_URL = BASE_URL + '/admin/course';
 
         // Store all students for filtering
         let allStudents = [];

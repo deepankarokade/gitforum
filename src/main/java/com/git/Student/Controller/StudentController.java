@@ -1,10 +1,12 @@
 package com.git.Student.Controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.git.Student.Entity.Student;
+
 import com.git.Student.Service.StudentService;
 import com.git.Student.enumactivity.ActivityStudent;
 
@@ -250,6 +253,34 @@ public class StudentController {
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("Student not found with provided email or phone");
+        }
+    }
+
+    // Change Student password (requires current password - from dashboard)
+    @PostMapping("/{uid}/change-password")
+    public void changePassword(
+            @PathVariable String uid,
+            @RequestBody Map<String, String> body) {
+
+        studentService.changePassword(uid, body.get("currentPassword"), body.get("newPassword"));
+    }
+
+    // Reset password by email (from forgot password email link - no current
+    // password needed)
+    @PostMapping("/reset-password-by-email")
+    public ResponseEntity<String> resetPasswordByEmail(@RequestBody Map<String, String> body) {
+        String email = body.get("email");
+        String newPassword = body.get("newPassword");
+
+        if (email == null || email.isEmpty() || newPassword == null || newPassword.isEmpty()) {
+            return ResponseEntity.badRequest().body("Email and new password are required");
+        }
+
+        try {
+            studentService.resetPasswordByEmail(email, newPassword);
+            return ResponseEntity.ok("Password reset successfully");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 }

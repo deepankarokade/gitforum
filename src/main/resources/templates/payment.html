@@ -142,6 +142,7 @@
             }
         }
     </style>
+    <script src="/js/config.js"></script>
 </head>
 
 <body class="bg-background-light dark:bg-background-dark text-[#111318] dark:text-white antialiased">
@@ -448,7 +449,7 @@
                 }
             })();
 
-        const BASE_URL = "http://localhost:8081";
+        // BASE_URL comes from /js/config.js
         let selectedAmount = 50000; // Default 500 INR in paise
 
         // Read URL parameters and autofill form

@@ -3,7 +3,6 @@ package com.git.Student.Service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
-
 import com.git.Student.Entity.Student;
 import com.git.Student.Repository.StudentRepository;
 import com.git.Student.enumactivity.ActivityStudent;
@@ -158,6 +157,31 @@ public class StudentService {
             return studentRepository.findByContactNumber(phone).orElse(null);
         }
         return null;
+    }
+
+    // Change student password (requires current password - used for post-login
+    // password change)
+    public void changePassword(String uid, String currentPassword, String newPassword) {
+
+        Student student = studentRepository.findByUid(uid)
+                .orElseThrow(() -> new RuntimeException("Student not found"));
+
+        if (!student.getPassword().equals(currentPassword)) {
+            throw new RuntimeException("Current password incorrect");
+        }
+
+        student.setPassword(newPassword);
+        studentRepository.save(student);
+    }
+
+    // Reset password by email (no current password required - used for forgot
+    // password flow)
+    public void resetPasswordByEmail(String email, String newPassword) {
+        Student student = studentRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("No student found with email: " + email));
+
+        student.setPassword(newPassword);
+        studentRepository.save(student);
     }
 
 }

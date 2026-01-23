@@ -54,6 +54,7 @@
             }
         }
     </style>
+    <script src="/js/config.js"></script>
 </head>
 
 <body
@@ -338,8 +339,7 @@
             }
         });
 
-        // API Base URL
-        const BASE_URL = 'http://localhost:8081';
+        // API URLs - BASE_URL comes from /js/config.js
         const API_URL = `${BASE_URL}/api/payments`;
 
         let allPayments = [];

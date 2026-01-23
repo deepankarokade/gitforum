@@ -35,7 +35,7 @@ photoInput.addEventListener('change', (e) => {
 
 // Form submission
 const form = document.getElementById('studentRegistrationForm');
-const BASE_URL = 'http://localhost:8081';
+// BASE_URL comes from /js/config.js (must be loaded before this script)
 
 form.addEventListener('submit', async (e) => {
     e.preventDefault();

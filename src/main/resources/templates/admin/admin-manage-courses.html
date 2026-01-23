@@ -54,6 +54,7 @@
             }
         }
     </style>
+    <script src="/js/config.js"></script>
 </head>
 
 <body
@@ -357,8 +358,7 @@
             }
         });
 
-        // API Base URL
-        const BASE_URL = 'http://localhost:8081';
+        // API URLs - BASE_URL comes from /js/config.js
         const API_URL = `${BASE_URL}/admin/course`;
 
         let allCourses = [];
@@ -618,8 +618,8 @@
 
             const notification = document.createElement('div');
             notification.className = `notification fixed top-4 right-4 z-50 px-6 py-4 rounded-lg shadow-2xl flex items-center gap-3 ${type === 'success' ? 'bg-green-500 text-white' :
-                    type === 'error' ? 'bg-red-500 text-white' :
-                        'bg-blue-500 text-white'
+                type === 'error' ? 'bg-red-500 text-white' :
+                    'bg-blue-500 text-white'
                 }`;
 
             notification.innerHTML = `

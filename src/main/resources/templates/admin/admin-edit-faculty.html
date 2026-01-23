@@ -57,6 +57,7 @@
             background-image: radial-gradient(#135bec22 1px, transparent 0);
         }
     </style>
+    <script src="/js/config.js"></script>
 </head>
 
 <body class="bg-background-light dark:bg-background-dark text-[#111318] dark:text-gray-100 min-h-screen">
@@ -358,9 +359,9 @@
             }
         });
 
-        // API Base URLs
-        const API_BASE_URL = 'http://localhost:8081/admin/faculty';
-        const COURSE_API_URL = 'http://localhost:8081/admin/course';
+        // API URLs - BASE_URL comes from /js/config.js
+        const API_BASE_URL = BASE_URL + '/admin/faculty';
+        const COURSE_API_URL = BASE_URL + '/admin/course';
 
         // Load courses for department dropdown
         async function loadCoursesForDropdown() {

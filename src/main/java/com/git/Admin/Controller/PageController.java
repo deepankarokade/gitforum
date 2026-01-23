@@ -109,9 +109,33 @@ public class PageController {
         return "student/Studentlogin";
     }
 
-    //Student Login Page
+    // Student Login Page
     @GetMapping("/login-page")
-    public String showLoginPage(){
+    public String showLoginPage() {
         return "student/Studentlogin";
+    }
+
+    // Student Forgot Password Page
+    @GetMapping("/student/forgot-password")
+    public String studentForgotPassword() {
+        return "student/studentForgotPassword";
+    }
+
+    // Student Reset Password Page (after login - requires current password)
+    @GetMapping("/student/reset-password")
+    public String studentResetPassword() {
+        return "student/studentResetPassword";
+    }
+
+    // Student Change Password Page (from email link - no current password needed)
+    @GetMapping("/student/change-password")
+    public String studentChangePassword() {
+        return "student/studentChangePassword";
+    }
+
+    // Student Dashboard
+    @GetMapping("/student/dashboard")
+    public String studentDashboard() {
+        return "student/student-dashboard";
     }
 }
