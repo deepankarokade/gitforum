@@ -15,10 +15,47 @@ import jakarta.transaction.Transactional;
 public class AdminService {
 
 	private final AdminRepository adminRepository;
+	private final EmailService emailService;
 
 	// Constructor
-	public AdminService(AdminRepository adminRepository) {
+	public AdminService(AdminRepository adminRepository, EmailService emailService) {
 		this.adminRepository = adminRepository;
+		this.emailService = emailService;
+	}
+
+	// Forgot Password
+	public void processForgotPassword(String email) {
+		Admin admin = adminRepository.findByEmail(email)
+				.orElseThrow(() -> new RuntimeException("No admin found with email: " + email));
+
+		// For demonstration, we'll send a link to a reset page.
+		// In a real app, this would include a secure token.
+		String resetLink = "http://localhost:8081/admin/reset-password?uid=" + admin.getUid();
+		emailService.sendForgotPasswordEmail(email, admin.getName(), resetLink);
+	}
+
+	public void resetPassword(String uid, String newPassword) {
+		Admin admin = adminRepository.findByUid(uid)
+				.orElseThrow(() -> new RuntimeException("Admin not found"));
+		admin.setPassword(newPassword);
+		adminRepository.save(admin);
+	}
+
+	// Register Admin - AS PER REQUIREMENT
+	public Admin registerAdmin(Admin admin, MultipartFile profileImage) throws IOException {
+		if (adminRepository.findByUid(admin.getUid()).isPresent()) {
+			throw new RuntimeException("Admin with UID " + admin.getUid() + " already exists");
+		}
+
+		if (admin.getEmail() != null && adminRepository.findByEmail(admin.getEmail()).isPresent()) {
+			throw new RuntimeException("Admin with email " + admin.getEmail() + " already exists");
+		}
+
+		if (profileImage != null && !profileImage.isEmpty()) {
+			admin.setProfileImage(profileImage.getBytes());
+		}
+
+		return adminRepository.save(admin);
 	}
 
 	// Login - AdminController.java
@@ -77,6 +114,20 @@ public class AdminService {
 				.getPhoneNumber();
 	}
 
+	// Get Admin Address
+	public String getAdminAddress(String uid) {
+		return adminRepository.findByUid(uid)
+				.orElseThrow(() -> new RuntimeException("Admin not found"))
+				.getAddress();
+	}
+
+	// Get Admin Email
+	public String getAdminEmail(String uid) {
+		return adminRepository.findByUid(uid)
+				.orElseThrow(() -> new RuntimeException("Admin not found"))
+				.getEmail();
+	}
+
 	// Update Admin name - AdminProfileController.java
 	public void updateAdminName(String uid, String name) {
 		Admin admin = adminRepository.findByUid(uid)
@@ -93,6 +144,26 @@ public class AdminService {
 				.orElseThrow(() -> new RuntimeException("Admin not found"));
 
 		admin.setPhoneNumber(phoneNumber);
+
+		adminRepository.save(admin);
+	}
+
+	// Update Admin Address
+	public void updateAdminAddress(String uid, String address) {
+		Admin admin = adminRepository.findByUid(uid)
+				.orElseThrow(() -> new RuntimeException("Admin not found"));
+
+		admin.setAddress(address);
+
+		adminRepository.save(admin);
+	}
+
+	// Update Admin Email
+	public void updateAdminEmail(String uid, String email) {
+		Admin admin = adminRepository.findByUid(uid)
+				.orElseThrow(() -> new RuntimeException("Admin not found"));
+
+		admin.setEmail(email);
 
 		adminRepository.save(admin);
 	}
@@ -121,5 +192,17 @@ public class AdminService {
 		} catch (IOException e) {
 			throw new RuntimeException("Failed to store profile image ", e);
 		}
+	}
+
+	// Delete Admin Profile
+	public void deleteAdmin(String uid) {
+		if (adminRepository.count() <= 1) {
+			throw new RuntimeException("Cannot delete the only administrator account.");
+		}
+
+		Admin admin = adminRepository.findByUid(uid)
+				.orElseThrow(() -> new RuntimeException("Admin not found"));
+
+		adminRepository.delete(admin);
 	}
 }

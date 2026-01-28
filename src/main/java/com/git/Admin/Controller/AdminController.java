@@ -15,13 +15,47 @@ public class AdminController {
     public AdminController(AdminService adminService) {
         this.adminService = adminService;
     }
-    
+
     @PostMapping("/login")
     public ResponseEntity<Admin> login(@RequestBody Admin admin) {
 
-        Admin loggedInAdmin =
-                adminService.login(admin.getUid(), admin.getPassword());
+        Admin loggedInAdmin = adminService.login(admin.getUid(), admin.getPassword());
 
         return ResponseEntity.ok(loggedInAdmin);
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<?> register(
+            @ModelAttribute Admin admin,
+            @RequestParam(value = "adminImage", required = false) org.springframework.web.multipart.MultipartFile adminImage) {
+        try {
+            Admin registeredAdmin = adminService.registerAdmin(admin, adminImage);
+            return ResponseEntity.ok(registeredAdmin);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @PostMapping("/forgot-password")
+    public ResponseEntity<?> forgotPassword(@RequestBody java.util.Map<String, String> request) {
+        try {
+            String email = request.get("email");
+            adminService.processForgotPassword(email);
+            return ResponseEntity.ok("Reset link sent successfully");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @PostMapping("/reset-password")
+    public ResponseEntity<?> resetPassword(@RequestBody java.util.Map<String, String> request) {
+        try {
+            String uid = request.get("uid");
+            String newPassword = request.get("newPassword");
+            adminService.resetPassword(uid, newPassword);
+            return ResponseEntity.ok("Password reset successful");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 }

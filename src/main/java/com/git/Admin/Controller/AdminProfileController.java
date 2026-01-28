@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.DeleteMapping;
 
 import com.git.Admin.Entity.Admin;
 import com.git.Admin.Service.AdminService;
@@ -55,6 +56,18 @@ public class AdminProfileController {
 		return adminService.getAdminPhoneNumber(uid);
 	}
 
+	// Get Admin Address
+	@GetMapping("/{uid}/address")
+	public String getAdminAddress(@PathVariable String uid) {
+		return adminService.getAdminAddress(uid);
+	}
+
+	// Get Admin Email
+	@GetMapping("/{uid}/email")
+	public String getAdminEmail(@PathVariable String uid) {
+		return adminService.getAdminEmail(uid);
+	}
+
 	// Update Admin Phone Number
 	@PutMapping("/{uid}/phone-number")
 	public void updatePhoneNumber(
@@ -74,6 +87,22 @@ public class AdminProfileController {
 		}
 
 		throw new RuntimeException("phoneNumber not provided");
+	}
+
+	// Update Admin Address
+	@PutMapping("/{uid}/address")
+	public void updateAdminAddress(
+			@PathVariable String uid,
+			@RequestBody Map<String, String> body) {
+		adminService.updateAdminAddress(uid, body.get("address"));
+	}
+
+	// Update Admin Email
+	@PutMapping("/{uid}/email")
+	public void updateAdminEmail(
+			@PathVariable String uid,
+			@RequestBody Map<String, String> body) {
+		adminService.updateAdminEmail(uid, body.get("email"));
 	}
 
 	// Change Admin Password
@@ -104,5 +133,16 @@ public class AdminProfileController {
 			@RequestParam("file") MultipartFile file) {
 		adminService.updateProfilePicture(uid, file);
 		return ResponseEntity.ok().build();
+	}
+
+	// Delete Admin Profile
+	@DeleteMapping("/{uid}")
+	public ResponseEntity<?> deleteProfile(@PathVariable String uid) {
+		try {
+			adminService.deleteAdmin(uid);
+			return ResponseEntity.ok("Profile deleted successfully");
+		} catch (Exception e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
 	}
 }

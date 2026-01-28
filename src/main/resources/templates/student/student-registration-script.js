@@ -66,6 +66,12 @@ form.addEventListener('submit', async (e) => {
     const preferredExamDate = form.querySelector('input[name="preferredExamDate"]')?.value || '';
     const subjects = form.querySelector('select[name="subjects"]')?.value || '';
 
+    // Validation: Email and Contact Number are required
+    if (!email || !email.trim()) {
+        alert('❌ Email Address is required');
+        return;
+    }
+
     // Validation: Contact Number is required for UID generation
     if (!contactNumber || contactNumber.length < 5) {
         alert('❌ Contact Number is required and must have at least 5 digits');

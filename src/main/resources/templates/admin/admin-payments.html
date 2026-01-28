@@ -63,7 +63,7 @@
 
         <!-- Sidebar Navigation -->
         <aside
-            class="w-72 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 flex flex-col justify-between py-6">
+            class="w-72 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 flex flex-col justify-between py-6 transition-colors duration-300">
             <div class="flex flex-col gap-8 px-6">
                 <!-- Profile Section -->
                 <div class="flex gap-3 items-center">
@@ -81,40 +81,44 @@
                 </div>
                 <!-- Nav Links -->
                 <nav class="flex flex-col gap-1">
-                    <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
+                    <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all font-display"
                         href="/admin/dashboard">
-                        <span class="material-symbols-outlined fill-1">dashboard</span>
-                        <p class="text-sm font-medium">Dashboard</p>
+                        <span class="material-symbols-outlined shrink-0">dashboard</span>
+                        <p class="text-sm font-medium">Dashboard Overview</p>
                     </a>
-                    <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
+                    <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all font-display"
                         href="/admin/profile">
-                        <span class="material-symbols-outlined">account_circle</span>
-                        <p class="text-sm font-medium">Manage Profile</p>
+                        <span class="material-symbols-outlined shrink-0">account_circle</span>
+                        <p class="text-sm font-medium">Profile Management</p>
                     </a>
-                    <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
+                    <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all font-display"
                         href="/admin/dashboard/student">
-                        <span class="material-symbols-outlined">group</span>
-                        <p class="text-sm font-medium">Manage Students</p>
+                        <span class="material-symbols-outlined shrink-0">group</span>
+                        <p class="text-sm font-medium">Students Directory</p>
                     </a>
-                    <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
+                    <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all font-display"
                         href="/admin/dashboard/professor">
-                        <span class="material-symbols-outlined">school</span>
-                        <p class="text-sm font-medium">Manage Professors</p>
+                        <span class="material-symbols-outlined shrink-0">school</span>
+                        <p class="text-sm font-medium">Faculty Members</p>
                     </a>
-                    <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
-                        href="/admin/dashboard/courses">
-                        <span class="material-symbols-outlined">menu_book</span>
-                        <p class="text-sm font-medium">Manage Courses</p>
+                    <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all font-display"
+                        href="/admin/dashboard/course">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-5 h-5 shrink-0">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M9 12h3.75M9 15h3.75M9 18h3.75m.75-12h4.5M12 3v1.5M12 21v-1.5M7.5 6.75h9a2.25 2.25 0 0 1 2.25 2.25v10.5A2.25 2.25 0 0 1 16.5 21h-9a2.25 2.25 0 0 1-2.25-2.25V9a2.25 2.25 0 0 1 2.25-2.25Z" />
+                        </svg>
+                        <p class="text-sm font-medium">Course Management</p>
                     </a>
-                    <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
+                    <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all font-display"
                         href="/admin/dashboard/exam">
-                        <span class="material-symbols-outlined">quiz</span>
-                        <p class="text-sm font-medium">Manage Exam</p>
+                        <span class="material-symbols-outlined shrink-0">quiz</span>
+                        <p class="text-sm font-medium">Examination Portal</p>
                     </a>
-                    <a class="flex items-center gap-3 px-4 py-3 rounded-xl bg-primary text-white shadow-lg shadow-primary/20 transition-all"
-                        href="#">
-                        <span class="material-symbols-outlined">payments</span>
-                        <p class="text-sm font-medium">Manage Payments</p>
+                    <a class="flex items-center gap-3 px-4 py-3 rounded-xl bg-primary text-white shadow-lg shadow-primary/20 transition-all font-display"
+                        href="/admin/dashboard/payment">
+                        <span class="material-symbols-outlined shrink-0">payments</span>
+                        <p class="text-sm font-medium">Payment Tracking</p>
                     </a>
                 </nav>
             </div>
@@ -123,7 +127,7 @@
                 <button id="darkModeToggle"
                     class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">
                     <span class="material-symbols-outlined">dark_mode</span>
-                    <p class="text-sm font-medium">Dark Mode</p>
+                    <p class="text-sm font-medium">Appearance</p>
                     <div class="ml-auto">
                         <div
                             class="relative inline-block w-10 h-5 rounded-full bg-gray-300 dark:bg-primary transition-colors">
@@ -133,15 +137,10 @@
                         </div>
                     </div>
                 </button>
-                <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
-                    href="#">
-                    <span class="material-symbols-outlined">settings</span>
-                    <p class="text-sm font-medium">Settings</p>
-                </a>
                 <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition-all"
                     href="/admin/login">
                     <span class="material-symbols-outlined">logout</span>
-                    <p class="text-sm font-medium">Logout</p>
+                    <p class="text-sm font-medium">Sign Out</p>
                 </a>
             </div>
         </aside>

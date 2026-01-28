@@ -172,7 +172,7 @@
                     </div>
                     <div class="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div class="flex flex-col gap-2">
-                            <label class="text-xs font-bold uppercase tracking-wider text-slate-500 ml-1">Department
+                            <label class="text-xs font-bold uppercase tracking-wider text-slate-500 ml-1">Course
                                 <span class="text-red-500">*</span></label>
                             <select id="department" required
                                 class="bg-white border-slate-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-slate-900 outline-none">
@@ -187,11 +187,12 @@
                                 placeholder="Ph.D. in Computer Science" type="text" />
                         </div>
                         <div class="flex flex-col gap-2 md:col-span-2">
-                            <label
-                                class="text-xs font-bold uppercase tracking-wider text-slate-500 ml-1">Subject/Specialization</label>
-                            <input id="subject"
-                                class="bg-white border-slate-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-slate-900 outline-none"
-                                placeholder="Data Structures, Algorithms, Machine Learning" type="text" />
+                            <label class="text-xs font-bold uppercase tracking-wider text-slate-500 ml-1">Subject
+                                <span class="text-red-500">*</span></label>
+                            <select id="subject" required
+                                class="bg-white border-slate-200 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-slate-900 outline-none">
+                                <option value="">Select Course First</option>
+                            </select>
                         </div>
                     </div>
                 </section>
@@ -278,6 +279,8 @@
         const API_BASE_URL = BASE_URL + '/admin/faculty';
         const COURSE_API_URL = BASE_URL + '/admin/course';
 
+        let allCourses = [];
+
         // Load courses for department dropdown
         async function loadCoursesForDropdown() {
             const departmentSelect = document.getElementById('department');
@@ -287,13 +290,13 @@
                 const response = await fetch(COURSE_API_URL);
                 if (!response.ok) throw new Error('Failed to fetch courses');
 
-                const courses = await response.json();
+                allCourses = await response.json();
 
                 // Clear existing options
-                departmentSelect.innerHTML = '<option value="">Select Department</option>';
+                departmentSelect.innerHTML = '<option value="">Select Course</option>';
 
                 // Add courses as options
-                courses.forEach(course => {
+                allCourses.forEach(course => {
                     const option = document.createElement('option');
                     option.value = course.courseName;
                     option.textContent = course.courseName;
@@ -304,6 +307,31 @@
                 departmentSelect.innerHTML = '<option value="">Failed to load courses</option>';
             }
         }
+
+        // Handle department change to filter subjects
+        document.getElementById('department').addEventListener('change', function () {
+            const selectedDept = this.value;
+            const subjectSelect = document.getElementById('subject');
+
+            subjectSelect.innerHTML = '<option value="">Select Subject</option>';
+
+            if (!selectedDept) {
+                subjectSelect.innerHTML = '<option value="">Select Department First</option>';
+                return;
+            }
+
+            const course = allCourses.find(c => c.courseName === selectedDept);
+            if (course && course.subjects && course.subjects.length > 0) {
+                course.subjects.forEach(sub => {
+                    const option = document.createElement('option');
+                    option.value = sub.subjectName;
+                    option.textContent = `${sub.subjectName} (${sub.subjectCode})`;
+                    subjectSelect.appendChild(option);
+                });
+            } else {
+                subjectSelect.innerHTML = '<option value="">No subjects found for this course</option>';
+            }
+        });
 
         // Load courses when DOM is ready
         document.addEventListener('DOMContentLoaded', loadCoursesForDropdown);
@@ -418,6 +446,12 @@
             if (!department) {
                 showNotification('Please select a department', 'error');
                 document.getElementById('department').focus();
+                return false;
+            }
+
+            if (!document.getElementById('subject').value) {
+                showNotification('Please select a subject', 'error');
+                document.getElementById('subject').focus();
                 return false;
             }
 

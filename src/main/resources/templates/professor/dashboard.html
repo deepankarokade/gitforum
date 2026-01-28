@@ -84,36 +84,84 @@
 					</div>
 				</div>
 				<!-- Nav Links -->
-				<nav class="flex flex-col gap-1">
+				<nav class="flex flex-col gap-1 overflow-y-auto max-h-[calc(100vh-250px)] pr-2">
 					<a class="flex items-center gap-3 px-4 py-3 rounded-xl bg-primary text-white shadow-lg shadow-primary/20 transition-all"
 						href="#">
 						<span class="material-symbols-outlined fill-1">dashboard</span>
 						<p class="text-sm font-medium">Dashboard</p>
 					</a>
+
+					<!-- Manage Exam Dropdown -->
+					<div class="relative">
+						<button id="manageExamBtn"
+							class="w-full flex items-center justify-between px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all group">
+							<div class="flex items-center gap-3">
+								<span class="material-symbols-outlined">quiz</span>
+								<p class="text-sm font-medium">Manage Exam</p>
+							</div>
+							<span id="manageExamArrow"
+								class="material-symbols-outlined text-sm transition-transform duration-200">expand_more</span>
+						</button>
+						<div id="manageExamSub"
+							class="hidden flex-col gap-1 mt-1 ml-4 border-l-2 border-primary/20 dark:border-primary/40 pl-4 transition-all">
+							<a class="flex items-center gap-3 px-4 py-2 rounded-lg text-slate-500 dark:text-slate-400 hover:text-primary dark:hover:text-white transition-all font-medium"
+								th:href="@{/professor/exams}">
+								<span class="material-symbols-outlined text-xs">list_alt</span>
+								<p class="text-xs">All Exams</p>
+							</a>
+							<a class="flex items-center gap-3 px-4 py-2 rounded-lg text-slate-500 dark:text-slate-400 hover:text-primary dark:hover:text-white transition-all font-medium"
+								th:href="@{/professor/exams/create}">
+								<span class="material-symbols-outlined text-xs">add_circle</span>
+								<p class="text-xs">Create Exam</p>
+							</a>
+							<a class="flex items-center gap-3 px-4 py-2 rounded-lg text-slate-500 dark:text-slate-400 hover:text-primary dark:hover:text-white transition-all font-medium"
+								th:href="@{/professor/exams/set-questions}">
+								<span class="material-symbols-outlined text-xs">format_list_bulleted</span>
+								<p class="text-xs">Set Questions</p>
+							</a>
+						</div>
+					</div>
+
 					<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
-						th:href="@{/professor/exams/create}">
-						<span class="material-symbols-outlined">add_circle</span>
-						<p class="text-sm font-medium">Create Exam</p>
+						th:href="@{/professor/monitoring}">
+						<span class="material-symbols-outlined">monitoring</span>
+						<p class="text-sm font-medium">Monitoring</p>
 					</a>
-					<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
-						th:href="@{/professor/exams}">
-						<span class="material-symbols-outlined">quiz</span>
-						<p class="text-sm font-medium">My Exams</p>
-					</a>
+
 					<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
 						th:href="@{/professor/students}">
 						<span class="material-symbols-outlined">group</span>
-						<p class="text-sm font-medium">Students</p>
+						<p class="text-sm font-medium">Student Management</p>
 					</a>
+
 					<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
-						th:href="@{/professor/results}">
-						<span class="material-symbols-outlined">leaderboard</span>
-						<p class="text-sm font-medium">Results</p>
+						th:href="@{/professor/grading}">
+						<span class="material-symbols-outlined">grade</span>
+						<p class="text-sm font-medium">Grading & Feedback</p>
 					</a>
+
 					<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
-						th:href="@{/professor/certificates}">
-						<span class="material-symbols-outlined">workspace_premium</span>
-						<p class="text-sm font-medium">Certificates</p>
+						th:href="@{/professor/reports}">
+						<span class="material-symbols-outlined">analytics</span>
+						<p class="text-sm font-medium">Report & Analytics</p>
+					</a>
+
+					<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
+						th:href="@{/professor/trends}">
+						<span class="material-symbols-outlined">trending_up</span>
+						<p class="text-sm font-medium">Trend Analysis</p>
+					</a>
+
+					<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
+						th:href="@{/professor/contacts}">
+						<span class="material-symbols-outlined">contact_mail</span>
+						<p class="text-sm font-medium">Manage Contacts</p>
+					</a>
+
+					<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
+						th:href="@{/professor/exam-review}">
+						<span class="material-symbols-outlined">reviews</span>
+						<p class="text-sm font-medium">Manage Exam Review</p>
 					</a>
 				</nav>
 			</div>
@@ -433,6 +481,19 @@
 				darkModeToggle.addEventListener('click', function () {
 					document.documentElement.classList.toggle('dark');
 					localStorage.setItem('darkMode', document.documentElement.classList.contains('dark') ? 'enabled' : 'disabled');
+				});
+			}
+
+			// Manage Exam Sub-menu Toggle
+			const manageExamBtn = document.getElementById('manageExamBtn');
+			const manageExamSub = document.getElementById('manageExamSub');
+			const manageExamArrow = document.getElementById('manageExamArrow');
+
+			if (manageExamBtn && manageExamSub) {
+				manageExamBtn.addEventListener('click', function () {
+					manageExamSub.classList.toggle('hidden');
+					manageExamSub.classList.toggle('flex');
+					manageExamArrow.classList.toggle('rotate-180');
 				});
 			}
 

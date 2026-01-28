@@ -63,14 +63,14 @@
 
         <!-- Sidebar Navigation -->
         <aside
-            class="w-72 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 flex flex-col justify-between py-6">
+            class="w-72 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 flex flex-col justify-between py-6 transition-colors duration-300">
             <div class="flex flex-col gap-8 px-6">
                 <!-- Profile Section -->
                 <div class="flex gap-3 items-center">
                     <div id="sidebarAvatar"
                         class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-12 border-2 border-primary"
                         data-alt="Professional portrait of the portal administrator"
-                        style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAHDav7IDfvT9cSxg4jMV-mSFf7EAges7dHFo-J7bVhWbd2Vnwb6fU7qulhn4mAoXTNHaGRtii7HB08NakQLsiRy1rERs3XB6tFyH6_4gmkI3hs0rF9WhKVuQkq8lJZmciga4IrnqJIF7nH-QGLIH6DxNPVsfDe3oALQgeASqMBu5QzXZrlTsCvl_DC00n3wJ6BZ5ZrnL8FPADJ7VvtAFcZYhwJJ2rXDM0oocbtDvqSjeR10pPfjtGcmJlcKx7XsyrhAlgMwbinmmU");'>
+                        style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAHDav7IDfvT9cSxg4jMV-mSFf7EAges7dHFo-J7bVhWbd2Vnwb6fU7qulhn4mAoXTNHaGRtii7HB08NakQLsiRy1rERs3XB6tFyH6_4gmkI3hs0rF9WhKVuQkq8lJZmciga4IrnqJIF7nH-QGLIH6DxNPVsfDe3oALQgeASqMBu5QzXZrlTsCvl_DC00n3wJ6BZ5ZrnL8FPADJ7VvtAFzZYhwJJ2rXDM0oocbtDvqSjeR10pPfjtGcmJlcKx7XsyrhAlgMwbinmmU");'>
                     </div>
                     <div class="flex flex-col">
                         <h1 id="sidebarAdminName"
@@ -81,40 +81,44 @@
                 </div>
                 <!-- Nav Links -->
                 <nav class="flex flex-col gap-1">
-                    <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
+                    <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all font-display"
                         href="/admin/dashboard">
-                        <span class="material-symbols-outlined fill-1">dashboard</span>
-                        <p class="text-sm font-medium">Dashboard</p>
+                        <span class="material-symbols-outlined shrink-0">dashboard</span>
+                        <p class="text-sm font-medium">Dashboard Overview</p>
                     </a>
-                    <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
+                    <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all font-display"
                         href="/admin/profile">
-                        <span class="material-symbols-outlined">account_circle</span>
-                        <p class="text-sm font-medium">Manage Profile</p>
+                        <span class="material-symbols-outlined shrink-0">account_circle</span>
+                        <p class="text-sm font-medium">Profile Management</p>
                     </a>
-                    <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
+                    <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all font-display"
                         href="/admin/dashboard/student">
-                        <span class="material-symbols-outlined">group</span>
-                        <p class="text-sm font-medium">Manage Students</p>
+                        <span class="material-symbols-outlined shrink-0">group</span>
+                        <p class="text-sm font-medium">Students Directory</p>
                     </a>
-                    <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
+                    <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all font-display"
                         href="/admin/dashboard/professor">
-                        <span class="material-symbols-outlined">school</span>
-                        <p class="text-sm font-medium">Manage Professors</p>
+                        <span class="material-symbols-outlined shrink-0">school</span>
+                        <p class="text-sm font-medium">Faculty Members</p>
                     </a>
-                    <a class="flex items-center gap-3 px-4 py-3 rounded-xl bg-primary text-white shadow-lg shadow-primary/20 transition-all"
-                        href="#">
-                        <span class="material-symbols-outlined">menu_book</span>
-                        <p class="text-sm font-medium">Manage Courses</p>
+                    <a class="flex items-center gap-3 px-4 py-3 rounded-xl bg-primary text-white shadow-lg shadow-primary/20 transition-all font-display"
+                        href="/admin/dashboard/course">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-5 h-5 shrink-0">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M9 12h3.75M9 15h3.75M9 18h3.75m.75-12h4.5M12 3v1.5M12 21v-1.5M7.5 6.75h9a2.25 2.25 0 0 1 2.25 2.25v10.5A2.25 2.25 0 0 1 16.5 21h-9a2.25 2.25 0 0 1-2.25-2.25V9a2.25 2.25 0 0 1 2.25-2.25Z" />
+                        </svg>
+                        <p class="text-sm font-medium">Course Management</p>
                     </a>
-                    <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
+                    <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all font-display"
                         href="/admin/dashboard/exam">
-                        <span class="material-symbols-outlined">quiz</span>
-                        <p class="text-sm font-medium">Manage Exam</p>
+                        <span class="material-symbols-outlined shrink-0">quiz</span>
+                        <p class="text-sm font-medium">Examination Portal</p>
                     </a>
-                    <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
+                    <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all font-display"
                         href="/admin/dashboard/payment">
-                        <span class="material-symbols-outlined">payments</span>
-                        <p class="text-sm font-medium">Manage Payments</p>
+                        <span class="material-symbols-outlined shrink-0">payments</span>
+                        <p class="text-sm font-medium">Payment Tracking</p>
                     </a>
                 </nav>
             </div>
@@ -123,7 +127,7 @@
                 <button id="darkModeToggle"
                     class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">
                     <span class="material-symbols-outlined">dark_mode</span>
-                    <p class="text-sm font-medium">Dark Mode</p>
+                    <p class="text-sm font-medium">Appearance</p>
                     <div class="ml-auto">
                         <div
                             class="relative inline-block w-10 h-5 rounded-full bg-gray-300 dark:bg-primary transition-colors">
@@ -133,15 +137,10 @@
                         </div>
                     </div>
                 </button>
-                <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
-                    href="#">
-                    <span class="material-symbols-outlined">settings</span>
-                    <p class="text-sm font-medium">Settings</p>
-                </a>
                 <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition-all"
                     href="/admin/login">
                     <span class="material-symbols-outlined">logout</span>
-                    <p class="text-sm font-medium">Logout</p>
+                    <p class="text-sm font-medium">Sign Out</p>
                 </a>
             </div>
         </aside>
@@ -156,11 +155,18 @@
                         <p class="text-[#616f89] dark:text-gray-400 text-base font-normal">Create, view, and manage
                             available courses for examinations.</p>
                     </div>
-                    <button onclick="openAddModal()"
-                        class="flex items-center justify-center gap-2 rounded-lg h-11 px-6 bg-primary text-white text-sm font-bold transition-transform hover:scale-[1.02] active:scale-95 shadow-lg shadow-primary/20">
-                        <span class="material-symbols-outlined text-xl">add</span>
-                        <span>Add New Course</span>
-                    </button>
+                    <div class="flex items-center gap-3">
+                        <a href="/admin/dashboard/course/subject"
+                            class="flex items-center justify-center gap-2 rounded-lg h-11 px-6 border-2 border-primary text-primary text-sm font-bold transition-transform hover:scale-[1.02] active:scale-95">
+                            <span class="material-symbols-outlined text-xl">auto_stories</span>
+                            <span>Manage Subjects</span>
+                        </a>
+                        <button onclick="openAddModal()"
+                            class="flex items-center justify-center gap-2 rounded-lg h-11 px-6 bg-primary text-white text-sm font-bold transition-transform hover:scale-[1.02] active:scale-95 shadow-lg shadow-primary/20">
+                            <span class="material-symbols-outlined text-xl">add</span>
+                            <span>Add New Course</span>
+                        </button>
+                    </div>
                 </div>
 
                 <!-- Stats Overview -->
@@ -290,6 +296,17 @@
                         class="w-full h-12 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-4 text-gray-900 dark:text-white focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
                         placeholder="e.g., JEE Main" />
                 </div>
+                <div class="space-y-2">
+                    <label class="text-sm font-semibold text-gray-700 dark:text-gray-300">Select Subjects</label>
+                    <div
+                        class="border border-gray-300 dark:border-gray-600 rounded-lg overflow-hidden flex flex-col max-h-48">
+                        <div id="subjectList" class="overflow-y-auto p-3 space-y-2 bg-gray-50 dark:bg-gray-800/50">
+                            <!-- Subjects will be populated here -->
+                            <div class="text-xs text-gray-500 text-center py-2">Loading subjects...</div>
+                        </div>
+                    </div>
+                    <p class="text-xs text-gray-500">Select subjects to include in this course</p>
+                </div>
                 <div class="flex gap-3 pt-4">
                     <button type="button" onclick="closeAddModal()"
                         class="flex-1 px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-semibold hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
@@ -329,6 +346,71 @@
                     </button>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- Edit Course Modal -->
+    <div id="editCourseModal"
+        class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 hidden">
+        <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl w-full max-w-md mx-4 overflow-hidden">
+            <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
+                <h3 class="text-lg font-bold text-gray-900 dark:text-white">Edit Course</h3>
+                <button onclick="closeEditModal()"
+                    class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            <form id="editCourseForm" class="p-6 space-y-5">
+                <input type="hidden" id="editCourseDbId" />
+                <div class="space-y-2">
+                    <label class="text-sm font-semibold text-gray-700 dark:text-gray-300">Course ID <span
+                            class="text-red-500">*</span></label>
+                    <input type="text" id="editCourseIdInput" required
+                        class="w-full h-12 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-4 text-gray-900 dark:text-white focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all" />
+                </div>
+                <div class="space-y-2">
+                    <label class="text-sm font-semibold text-gray-700 dark:text-gray-300">Course Name <span
+                            class="text-red-500">*</span></label>
+                    <input type="text" id="editCourseNameInput" required
+                        class="w-full h-12 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-4 text-gray-900 dark:text-white focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all" />
+                </div>
+                <div class="space-y-2">
+                    <label class="text-sm font-semibold text-gray-700 dark:text-gray-300">Status</label>
+                    <div
+                        class="flex items-center gap-4 p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700">
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="radio" name="courseStatus" value="true"
+                                class="text-primary focus:ring-primary h-4 w-4 dark:bg-gray-700 dark:border-gray-600" />
+                            <span class="text-sm font-medium dark:text-white">Active</span>
+                        </label>
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="radio" name="courseStatus" value="false"
+                                class="text-primary focus:ring-primary h-4 w-4 dark:bg-gray-700 dark:border-gray-600" />
+                            <span class="text-sm font-medium dark:text-white">Inactive</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="space-y-2">
+                    <label class="text-sm font-semibold text-gray-700 dark:text-gray-300">Manage Subjects</label>
+                    <div
+                        class="border border-gray-300 dark:border-gray-600 rounded-lg overflow-hidden flex flex-col max-h-48">
+                        <div id="editSubjectList" class="overflow-y-auto p-3 space-y-2 bg-gray-50 dark:bg-gray-800/50">
+                            <!-- Subjects populated here -->
+                            <div class="text-xs text-gray-500 text-center py-2">Loading subjects...</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex gap-3 pt-4">
+                    <button type="button" onclick="closeEditModal()"
+                        class="flex-1 px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-semibold hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+                        Cancel
+                    </button>
+                    <button type="submit"
+                        class="flex-1 px-4 py-3 rounded-lg bg-primary text-white font-semibold hover:bg-blue-700 transition-colors shadow-lg shadow-primary/20">
+                        Save Changes
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 
@@ -471,13 +553,18 @@
                         </div>
                     </td>
                     <td class="px-6 py-4">
-                        <div class="flex items-center gap-1.5 text-green-700 dark:text-green-400">
-                            <div class="size-2 rounded-full bg-green-500"></div>
-                            <span class="text-sm font-medium">Active</span>
+                        <div class="flex items-center gap-1.5 ${course.active ? 'text-green-700 dark:text-green-400' : 'text-red-700 dark:text-red-400'}">
+                            <div class="size-2 rounded-full ${course.active ? 'bg-green-500' : 'bg-red-500'}"></div>
+                            <span class="text-sm font-medium">${course.active ? 'Active' : 'Inactive'}</span>
                         </div>
                     </td>
                     <td class="px-6 py-4 text-right">
                         <div class="flex justify-end gap-2">
+                            <button onclick='openEditModal(${JSON.stringify(course)})' 
+                                class="p-2 hover:bg-primary/10 rounded-lg text-gray-500 hover:text-primary transition-colors"
+                                title="Edit Course">
+                                <span class="material-symbols-outlined text-lg">edit</span>
+                            </button>
                             <button onclick="deleteCourse('${course.courseId}', '${course.courseName}')" 
                                 class="p-2 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg text-gray-500 hover:text-red-500 transition-colors"
                                 title="Delete Course">
@@ -494,8 +581,9 @@
         // Update statistics
         function updateStats(courses) {
             const totalCourses = courses.length;
+            const activeCourses = courses.filter(c => c.active).length;
             document.getElementById('totalCount').textContent = totalCourses;
-            document.getElementById('activeCount').textContent = totalCourses; // All active for now
+            document.getElementById('activeCount').textContent = activeCourses;
             document.getElementById('examCount').textContent = '0'; // Placeholder
         }
 
@@ -524,10 +612,42 @@
         });
 
         // Modal functions
-        function openAddModal() {
+        async function openAddModal() {
             document.getElementById('addCourseModal').classList.remove('hidden');
             document.getElementById('courseIdInput').value = '';
             document.getElementById('courseNameInput').value = '';
+            await loadAvailableSubjects();
+        }
+
+        async function loadAvailableSubjects() {
+            const subjectList = document.getElementById('subjectList');
+            subjectList.innerHTML = '<div class="text-xs text-gray-500 text-center py-2">Loading subjects...</div>';
+
+            try {
+                const response = await fetch(`${BASE_URL}/admin/subject/all`);
+                if (response.ok) {
+                    const subjects = await response.json();
+                    if (subjects.length > 0) {
+                        subjectList.innerHTML = subjects.map(s => `
+                            <label class="flex items-center gap-3 p-2 rounded-lg hover:bg-white dark:hover:bg-gray-700 cursor-pointer transition-colors group">
+                                <input type="checkbox" name="selectedSubjects" value="${s.id}" 
+                                    class="w-4 h-4 rounded border-gray-300 text-primary focus:ring-primary dark:border-gray-600 dark:bg-gray-700" />
+                                <div class="flex flex-col">
+                                    <span class="text-sm font-medium text-gray-900 dark:text-white group-hover:text-primary transition-colors">${s.subjectName}</span>
+                                    <span class="text-[10px] text-gray-500 font-mono">${s.subjectCode}</span>
+                                </div>
+                            </label>
+                        `).join('');
+                    } else {
+                        subjectList.innerHTML = '<div class="text-xs text-gray-500 text-center py-2">No subjects found. Create some first!</div>';
+                    }
+                } else {
+                    subjectList.innerHTML = '<div class="text-xs text-red-500 text-center py-2">Error loading subjects</div>';
+                }
+            } catch (error) {
+                console.error('Error fetching subjects:', error);
+                subjectList.innerHTML = '<div class="text-xs text-red-500 text-center py-2">Network error</div>';
+            }
         }
 
         function closeAddModal() {
@@ -551,6 +671,7 @@
 
             const courseId = document.getElementById('courseIdInput').value.trim();
             const courseName = document.getElementById('courseNameInput').value.trim();
+            const selectedSubjectIds = Array.from(document.querySelectorAll('input[name="selectedSubjects"]:checked')).map(cb => parseInt(cb.value));
 
             if (!courseId || !courseName) {
                 showNotification('Please fill in all required fields', 'error');
@@ -565,7 +686,8 @@
                     },
                     body: JSON.stringify({
                         courseId: courseId,
-                        courseName: courseName
+                        courseName: courseName,
+                        subjectIds: selectedSubjectIds
                     })
                 });
 
@@ -580,6 +702,90 @@
             } catch (error) {
                 console.error('Error adding course:', error);
                 showNotification('Network error. Please try again.', 'error');
+            }
+        });
+
+        // Edit Course Modal and Logic
+        async function openEditModal(course) {
+            document.getElementById('editCourseDbId').value = course.id;
+            document.getElementById('editCourseIdInput').value = course.courseId;
+            document.getElementById('editCourseNameInput').value = course.courseName;
+
+            // Set radio button status
+            const radios = document.getElementsByName('courseStatus');
+            radios.forEach(r => {
+                if (r.value === String(course.active)) r.checked = true;
+            });
+
+            document.getElementById('editCourseModal').classList.remove('hidden');
+            await loadEditSubjects(course.subjects || []);
+        }
+
+        async function loadEditSubjects(selectedSubjects) {
+            const subjectList = document.getElementById('editSubjectList');
+            subjectList.innerHTML = '<div class="text-xs text-gray-500 text-center py-2">Loading subjects...</div>';
+
+            const selectedIds = selectedSubjects.map(s => s.id);
+
+            try {
+                const response = await fetch(`${BASE_URL}/admin/subject/all`);
+                if (response.ok) {
+                    const subjects = await response.json();
+                    if (subjects.length > 0) {
+                        subjectList.innerHTML = subjects.map(s => `
+                            <label class="flex items-center gap-3 p-2 rounded-lg hover:bg-white dark:hover:bg-gray-700 cursor-pointer transition-colors group">
+                                <input type="checkbox" name="editSelectedSubjects" value="${s.id}" 
+                                    ${selectedIds.includes(s.id) ? 'checked' : ''}
+                                    class="w-4 h-4 rounded border-gray-300 text-primary focus:ring-primary dark:border-gray-600 dark:bg-gray-700" />
+                                <div class="flex flex-col">
+                                    <span class="text-sm font-medium text-gray-900 dark:text-white group-hover:text-primary transition-colors">${s.subjectName}</span>
+                                    <span class="text-[10px] text-gray-500 font-mono">${s.subjectCode}</span>
+                                </div>
+                            </label>
+                        `).join('');
+                    } else {
+                        subjectList.innerHTML = '<div class="text-xs text-gray-500 text-center py-2">No subjects found.</div>';
+                    }
+                }
+            } catch (e) {
+                subjectList.innerHTML = '<div class="text-xs text-red-500 text-center py-2">Error loading subjects</div>';
+            }
+        }
+
+        function closeEditModal() {
+            document.getElementById('editCourseModal').classList.add('hidden');
+        }
+
+        document.getElementById('editCourseForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const id = document.getElementById('editCourseDbId').value;
+            const courseId = document.getElementById('editCourseIdInput').value;
+            const name = document.getElementById('editCourseNameInput').value;
+            const active = document.querySelector('input[name="courseStatus"]:checked').value === 'true';
+            const subjectIds = Array.from(document.querySelectorAll('input[name="editSelectedSubjects"]:checked')).map(cb => parseInt(cb.value));
+
+            try {
+                const response = await fetch(`${API_URL}/update/${id}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        courseId: courseId,
+                        courseName: name,
+                        active: active,
+                        subjectIds: subjectIds
+                    })
+                });
+
+                if (response.ok) {
+                    showNotification('Course updated successfully!', 'success');
+                    closeEditModal();
+                    fetchAllCourses();
+                } else {
+                    const msg = await response.text();
+                    showNotification(msg || 'Update failed', 'error');
+                }
+            } catch (error) {
+                showNotification('Network error', 'error');
             }
         });
 

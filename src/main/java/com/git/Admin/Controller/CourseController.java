@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.git.Admin.Entity.Course;
@@ -32,30 +32,72 @@ public class CourseController {
     }
 
     // ADD New Course
-    @PostMapping("/add")
-    public ResponseEntity<?> addNewCourse(
-            @RequestParam("courseName") String courseName,
-            @RequestParam("courseId") String courseId) {
+    @PostMapping
+    public ResponseEntity<?> addNewCourse(@RequestBody CourseRequest request) {
         try {
-            Course course = new Course();
-            Course savedCourse = courseService.addNewCourse(courseName, courseId, course);
+            Course savedCourse = courseService.addNewCourse(
+                    request.getCourseName(),
+                    request.getCourseId(),
+                    request.getSubjectIds());
             return ResponseEntity.status(HttpStatus.CREATED).body(savedCourse);
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 
-    // ADD New Course with Request Body
-    @PostMapping
-    public ResponseEntity<?> addNewCourseWithBody(@RequestBody Course course) {
+    // UPDATE Course
+    @PutMapping("/update/{id}")
+    public ResponseEntity<?> updateCourse(@PathVariable Long id, @RequestBody CourseRequest request) {
         try {
-            Course savedCourse = courseService.addNewCourse(
-                    course.getCourseName(),
-                    course.getCourseId(),
-                    course);
-            return ResponseEntity.status(HttpStatus.CREATED).body(savedCourse);
+            Course updatedCourse = courseService.updateCourse(
+                    id,
+                    request.getCourseName(),
+                    request.getCourseId(),
+                    request.isActive(),
+                    request.getSubjectIds());
+            return ResponseEntity.ok(updatedCourse);
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
+
+    // DTO for adding course with subjects
+    public static class CourseRequest {
+        private String courseName;
+        private String courseId;
+        private boolean active;
+        private List<Long> subjectIds;
+
+        public String getCourseName() {
+            return courseName;
+        }
+
+        public void setCourseName(String courseName) {
+            this.courseName = courseName;
+        }
+
+        public String getCourseId() {
+            return courseId;
+        }
+
+        public void setCourseId(String courseId) {
+            this.courseId = courseId;
+        }
+
+        public boolean isActive() {
+            return active;
+        }
+
+        public void setActive(boolean active) {
+            this.active = active;
+        }
+
+        public List<Long> getSubjectIds() {
+            return subjectIds;
+        }
+
+        public void setSubjectIds(List<Long> subjectIds) {
+            this.subjectIds = subjectIds;
         }
     }
 

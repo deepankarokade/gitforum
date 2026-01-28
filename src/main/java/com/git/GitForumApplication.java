@@ -9,5 +9,4 @@ public class GitForumApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(GitForumApplication.class, args);
 	}
-
 }

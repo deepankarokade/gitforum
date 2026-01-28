@@ -36,229 +36,290 @@
 </head>
 
 <body class="bg-background-light dark:bg-background-dark font-display min-h-screen text-[#111318] dark:text-white">
-  <div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
-    <div class="layout-container flex h-full grow flex-col">
+  <div class="flex h-screen overflow-hidden">
+    <!-- Sidebar Navigation -->
+    <aside
+      class="w-72 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 flex flex-col justify-between py-6">
+      <div class="flex flex-col gap-8 px-6">
+        <!-- Profile Section -->
+        <div class="flex gap-3 items-center">
+          <div id="sidebarAvatar"
+            class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-12 border-2 border-primary"
+            data-alt="Professional portrait of the portal administrator"
+            style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAHDav7IDfvT9cSxg4jMV-mSFf7EAges7dHFo-J7bVhWbd2Vnwb6fU7qulhn4mAoXTNHaGRtii7HB08NakQLsiRy1rERs3XB6tFyH6_4gmkI3hs0rF9WhKVuQkq8lJZmciga4IrnqJIF7nH-QGLIH6DxNPVsfDe3oALQgeASqMBu5QzXZrlTsCvl_DC00n3wJ6BZ5ZrnL8FPADJ7VvtAFcZYhwJJ2rXDM0oocbtDvqSjeR10pPfjtGcmJlcKx7XsyrhAlgMwbinmmU");'>
+          </div>
+          <div class="flex flex-col">
+            <h1 id="sidebarAdminName" class="text-[#111318] dark:text-white text-base font-semibold leading-tight"
+              aria-busy="true">Loading…</h1>
+            <h5 id="sidebarAdmin" class="text-[#111318] dark:text-white text-base font-semibold leading-tight"
+              aria-busy="true">Admin</h5>
+          </div>
+        </div>
+        <!-- Nav Links -->
+        <nav class="flex flex-col gap-1">
+          <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all font-display"
+            href="/admin/dashboard">
+            <span class="material-symbols-outlined shrink-0">dashboard</span>
+            <p class="text-sm font-medium">Dashboard Overview</p>
+          </a>
+          <a class="flex items-center gap-3 px-4 py-3 rounded-xl bg-primary text-white shadow-lg shadow-primary/20 transition-all font-display"
+            href="/admin/profile">
+            <span class="material-symbols-outlined shrink-0">account_circle</span>
+            <p class="text-sm font-medium">Profile Management</p>
+          </a>
+          <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all font-display"
+            href="/admin/dashboard/student">
+            <span class="material-symbols-outlined shrink-0">group</span>
+            <p class="text-sm font-medium">Students Directory</p>
+          </a>
+          <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all font-display"
+            href="/admin/dashboard/professor">
+            <span class="material-symbols-outlined shrink-0">school</span>
+            <p class="text-sm font-medium">Faculty Members</p>
+          </a>
+          <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all font-display"
+            href="/admin/dashboard/course">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+              stroke="currentColor" class="w-5 h-5 shrink-0">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M9 12h3.75M9 15h3.75M9 18h3.75m.75-12h4.5M12 3v1.5M12 21v-1.5M7.5 6.75h9a2.25 2.25 0 0 1 2.25 2.25v10.5A2.25 2.25 0 0 1 16.5 21h-9a2.25 2.25 0 0 1-2.25-2.25V9a2.25 2.25 0 0 1 2.25-2.25Z" />
+            </svg>
+            <p class="text-sm font-medium">Course Management</p>
+          </a>
+          <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all font-display"
+            href="/admin/dashboard/exam">
+            <span class="material-symbols-outlined shrink-0">quiz</span>
+            <p class="text-sm font-medium">Examination Portal</p>
+          </a>
+          <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all font-display"
+            href="/admin/dashboard/payment">
+            <span class="material-symbols-outlined shrink-0">payments</span>
+            <p class="text-sm font-medium">Payment Tracking</p>
+          </a>
+        </nav>
+      </div>
+      <!-- Footer Sidebar -->
+      <div class="flex flex-col gap-1 px-6">
+        <button id="sidebarDarkModeToggle"
+          class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">
+          <span class="material-symbols-outlined">dark_mode</span>
+          <p class="text-sm font-medium">Dark Mode</p>
+          <div class="ml-auto">
+            <div class="relative inline-block w-10 h-5 rounded-full bg-gray-300 dark:bg-primary transition-colors">
+              <div
+                class="absolute left-0.5 top-0.5 w-4 h-4 bg-white rounded-full transition-transform dark:transform dark:translate-x-5">
+              </div>
+            </div>
+          </div>
+        </button>
+        <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
+          href="#">
+          <span class="material-symbols-outlined">settings</span>
+          <p class="text-sm font-medium">Settings</p>
+        </a>
+        <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition-all"
+          href="/admin/login">
+          <span class="material-symbols-outlined">logout</span>
+          <p class="text-sm font-medium">Logout</p>
+        </a>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 flex flex-col overflow-y-auto geometric-bg">
       <!-- Top Navigation Bar -->
       <header
-        class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#f0f2f4] dark:border-b-white/10 px-6 lg:px-10 py-3 bg-white dark:bg-background-dark">
-        <div class="flex items-center gap-8">
-          <div class="flex items-center gap-4 text-primary">
-            <div class="size-6">
-              <svg fill="currentColor" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-                <path d="M44 4H30.6666V17.3334H17.3334V30.6666H4V44H44V4Z"></path>
+        class="flex items-center justify-between sticky top-0 z-10 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 px-8 py-4">
+        <div class="flex items-center gap-6">
+          <div class="flex items-center gap-2">
+            <div class="text-primary">
+              <svg class="size-8" fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                <path d="M44 4H30.6666V17.3334H17.3334V30.6666H4V44H44V4Z" fill="currentColor"></path>
               </svg>
             </div>
-            <h2 class="text-[#111318] dark:text-white text-lg font-bold leading-tight tracking-[-0.015em]">ExamPortal
-              Admin</h2>
+            <h2 class="text-slate-900 dark:text-white text-xl font-bold tracking-tight">Admin Console</h2>
           </div>
-          <label class="hidden md:flex flex-col min-w-40 !h-10 max-w-64">
-            <div class="flex w-full flex-1 items-stretch rounded-lg h-full">
-              <div
-                class="text-[#616f89] flex border-none bg-[#f0f2f4] dark:bg-white/5 items-center justify-center pl-4 rounded-l-lg border-r-0">
-                <span class="material-symbols-outlined text-lg">search</span>
-              </div>
-              <input
-                class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#111318] dark:text-white focus:outline-0 focus:ring-0 border-none bg-[#f0f2f4] dark:bg-white/5 focus:border-none h-full placeholder:text-[#616f89] px-4 rounded-l-none border-l-0 pl-2 text-base font-normal leading-normal"
-                placeholder="Search records" value="" />
-            </div>
-          </label>
-        </div>
-        <div class="flex gap-2">
-          <button id="darkModeToggle"
-            class="size-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
-            title="Toggle dark mode">
-            <span class="material-symbols-outlined">dark_mode</span>
-          </button>
+          <div class="hidden md:flex relative group">
+            <span
+              class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">search</span>
+            <input
+              class="form-input w-80 pl-10 pr-4 py-2 rounded-xl border-none bg-slate-100 dark:bg-slate-800 text-sm focus:ring-2 focus:ring-primary transition-all"
+              placeholder="Search exams, users, or reports..." />
+          </div>
         </div>
       </header>
-      <div class="flex flex-1 flex-col lg:flex-row w-full">
-        <!-- Sidebar Navigation -->
-        <aside
-          class="fixed left-0 top-0 h-screen w-64 flex-shrink-0 bg-white dark:bg-background-dark border-r border-[#f0f2f4] dark:border-white/10 p-6 pt-4 overflow-y-auto z-40">
-          <div class="flex flex-col gap-6">
-            <div class="flex gap-3">
-              <div id="sidebarAvatar"
-                class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-12 border-2 border-primary/20"
-                data-alt="Circular profile photo of administrator"
-                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDFeCPlMSerQTwinfE8kBx9gDdz5C_KE9Xw3ohIUq9vcktktGuPQl8TSiQ7ZLrK5dbncAJovEgKwUNPQ3S_SxSDBqgl_tv6vL-NxRW-puzdtDA3mIYG1UKYRVMyTnqGDXaGbsFSuhoI0w4znlorIj0zslWIpmk4BIOcJI7m_IFzicyKP0hDMU_jFWymHjQ4gdz36sbfwDnVlkMAnIwfppyzPSH9Zei8KBp5JfH7dv22ratbqQKjUb3mGRHzpmvmdQjn6J1NG5FSBvw");'>
-              </div>
-              <div class="flex flex-col">
-                <h1 id="sidebarName" class="text-[#111318] dark:text-white text-base font-bold leading-normal"
-                  aria-busy="true">Loading…</h1>
-              </div>
-            </div>
-            <nav class="flex flex-col gap-1">
 
-              <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
-                href="/admin/dashboard">
-                <span class="material-symbols-outlined fill-1">dashboard</span>
-                <p class="text-sm font-medium">Dashboard</p>
-              </a>
-
-              <a class="flex items-center gap-3 px-4 py-3 rounded-xl bg-primary text-white shadow-lg shadow-primary/20 transition-all"
-                href="#">
-                <span class="material-symbols-outlined">account_circle</span>
-                <p class="text-sm font-medium">Manage Profile</p>
-              </a>
-
-              <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
-                href="/admin/dashboard/student">
-                <span class="material-symbols-outlined">group</span>
-                <p class="text-sm font-medium">Manage Students</p>
-              </a>
-
-              <a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
-                href="/admin/dashboard/professor">
-                <span class="material-symbols-outlined">school</span>
-                <p class="text-sm font-medium">Manage Professors</p>
-              </a>
-
-            </nav>
+      <div class="p-8 max-w-4xl mx-auto w-full flex flex-col gap-8">
+        <!-- Page Heading -->
+        <div class="flex flex-wrap justify-between items-end gap-4">
+          <div class="flex flex-col gap-2">
+            <p class="text-[#111318] dark:text-white text-3xl font-black leading-tight tracking-[-0.033em]">Profile
+              Management</p>
+            <p class="text-[#616f89] dark:text-white/60 text-base font-normal leading-normal">Manage your personal
+              information, security settings and platform preferences.</p>
           </div>
-        </aside>
-        <!-- Main Content Area -->
-        <main class="flex-1 p-6 lg:p-10 overflow-y-auto lg:ml-64">
-          <div class="max-w-4xl mx-auto space-y-8">
-            <!-- Page Heading -->
-            <div class="flex flex-wrap justify-between items-end gap-4">
-              <div class="flex flex-col gap-2">
-                <p class="text-[#111318] dark:text-white text-3xl font-black leading-tight tracking-[-0.033em]">Profile
-                  Management</p>
-                <p class="text-[#616f89] dark:text-white/60 text-base font-normal leading-normal">Manage your personal
-                  information, security settings and platform preferences.</p>
+        </div>
+        <!-- Profile Header Card -->
+        <div class="bg-white dark:bg-white/5 rounded-xl border border-[#f0f2f4] dark:border-white/10 p-6 lg:p-8">
+          <div class="flex flex-col md:flex-row items-center gap-8">
+            <div class="relative">
+              <div id="profileAvatar"
+                class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-32 w-32 border-4 border-white dark:border-background-dark shadow-xl"
+                data-alt="High resolution administrator profile photo"
+                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDFkpdUEswXCJRuzhEWbfHeqxraN19lFDUIV2gTCrcAaVmK_Wul6sdNCCVfofnhAtOTGghoOAWe948szs7VQdmuKI9XVnr1gPksdCLtMramVrnMD0AbSplB-wVwXedwIoAqcWBj254plAz-moOceoYSyAQuYK84DbmSrU0PSW8mmjvDrm9WCFcs7p_hDKTkqXeA9KKersLi3RHsYmm4s-bR_wT4vRLgkwVtjABlagQlZGq3mnUjt1FgEsboz71GLQWvttiv5ci3QaA");'>
+              </div>
+              <button id="changePhotoBtn"
+                class="absolute bottom-0 right-0 p-2 bg-primary text-white rounded-full shadow-lg hover:bg-blue-700 transition-colors border-2 border-white dark:border-background-dark"
+                title="Change profile photo">
+                <span class="material-symbols-outlined text-sm">edit</span>
+              </button>
+              <input id="profilePicInput" type="file" accept="image/*" style="display:none" />
+            </div>
+            <div class="flex flex-col items-center md:items-start text-center md:text-left flex-1">
+              <h3 class="text-[#111318] dark:text-white text-2xl font-bold leading-tight tracking-[-0.015em]">Admin
+              </h3>
+              <div class="flex gap-4 mt-3">
+                <p class="text-[#616f89] dark:text-white/40 text-sm flex items-center gap-1">
+                  <span class="material-symbols-outlined text-base">calendar_today</span>
+                  Joined Jan 2023
+                </p>
+                <p class="text-[#616f89] dark:text-white/40 text-sm flex items-center gap-1">
+                  <span class="material-symbols-outlined text-base">history</span>
+                  Last login: 2 hours ago
+                </p>
               </div>
             </div>
-            <!-- Profile Header Card -->
-            <div class="bg-white dark:bg-white/5 rounded-xl border border-[#f0f2f4] dark:border-white/10 p-6 lg:p-8">
-              <div class="flex flex-col md:flex-row items-center gap-8">
+          </div>
+        </div>
+        <!-- Two Column Layout for Forms -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <!-- Personal Information -->
+          <div class="space-y-6">
+            <div class="flex items-center gap-2 px-1">
+              <span class="material-symbols-outlined text-primary">account_circle</span>
+              <h2 class="text-[#111318] dark:text-white text-xl font-bold leading-tight tracking-[-0.015em]">
+                Personal Information</h2>
+            </div>
+            <div class="bg-white dark:bg-white/5 rounded-xl border border-[#f0f2f4] dark:border-white/10 p-6 space-y-5">
+              <div class="space-y-2">
+                <label class="text-sm font-semibold text-[#111318] dark:text-white/80 px-1">Full Name</label>
+                <input id="fullName"
+                  class="w-full rounded-lg border-[#f0f2f4] dark:border-white/10 bg-[#f9fafb] dark:bg-white/5 px-4 py-3 text-sm focus:border-primary focus:ring-1 focus:ring-primary transition-all"
+                  type="text" value="" placeholder="Loading name..." aria-busy="true" />
+              </div>
+              <div class="space-y-2">
+                <label class="text-sm font-semibold text-[#111318] dark:text-white/80 px-1">UID (Unique ID)</label>
+                <input id="uidInput"
+                  class="w-full rounded-lg border-[#f0f2f4] dark:border-white/10 bg-[#f0f2f4] dark:bg-white/10 px-4 py-3 text-sm text-[#616f89] cursor-not-allowed"
+                  disabled="" type="text" value="ADMIN-992-2023-X" />
+                <p class="text-[11px] text-[#616f89] px-1 italic">This identifier is system-generated and cannot be
+                  changed.</p>
+              </div>
+              <div class="space-y-2">
+                <label class="text-sm font-semibold text-[#111318] dark:text-white/80 px-1">Contact Number</label>
+                <input id="phoneInput"
+                  class="w-full rounded-lg border-[#f0f2f4] dark:border-white/10 bg-[#f9fafb] dark:bg-white/5 px-4 py-3 text-sm focus:border-primary focus:ring-1 focus:ring-primary transition-all"
+                  type="tel" value="+1 (555) 123-4567" />
+              </div>
+              <div class="space-y-2">
+                <label class="text-sm font-semibold text-[#111318] dark:text-white/80 px-1">Email Address</label>
+                <input id="emailInput"
+                  class="w-full rounded-lg border-[#f0f2f4] dark:border-white/10 bg-[#f9fafb] dark:bg-white/5 px-4 py-3 text-sm focus:border-primary focus:ring-1 focus:ring-primary transition-all"
+                  type="email" placeholder="Enter your email..." />
+              </div>
+              <div class="space-y-2">
+                <label class="text-sm font-semibold text-[#111318] dark:text-white/80 px-1">Address</label>
+                <textarea id="addressInput"
+                  class="w-full rounded-lg border-[#f0f2f4] dark:border-white/10 bg-[#f9fafb] dark:bg-white/5 px-4 py-3 text-sm focus:border-primary focus:ring-1 focus:ring-primary transition-all resize-none"
+                  rows="3" placeholder="Enter your address..."></textarea>
+              </div>
+              <div class="pt-4 border-t border-[#f0f2f4] dark:border-white/10 flex justify-end gap-3">
+                <button
+                  class="px-5 py-2 text-sm font-medium text-[#616f89] hover:bg-[#f0f2f4] dark:hover:bg-white/10 rounded-lg transition-colors">Discard</button>
+                <button id="updateProfileBtn"
+                  class="px-5 py-2 bg-primary text-white text-sm font-bold rounded-lg hover:bg-blue-700 transition-all shadow-md shadow-primary/20">Update
+                  Profile</button>
+              </div>
+            </div>
+          </div>
+          <!-- Security Settings -->
+          <div class="space-y-6">
+            <div class="flex items-center gap-2 px-1">
+              <span class="material-symbols-outlined text-primary">security</span>
+              <h2 class="text-[#111318] dark:text-white text-xl font-bold leading-tight tracking-[-0.015em]">
+                Security &amp; Password</h2>
+            </div>
+            <div class="bg-white dark:bg-white/5 rounded-xl border border-[#f0f2f4] dark:border-white/10 p-6 space-y-5">
+              <div class="space-y-2">
+                <label class="text-sm font-semibold text-[#111318] dark:text-white/80 px-1">Current Password</label>
                 <div class="relative">
-                  <div id="profileAvatar"
-                    class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-32 w-32 border-4 border-white dark:border-background-dark shadow-xl"
-                    data-alt="High resolution administrator profile photo"
-                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDFkpdUEswXCJRuzhEWbfHeqxraN19lFDUIV2gTCrcAaVmK_Wul6sdNCCVfofnhAtOTGghoOAWe948szs7VQdmuKI9XVnr1gPksdCLtMramVrnMD0AbSplB-wVwXedwIoAqcWBj254plAz-moOceoYSyAQuYK84DbmSrU0PSW8mmjvDrm9WCFcs7p_hDKTkqXeA9KKersLi3RHsYmm4s-bR_wT4vRLgkwVtjABlagQlZGq3mnUjt1FgEsboz71GLQWvttiv5ci3QaA");'>
-                  </div>
-                  <button id="changePhotoBtn"
-                    class="absolute bottom-0 right-0 p-2 bg-primary text-white rounded-full shadow-lg hover:bg-blue-700 transition-colors border-2 border-white dark:border-background-dark"
-                    title="Change profile photo">
-                    <span class="material-symbols-outlined text-sm">edit</span>
-                  </button>
-                  <input id="profilePicInput" type="file" accept="image/*" style="display:none" />
-                </div>
-                <div class="flex flex-col items-center md:items-start text-center md:text-left flex-1">
-                  <h3 class="text-[#111318] dark:text-white text-2xl font-bold leading-tight tracking-[-0.015em]">Admin
-                  </h3>
-                  <div class="flex gap-4 mt-3">
-                    <p class="text-[#616f89] dark:text-white/40 text-sm flex items-center gap-1">
-                      <span class="material-symbols-outlined text-base">calendar_today</span>
-                      Joined Jan 2023
-                    </p>
-                    <p class="text-[#616f89] dark:text-white/40 text-sm flex items-center gap-1">
-                      <span class="material-symbols-outlined text-base">history</span>
-                      Last login: 2 hours ago
-                    </p>
-                  </div>
+                  <input id="currentPassword"
+                    class="w-full rounded-lg border-[#f0f2f4] dark:border-white/10 bg-[#f9fafb] dark:bg-white/5 px-4 py-3 text-sm focus:border-primary focus:ring-1 focus:ring-primary transition-all"
+                    placeholder="Enter your Current Password" type="password" />
+                  <span id="toggleCurrentPassword"
+                    class="material-symbols-outlined absolute right-3 top-3 text-[#616f89] cursor-pointer text-xl hover:text-primary transition-colors">visibility</span>
                 </div>
               </div>
-            </div>
-            <!-- Two Column Layout for Forms -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              <!-- Personal Information -->
-              <div class="space-y-6">
-                <div class="flex items-center gap-2 px-1">
-                  <span class="material-symbols-outlined text-primary">account_circle</span>
-                  <h2 class="text-[#111318] dark:text-white text-xl font-bold leading-tight tracking-[-0.015em]">
-                    Personal Information</h2>
-                </div>
-                <div
-                  class="bg-white dark:bg-white/5 rounded-xl border border-[#f0f2f4] dark:border-white/10 p-6 space-y-5">
-                  <div class="space-y-2">
-                    <label class="text-sm font-semibold text-[#111318] dark:text-white/80 px-1">Full Name</label>
-                    <input id="fullName"
-                      class="w-full rounded-lg border-[#f0f2f4] dark:border-white/10 bg-[#f9fafb] dark:bg-white/5 px-4 py-3 text-sm focus:border-primary focus:ring-1 focus:ring-primary transition-all"
-                      type="text" value="" placeholder="Loading name..." aria-busy="true" />
-                  </div>
-                  <div class="space-y-2">
-                    <label class="text-sm font-semibold text-[#111318] dark:text-white/80 px-1">UID (Unique ID)</label>
-                    <input id="uidInput"
-                      class="w-full rounded-lg border-[#f0f2f4] dark:border-white/10 bg-[#f0f2f4] dark:bg-white/10 px-4 py-3 text-sm text-[#616f89] cursor-not-allowed"
-                      disabled="" type="text" value="ADMIN-992-2023-X" />
-                    <p class="text-[11px] text-[#616f89] px-1 italic">This identifier is system-generated and cannot be
-                      changed.</p>
-                  </div>
-                  <div class="space-y-2">
-                    <label class="text-sm font-semibold text-[#111318] dark:text-white/80 px-1">Contact Number</label>
-                    <input id="phoneInput"
-                      class="w-full rounded-lg border-[#f0f2f4] dark:border-white/10 bg-[#f9fafb] dark:bg-white/5 px-4 py-3 text-sm focus:border-primary focus:ring-1 focus:ring-primary transition-all"
-                      type="tel" value="+1 (555) 123-4567" />
-                  </div>
-                  <div class="pt-4 border-t border-[#f0f2f4] dark:border-white/10 flex justify-end gap-3">
-                    <button
-                      class="px-5 py-2 text-sm font-medium text-[#616f89] hover:bg-[#f0f2f4] dark:hover:bg-white/10 rounded-lg transition-colors">Discard</button>
-                    <button id="updateProfileBtn"
-                      class="px-5 py-2 bg-primary text-white text-sm font-bold rounded-lg hover:bg-blue-700 transition-all shadow-md shadow-primary/20">Update
-                      Profile</button>
-                  </div>
+              <div class="space-y-2">
+                <label class="text-sm font-semibold text-[#111318] dark:text-white/80 px-1">New Password</label>
+                <div class="relative">
+                  <input id="newPassword"
+                    class="w-full rounded-lg border-[#f0f2f4] dark:border-white/10 bg-[#f9fafb] dark:bg-white/5 px-4 py-3 text-sm focus:border-primary focus:ring-1 focus:ring-primary transition-all"
+                    placeholder="Min 8 characters" type="password" />
+                  <span id="toggleNewPassword"
+                    class="material-symbols-outlined absolute right-3 top-3 text-[#616f89] cursor-pointer text-xl hover:text-primary transition-colors">visibility</span>
                 </div>
               </div>
-              <!-- Security Settings -->
-              <div class="space-y-6">
-                <div class="flex items-center gap-2 px-1">
-                  <span class="material-symbols-outlined text-primary">security</span>
-                  <h2 class="text-[#111318] dark:text-white text-xl font-bold leading-tight tracking-[-0.015em]">
-                    Security &amp; Password</h2>
+              <!-- Confirm Password -->
+              <div class="space-y-2">
+                <label class="text-sm font-semibold text-[#111318] dark:text-white/80 px-1">Confirm New
+                  Password</label>
+                <div class="relative">
+                  <input id="confirmPassword"
+                    class="w-full rounded-lg border-[#f0f2f4] dark:border-white/10 bg-[#f9fafb] dark:bg-white/5 px-4 py-3 text-sm focus:border-primary focus:ring-1 focus:ring-primary transition-all"
+                    placeholder="Re-enter password" type="password" />
+                  <span id="toggleConfirmPassword"
+                    class="material-symbols-outlined absolute right-3 top-3 text-[#616f89] cursor-pointer text-xl hover:text-primary transition-colors">visibility</span>
                 </div>
-                <div
-                  class="bg-white dark:bg-white/5 rounded-xl border border-[#f0f2f4] dark:border-white/10 p-6 space-y-5">
-                  <div class="space-y-2">
-                    <label class="text-sm font-semibold text-[#111318] dark:text-white/80 px-1">Current Password</label>
-                    <div class="relative">
-                      <input id="currentPassword"
-                        class="w-full rounded-lg border-[#f0f2f4] dark:border-white/10 bg-[#f9fafb] dark:bg-white/5 px-4 py-3 text-sm focus:border-primary focus:ring-1 focus:ring-primary transition-all"
-                        placeholder="Enter your Current Password" type="password" />
-                      <span id="toggleCurrentPassword"
-                        class="material-symbols-outlined absolute right-3 top-3 text-[#616f89] cursor-pointer text-xl hover:text-primary transition-colors">visibility</span>
-                    </div>
-                  </div>
-                  <div class="space-y-2">
-                    <label class="text-sm font-semibold text-[#111318] dark:text-white/80 px-1">New Password</label>
-                    <div class="relative">
-                      <input id="newPassword"
-                        class="w-full rounded-lg border-[#f0f2f4] dark:border-white/10 bg-[#f9fafb] dark:bg-white/5 px-4 py-3 text-sm focus:border-primary focus:ring-1 focus:ring-primary transition-all"
-                        placeholder="Min 8 characters" type="password" />
-                      <span id="toggleNewPassword"
-                        class="material-symbols-outlined absolute right-3 top-3 text-[#616f89] cursor-pointer text-xl hover:text-primary transition-colors">visibility</span>
-                    </div>
-                  </div>
-                  <!-- Confirm Password -->
-                  <div class="space-y-2">
-                    <label class="text-sm font-semibold text-[#111318] dark:text-white/80 px-1">Confirm New
-                      Password</label>
-                    <div class="relative">
-                      <input id="confirmPassword"
-                        class="w-full rounded-lg border-[#f0f2f4] dark:border-white/10 bg-[#f9fafb] dark:bg-white/5 px-4 py-3 text-sm focus:border-primary focus:ring-1 focus:ring-primary transition-all"
-                        placeholder="Re-enter password" type="password" />
-                      <span id="toggleConfirmPassword"
-                        class="material-symbols-outlined absolute right-3 top-3 text-[#616f89] cursor-pointer text-xl hover:text-primary transition-colors">visibility</span>
-                    </div>
-                  </div>
-                  <div class="p-4 bg-primary/5 rounded-lg border border-primary/20">
-                    <p class="text-xs text-[#111318] dark:text-white/70 leading-relaxed">
-                      <strong>Pro tip:</strong> A secure password should contain at least one uppercase letter, one
-                      lowercase letter, one number, and one special character.
-                    </p>
-                  </div>
-                  <div class="pt-4 border-t border-[#f0f2f4] dark:border-white/10 flex justify-end">
-                    <button id="changePasswordBtn"
-                      class="px-5 py-2 bg-[#111318] dark:bg-white text-white dark:text-black text-sm font-bold rounded-lg hover:opacity-90 transition-all shadow-md">Change
-                      Password</button>
-                  </div>
-                </div>
+              </div>
+              <div class="p-4 bg-primary/5 rounded-lg border border-primary/20">
+                <p class="text-xs text-[#111318] dark:text-white/70 leading-relaxed">
+                  <strong>Pro tip:</strong> A secure password should contain at least one uppercase letter, one
+                  lowercase letter, one number, and one special character.
+                </p>
+              </div>
+              <div class="pt-4 border-t border-[#f0f2f4] dark:border-white/10 flex justify-end">
+                <button id="changePasswordBtn"
+                  class="px-5 py-2 bg-[#111318] dark:bg-white text-white dark:text-black text-sm font-bold rounded-lg hover:opacity-90 transition-all shadow-md">Change
+                  Password</button>
               </div>
             </div>
           </div>
-        </main>
+        </div>
+        <!-- Danger Zone Section -->
+        <div class="mt-8 space-y-6">
+          <div class="flex items-center gap-2 px-1">
+            <span class="material-symbols-outlined text-red-500">warning</span>
+            <h2 class="text-red-600 dark:text-red-400 text-xl font-bold leading-tight tracking-[-0.015em]">
+              Danger Zone</h2>
+          </div>
+          <div
+            class="bg-red-50 dark:bg-red-900/10 rounded-xl border border-red-200 dark:border-red-900/30 p-6 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="space-y-1">
+              <h3 class="text-red-800 dark:text-red-300 font-bold">Delete Account</h3>
+              <p class="text-red-600/70 dark:text-red-400/60 text-sm">Once you delete your account, there is no going
+                back. Please be certain.</p>
+            </div>
+            <button id="deleteAccountBtn"
+              class="px-6 py-3 bg-red-600 text-white text-sm font-bold rounded-lg hover:bg-red-700 transition-all shadow-lg shadow-red-600/20 active:scale-95 whitespace-nowrap">
+              Permanently Delete My Profile
+            </button>
+          </div>
+        </div>
       </div>
-    </div>
+    </main>
+  </div>
+  </div>
   </div>
   <script>
       // Dark Mode Functionality
@@ -273,7 +334,7 @@
 
     // Dark mode toggle
     document.addEventListener('DOMContentLoaded', function () {
-      const darkModeToggle = document.getElementById('darkModeToggle');
+      const darkModeToggle = document.getElementById('sidebarDarkModeToggle');
       if (darkModeToggle) {
         darkModeToggle.addEventListener('click', function () {
           document.documentElement.classList.toggle('dark');
@@ -296,8 +357,10 @@
 
     const nameInput = document.getElementById("fullName");
     const phoneInput = document.getElementById("phoneInput");
+    const emailInput = document.getElementById("emailInput");
+    const addressInput = document.getElementById("addressInput");
     const uidInput = document.getElementById("uidInput");
-    const sidebarName = document.getElementById("sidebarName");
+    const sidebarAdminName = document.getElementById("sidebarAdminName");
     const updateBtn = document.getElementById("updateProfileBtn");
 
     /* =========================
@@ -315,9 +378,9 @@
 
         nameInput.value = name;
         // populate sidebar display
-        if (sidebarName) {
-          sidebarName.textContent = name;
-          sidebarName.removeAttribute('aria-busy');
+        if (sidebarAdminName) {
+          sidebarAdminName.textContent = name;
+          sidebarAdminName.removeAttribute('aria-busy');
         }
 
         // PHONE NUMBER
@@ -326,6 +389,19 @@
         const phone = await phoneRes.text();
 
         phoneInput.value = phone;
+
+        // EMAIL
+        const emailRes = await fetch(`${BASE_URL}/admin/profile/${uid}/email`);
+        if (!emailRes.ok) throw new Error("Email fetch failed");
+        const email = await emailRes.text();
+        emailInput.value = email || "";
+
+        // ADDRESS
+        const addressRes = await fetch(`${BASE_URL}/admin/profile/${uid}/address`);
+        if (!addressRes.ok) throw new Error("Address fetch failed");
+        const address = await addressRes.text();
+
+        addressInput.value = address || "";
 
       } catch (e) {
         alert("Unable to load profile data");
@@ -342,11 +418,10 @@
         if (!blob || blob.size === 0) throw new Error("Empty image");
         const objectUrl = URL.createObjectURL(blob);
 
-        const top = document.getElementById("topNavAvatar");
         const side = document.getElementById("sidebarAvatar");
         const profile = document.getElementById("profileAvatar");
 
-        [top, side, profile].forEach(el => {
+        [side, profile].forEach(el => {
           if (el) el.style.backgroundImage = `url("${objectUrl}")`;
         });
       } catch (e) {
@@ -404,6 +479,38 @@
           throw new Error("Phone update failed: " + phoneRes.status + " " + text);
         }
 
+        // UPDATE EMAIL
+        const email = emailInput.value.trim();
+        const emailRes = await fetch(
+          `${BASE_URL}/admin/profile/${uid}/email`,
+          {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email })
+          }
+        );
+
+        if (!emailRes.ok) {
+          const text = await emailRes.text();
+          throw new Error("Email update failed: " + emailRes.status + " " + text);
+        }
+
+        // UPDATE ADDRESS
+        const address = addressInput.value.trim();
+        const addressRes = await fetch(
+          `${BASE_URL}/admin/profile/${uid}/address`,
+          {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ address })
+          }
+        );
+
+        if (!addressRes.ok) {
+          const text = await addressRes.text();
+          throw new Error("Address update failed: " + addressRes.status + " " + text);
+        }
+
         alert("Profile updated successfully");
 
         // update displayed phone value to normalized digits
@@ -435,10 +542,9 @@
 
         // preview immediately
         const previewUrl = URL.createObjectURL(file);
-        const top = document.getElementById('topNavAvatar');
         const side = document.getElementById('sidebarAvatar');
         const profile = document.getElementById('profileAvatar');
-        [top, side, profile].forEach(el => { if (el) el.style.backgroundImage = `url("${previewUrl}")`; });
+        [side, profile].forEach(el => { if (el) el.style.backgroundImage = `url("${previewUrl}")`; });
 
         // upload to server
         try {
@@ -464,7 +570,7 @@
               if (!r.ok) return;
               const b = await r.blob();
               const url = URL.createObjectURL(b);
-              [top, side, profile].forEach(el => { if (el) el.style.backgroundImage = `url("${url}")`; });
+              [side, profile].forEach(el => { if (el) el.style.backgroundImage = `url("${url}")`; });
               // free the object URL after a short delay
               setTimeout(() => URL.revokeObjectURL(url), 5000);
             } catch (e) { console.warn('Could not refresh uploaded image', e); }
@@ -480,7 +586,7 @@
               if (!r.ok) return;
               const b = await r.blob();
               const url = URL.createObjectURL(b);
-              [top, side, profile].forEach(el => { if (el) el.style.backgroundImage = `url("${url}")`; });
+              [side, profile].forEach(el => { if (el) el.style.backgroundImage = `url("${url}")`; });
             } catch (e) { console.warn('Could not reload image', e); }
           })();
         } finally {
@@ -549,6 +655,38 @@
         alert("Failed to change password");
       }
     });
+
+    // ----------------------
+    // DELETE ACCOUNT
+    // ----------------------
+    const deleteBtn = document.getElementById("deleteAccountBtn");
+    if (deleteBtn) {
+      deleteBtn.addEventListener("click", async () => {
+        const confirmed = confirm("Are you absolutely sure you want to delete your profile? This action cannot be undone.");
+        if (!confirmed) return;
+
+        const doubleConfirmed = confirm("Final warning: This will permanently remove your administrator access. Continue?");
+        if (!doubleConfirmed) return;
+
+        try {
+          const res = await fetch(`${BASE_URL}/admin/profile/${uid}`, {
+            method: "DELETE"
+          });
+
+          if (res.ok) {
+            alert("Your profile has been deleted successfully.");
+            localStorage.clear();
+            window.location.href = "/admin/login";
+          } else {
+            const errorMsg = await res.text();
+            alert("Deletion failed: " + errorMsg);
+          }
+        } catch (e) {
+          alert("Error deleting account: " + e.message);
+          console.error(e);
+        }
+      });
+    }
   </script>
 </body>
 

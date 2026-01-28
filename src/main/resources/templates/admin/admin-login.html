@@ -57,15 +57,26 @@
             class="w-full h-12 px-4 border rounded-lg" />
         </div>
 
-        <!-- REMEMBER -->
-        <div class="flex items-center gap-2">
-          <input type="checkbox" id="remember" />
-          <label for="remember" class="text-sm">Remember me</label>
+        <!-- REMEMBER & FORGOT PASSWORD -->
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <input type="checkbox" id="remember" />
+            <label for="remember" class="text-sm">Remember me</label>
+          </div>
+          <a href="/admin/forgot-password" class="text-sm text-primary font-medium hover:underline">Forgot password?</a>
         </div>
 
         <button type="submit" class="w-full h-12 bg-primary text-white rounded-lg font-bold">
           Sign In
         </button>
+
+        <!-- REGISTER LINK -->
+        <div class="text-center mt-6">
+          <p class="text-sm text-slate-500">
+            Don't have an admin account?
+            <a href="/admin/register" class="text-primary font-bold hover:underline">Register here</a>
+          </p>
+        </div>
 
       </form>
 

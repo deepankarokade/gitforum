@@ -202,9 +202,10 @@
                                     <label class="flex flex-col gap-2 md:col-span-2">
                                         <span
                                             class="text-sm font-bold text-gray-700 dark:text-gray-300">Subject/Specialization</span>
-                                        <input id="subject"
-                                            class="rounded-lg border-gray-200 dark:border-gray-700 dark:bg-gray-800 focus:ring-primary focus:border-primary h-12 px-4"
-                                            type="text" value="" />
+                                        <select id="subject"
+                                            class="rounded-lg border-gray-200 dark:border-gray-700 dark:bg-gray-800 focus:ring-primary focus:border-primary h-12 px-4">
+                                            <option value="">Select Department First</option>
+                                        </select>
                                     </label>
                                 </div>
                             </section>
@@ -363,6 +364,8 @@
         const API_BASE_URL = BASE_URL + '/admin/faculty';
         const COURSE_API_URL = BASE_URL + '/admin/course';
 
+        let allCourses = [];
+
         // Load courses for department dropdown
         async function loadCoursesForDropdown() {
             const departmentSelect = document.getElementById('department');
@@ -372,28 +375,60 @@
                 const response = await fetch(COURSE_API_URL);
                 if (!response.ok) throw new Error('Failed to fetch courses');
 
-                const courses = await response.json();
+                allCourses = await response.json();
 
                 // Clear existing options
                 departmentSelect.innerHTML = '<option value="">Select Department</option>';
 
                 // Add courses as options
-                courses.forEach(course => {
+                allCourses.forEach(course => {
                     const option = document.createElement('option');
                     option.value = course.courseName;
                     option.textContent = course.courseName;
                     departmentSelect.appendChild(option);
                 });
 
-                // If we have currentFaculty data, set the selected value
+                // If faculty data is already loaded, set the department and populate subjects
                 if (currentFaculty && currentFaculty.department) {
                     departmentSelect.value = currentFaculty.department;
+                    populateSubjects(currentFaculty.department, currentFaculty.subject);
                 }
             } catch (error) {
                 console.error('Error loading courses:', error);
                 departmentSelect.innerHTML = '<option value="">Failed to load courses</option>';
             }
         }
+
+        // Populate subjects dropdown based on department
+        function populateSubjects(deptName, selectedSubject = null) {
+            const subjectSelect = document.getElementById('subject');
+            subjectSelect.innerHTML = '<option value="">Select Subject</option>';
+
+            if (!deptName) {
+                subjectSelect.innerHTML = '<option value="">Select Department First</option>';
+                return;
+            }
+
+            const course = allCourses.find(c => c.courseName === deptName);
+            if (course && course.subjects && course.subjects.length > 0) {
+                course.subjects.forEach(sub => {
+                    const option = document.createElement('option');
+                    option.value = sub.subjectName;
+                    option.textContent = `${sub.subjectName} (${sub.subjectCode})`;
+                    if (selectedSubject && sub.subjectName === selectedSubject) {
+                        option.selected = true;
+                    }
+                    subjectSelect.appendChild(option);
+                });
+            } else {
+                subjectSelect.innerHTML = '<option value="">No subjects found for this course</option>';
+            }
+        }
+
+        // Handle department change to filter subjects
+        document.getElementById('department').addEventListener('change', function () {
+            populateSubjects(this.value);
+        });
 
         // Load courses when DOM is ready
         document.addEventListener('DOMContentLoaded', loadCoursesForDropdown);
@@ -429,7 +464,11 @@
                 document.getElementById('officeAddress').value = currentFaculty.officeAddress || '';
                 document.getElementById('department').value = currentFaculty.department || '';
                 document.getElementById('qualification').value = currentFaculty.qualification || '';
-                document.getElementById('subject').value = currentFaculty.subject || '';
+
+                // Populate subjects if courses are already loaded
+                if (allCourses.length > 0) {
+                    populateSubjects(currentFaculty.department, currentFaculty.subject);
+                }
 
                 // Update page title
                 document.querySelector('h1').textContent = currentFaculty.fullName || 'Edit Professor';

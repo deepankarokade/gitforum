@@ -25,6 +25,24 @@ public class PageController {
         return "admin/admin-login";
     }
 
+    // Admin Register
+    @GetMapping("/admin/register")
+    public String registerPage() {
+        return "admin/admin-register";
+    }
+
+    // Admin Forgot Password
+    @GetMapping("/admin/forgot-password")
+    public String forgotPasswordPage() {
+        return "admin/admin-forgot-password";
+    }
+
+    // Admin Reset Password
+    @GetMapping("/admin/reset-password")
+    public String resetPasswordPage() {
+        return "admin/admin-reset-password";
+    }
+
     // Admin Dashboard
     @GetMapping("/admin/dashboard")
     public String adminDashboard() {
@@ -65,6 +83,12 @@ public class PageController {
     @GetMapping("/admin/dashboard/course")
     public String manageCourse() {
         return "admin/admin-manage-courses";
+    }
+
+    // Admin - Manage Subject
+    @GetMapping("/admin/dashboard/course/subject")
+    public String manageSubject() {
+        return "admin/admin-manage-subjects";
     }
 
     // Admin - Add Student
